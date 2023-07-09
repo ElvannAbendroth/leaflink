@@ -15,7 +15,7 @@ export default function LoginPage() {
           Log in with Google
         </button>
         <p className="typo-p text-muted">or</p>
-        <form action="" className="flex flex-col gap-6">
+        <form action="/dashboard" className="flex flex-col gap-6">
           <input
             className="bg-input flex gap-3 rounded-full p-4 py-4 px-8 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary "
             type="text"

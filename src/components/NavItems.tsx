@@ -18,13 +18,13 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
   const pathname = usePathname()
 
   return (
-    <ul className="flex items-center gap-8">
+    <ul className="flex items-center gap-8 ">
       {navItems.map(item => {
         const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
         return (
           <li key={item.label}>
             <Link
-              className={`font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
+              className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
                 isActive ? 'underline text-foreground' : 'text-foreground-inactive'
               }`}
               href={item.href}
@@ -35,12 +35,14 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
         )
       })}
       <li>
-        {' '}
-        <Icons.logout
-          className="cursor-pointer text-foreground-inactive hover:text-primary"
-          size={20}
-          strokeWidth={2.5}
-        />{' '}
+        <Link href="/login">
+          {' '}
+          <Icons.logout
+            className="cursor-pointer text-foreground-inactive hover:text-primary"
+            size={20}
+            strokeWidth={2.5}
+          />
+        </Link>
       </li>
     </ul>
   )

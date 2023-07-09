@@ -31,7 +31,6 @@ export default function DashboardPage() {
       </form>
       <div id="link-card" className="bg-input flex gap-4 rounded-lg p-8 items-end ">
         <div className="flex flex-col gap-4 flex-grow">
-          {' '}
           <p className="typo-h4 flex gap-2 items-center cursor-pointer">
             Link Title
             <Icons.pen size={16} />

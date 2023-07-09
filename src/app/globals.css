@@ -14,7 +14,7 @@
   }
 
   .typo-h1 {
-    @apply font-display text-3xl font-extrabold mb-8;
+    @apply font-display text-3xl font-semibold mb-8;
   }
 
   .typo-h2 {

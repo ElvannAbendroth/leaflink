@@ -26,11 +26,12 @@ module.exports = {
       },
       border: '#DAE3E4',
       gray: colors.slate,
+      input: '#F2F7F7',
       primary: {
         DEFAULT: '#41BB72',
         hover: '#5FD58E',
         foreground: colors.white,
-        hover: colors.indigo[500],
+        hover: '#5FD58E',
       },
       google: { DEFAULT: '#DB4437', foreground: colors.white, hover: '#EA6155' },
     },

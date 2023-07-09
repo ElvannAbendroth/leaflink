@@ -18,7 +18,7 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
   const pathname = usePathname()
 
   return (
-    <ul className="flex items-center gap-4">
+    <ul className="flex items-center gap-8">
       {navItems.map(item => {
         const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
         return (

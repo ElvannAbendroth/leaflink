@@ -165,4 +165,5 @@ export const Icons = {
   sad: FrownIcon,
   login: LogIn,
   logout: LogOut,
+  pen: Pen,
 }

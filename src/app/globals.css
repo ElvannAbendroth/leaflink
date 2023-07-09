@@ -18,7 +18,7 @@
   }
 
   .typo-h2 {
-    @apply font-display text-2xl font-bold mb-6 [&:not(:first-child)]:mt-12;
+    @apply font-display text-2xl font-semibold mb-6 [&:not(:first-child)]:mt-12;
   }
 
   .typo-h3 {

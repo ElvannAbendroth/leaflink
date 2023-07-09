@@ -17,6 +17,7 @@ export const siteConfig: SiteConfig = {
 }
 
 export const navItems: NavItem[] = [
-  { label: 'page manager', href: '/dashboard' },
+  { label: 'dashboard', href: '/dashboard' },
+  { label: 'profile', href: '/profile' },
   { label: 'preview page', href: '/userpage' }
 ]

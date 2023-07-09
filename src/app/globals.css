@@ -1,27 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  body {
+    @apply font-body bg-background text-foreground;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .typo-title {
+    @apply font-display text-4xl font-extrabold mb-8;
+  }
+
+  .typo-h1 {
+    @apply font-display text-3xl font-extrabold mb-8;
+  }
+
+  .typo-h2 {
+    @apply font-display text-2xl font-bold mb-6 [&:not(:first-child)]:mt-12;
+  }
+
+  .typo-h3 {
+    @apply font-display text-xl font-bold mb-3 [&:not(:first-child)]:mt-8;
+  }
+
+  .typo-h4 {
+    @apply font-display text-base font-bold;
+  }
+
+  .typo-h5 {
+    @apply font-display text-sm font-bold text-muted uppercase;
+  }
+
+  .typo-h6 {
+    @apply font-display text-sm font-bold text-muted/70;
+  }
+
+  .typo-a {
+    @apply underline underline-offset-4 text-primary hover:text-primary-hover;
+  }
+
+  .typo-p {
+    @apply leading-7 [&:not(:first-child)]:my-6;
+  }
+
+  .typo-blockquote {
+    @apply mt-6 border-l-2 pl-6 italic [&>*]:text-muted;
+  }
+
+  .typo-code {
+    @apply relative font-mono text-sm font-bold before:content-["`"] after:content-["`"];
+  }
+
+  .typo-pre {
+    @apply my-6 overflow-x-auto rounded-lg shadow-md border bg-pre text-background p-4 [&>*:not(pre)]:font-normal [&>*:not(pre)]:before:content-[""] [&>*:not(pre)]:after:content-[""] z-0;
+  }
+
+  .typo-hr {
+    @apply my-10;
+  }
+
+  .typo-ul {
+    @apply my-6 list-disc marker:text-muted/50 pl-6;
+  }
+
+  .typo-ol {
+    @apply my-6 ml-6 list-decimal leading-7;
+  }
+
+  .typo-li {
+    @apply m-2;
+  }
+
+  .typo-small {
+    @apply text-sm font-bold text-muted/70;
+  }
 }

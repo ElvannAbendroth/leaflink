@@ -36,6 +36,7 @@ import {
   LogIn,
   Facebook,
   Instagram,
+  Link,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -170,4 +171,5 @@ export const Icons = {
   login: LogIn,
   logout: LogOut,
   pen: Pen,
+  link: Link,
 }

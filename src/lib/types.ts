@@ -1,38 +1,38 @@
 export type SiteConfig = {
-    name: string
-    description: string
-    url: string
-    ogImage: string
-    links: {
-      twitter?: string
-      github?: string
-      behance?: string
-      instagram?:string
-      youtube?: string
-    }
-    author: Author
+  name: string
+  description: string
+  url: string
+  ogImage: string
+  links: {
+    twitter?: string
+    github?: string
+    behance?: string
+    instagram?:string
+    youtube?: string
   }
+  author: Author
+}
 
 export type NavItem = {
-    label: string
-    href: string
-    disabled?: boolean
-  }
+  label: string
+  href: string
+  disabled?: boolean
+}
 
 export type Author = {
-    name: string
-    href: string
-    image: string
-  }
+  name: string
+  href: string
+  image: string
+}
 
 export type User = {
-    username: string
-    email: string
-    imageUrl: string
-    links: Link[],
-    socials?: Social
-  }
-
+  username: string
+  email: string
+  website?: string
+  imageUrl: string
+  links: Link[],
+  socials?: Social
+ }
 
 export type Link = {
   title: string
@@ -40,9 +40,10 @@ export type Link = {
 }
 
 export type Social = {
-    twitter?: string
-    github?: string
-    facebook?: string
-    instagram?:string
-    youtube?: string
+  instagram?:string
+  facebook?: string
+  youtube?: string
+  twitter?: string
+  github?: string
+  website?: string
 }

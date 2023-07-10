@@ -1,59 +1,81 @@
 import { Icons } from '@/components/Icons'
 import Image from 'next/image'
-import Link from 'next/link'
 import data from '@/lib/data'
+import { notFound } from 'next/navigation'
 
-interface UserLinksPageProps {
+export interface UserLinksPageProps {
   params: {
     username: string
   }
 }
 
 export default function UserLinksPage({ params }: UserLinksPageProps) {
-  const { username, imageUrl, links, socials } = data
+  const { username, imageUrl, links, socials, website } = data
+  const websiteRedirect = website ? website : '#'
+  const websiteTarget = website ? '_blank' : '_self'
 
-  // if user != param then the page should return that this user doesn't exist.
+  if (params.username != username) {
+    return notFound()
+  }
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">
-        <Image
-          className="rounded-full shadow-md"
-          src="/images/profile-placeholder.png"
-          alt="profile picture"
-          width={120}
-          height={120}
-        />
-        <p className="typo-p font-display font-semibold text-lg text">@{params.username}</p>
+        <a target={websiteTarget} href={websiteRedirect}>
+          <Image
+            className="rounded-full shadow-md"
+            src={imageUrl}
+            alt={`${username}'s Profile Picture`}
+            width={120}
+            height={120}
+          />
+        </a>
+        <a target={websiteTarget} href={websiteRedirect} className="typo-p font-display font-semibold text-lg text">
+          @{username}
+        </a>
       </div>
-      <Link
-        className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
-        href="http://www.elvannstore.com"
-      >
-        <p className="typo-h4 p-6"> My Store</p>
-      </Link>
-      <Link
-        className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
-        href="http://www.elvannstore.com"
-      >
-        <p className="typo-h4 p-6"> My Website</p>
-      </Link>
-      <Link
-        className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
-        href="http://www.elvannstore.com"
-      >
-        <p className="typo-h4 p-6">Latest Video</p>
-      </Link>
+      {links.map(link => (
+        <a
+          target="_blank"
+          key={link.title}
+          className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
+          href={link.href}
+        >
+          <p className="typo-h4 p-6">{link.title}</p>
+        </a>
+      ))}
 
       <div className="mt-8 flex gap-8 justify-center ">
-        <Link className="text-muted hover:text-foreground transition-all" href="#">
-          <Icons.gitHub size={28} />
-        </Link>
-        <Link className="text-muted hover:text-foreground transition-all" href="#">
-          <Icons.twitter size={28} />
-        </Link>
-        <Link className="text-muted hover:text-foreground transition-all" href="#">
-          <Icons.youtube size={28} />
-        </Link>
+        {socials?.instagram && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.instagram}>
+            <Icons.instagram size={28} />
+          </a>
+        )}
+        {socials?.facebook && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.facebook}>
+            <Icons.facebook size={28} />
+          </a>
+        )}
+        {socials?.youtube && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.youtube}>
+            <Icons.youtube size={28} />
+          </a>
+        )}
+        {socials?.twitter && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.twitter}>
+            <Icons.twitter size={28} />
+          </a>
+        )}
+        {socials?.github && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.github}>
+            <Icons.gitHub size={28} />
+          </a>
+        )}
+        {socials?.website && (
+          <a target="_blank" className="text-muted hover:text-foreground transition-all" href={socials.website}>
+            <Icons.link size={28} />
+          </a>
+        )}
       </div>
     </div>
   )

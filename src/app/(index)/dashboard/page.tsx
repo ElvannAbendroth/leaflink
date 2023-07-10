@@ -3,6 +3,7 @@ import data from '@/lib/data'
 import AddLinkForm from '@/components/AddLinkForm'
 import LinkCardEdit from '@/components/LinkCardEdit'
 import Link from 'next/link'
+import { ProfilePictureEditable } from '@/components/ProfilePicture'
 
 export default function DashboardPage() {
   const { username, imageUrl, links } = data
@@ -10,13 +11,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">
         <Link href="/profile">
-          <Image
-            className="rounded-full shadow-md hover:opacity-90"
-            src={imageUrl}
-            alt="profile picture"
-            width={120}
-            height={120}
-          />
+          <ProfilePictureEditable src={imageUrl} />
         </Link>
         <Link
           href="/profile"

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Icons } from './Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'

@@ -31,7 +31,7 @@ export type User = {
   website?: string
   imageUrl: string
   links: Link[],
-  socials?: Social
+  socials: Social
  }
 
 export type Link = {

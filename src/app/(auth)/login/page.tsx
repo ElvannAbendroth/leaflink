@@ -1,4 +1,5 @@
 import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
 export default function LoginPage() {
@@ -10,10 +11,11 @@ export default function LoginPage() {
       </p>
 
       <div className="mt-14 flex flex-col text-center justify-center">
-        <button className="flex gap-3 bg-google rounded-full py-4 px-8 items-center justify-center self-stretch text-google-foreground w-full hover:bg-google-hover">
+        <Button className="bg-google hover:bg-google-hover">
           <Icons.google size={20} />
           Log in with Google
-        </button>
+        </Button>
+
         <p className="typo-p text-muted">or</p>
         <form action="/dashboard" className="flex flex-col gap-6">
           <input
@@ -26,9 +28,8 @@ export default function LoginPage() {
             type="password"
             placeholder="Password"
           />
-          <button className="flex gap-2 bg-primary rounded-full py-4 px-8 justify-center self-stretch text-primary-foreground w-full hover:bg-primary-hover ">
-            Log in
-          </button>
+
+          <Button variant="primary">Log in</Button>
         </form>
         <p className="typo-p text-muted">
           {`Don't have an account yet? `}

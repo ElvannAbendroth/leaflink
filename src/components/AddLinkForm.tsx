@@ -1,4 +1,5 @@
 import { Icons } from './Icons'
+import { Button } from '@/components/ui/Button'
 
 export default function AddLinkForm({}) {
   return (
@@ -13,9 +14,10 @@ export default function AddLinkForm({}) {
         type="text"
         placeholder="URL"
       />
-      <button className="flex gap-2 bg-primary rounded-full py-3 px-6 justify-center items-center self-stretch text-primary-foreground w-full hover:bg-primary-hover">
-        <Icons.add size={20} /> Add link
-      </button>
+      <Button variant="primary" size="sm">
+        <Icons.add size={20} />
+        Add link
+      </Button>
     </form>
   )
 }

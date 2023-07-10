@@ -1,4 +1,5 @@
 import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/Button'
 import data from '@/lib/data'
 
 export default function ProfilePage() {
@@ -127,10 +128,7 @@ export default function ProfilePage() {
             value={socials?.website}
           />
         </div>
-
-        <button className="mt-14 flex gap-2 text-background bg-foreground rounded-full py-4 px-8 justify-center self-stretch text-foreground-foreground w-full hover:bg-foreground-inactive">
-          Save settings
-        </button>
+        <Button className="mt-14">Save settings</Button>
       </form>
     </div>
   )

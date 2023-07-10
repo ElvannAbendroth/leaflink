@@ -19,6 +19,7 @@ module.exports = {
       foreground: {
         DEFAULT: '#202823',
         inactive: '#5B6B6C',
+        hover: '#363d39',
       },
       background: colors.white,
       muted: {

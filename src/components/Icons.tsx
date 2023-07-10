@@ -34,6 +34,8 @@ import {
   Leaf,
   LogOut,
   LogIn,
+  Facebook,
+  Instagram,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -156,6 +158,8 @@ export const Icons = {
     </svg>
   ),
   twitter: Twitter,
+  facebook: Facebook,
+  instagram: Instagram,
   check: Check,
   calendar: Calendar,
   tag: Tag,

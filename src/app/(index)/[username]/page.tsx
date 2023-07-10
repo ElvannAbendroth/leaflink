@@ -1,6 +1,7 @@
 import { Icons } from '@/components/Icons'
 import Image from 'next/image'
 import Link from 'next/link'
+import data from '@/lib/data'
 
 interface UserLinksPageProps {
   params: {
@@ -9,6 +10,9 @@ interface UserLinksPageProps {
 }
 
 export default function UserLinksPage({ params }: UserLinksPageProps) {
+  const { username, imageUrl, links, socials } = data
+
+  // if user != param then the page should return that this user doesn't exist.
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">

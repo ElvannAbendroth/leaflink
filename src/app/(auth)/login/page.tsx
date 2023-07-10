@@ -1,4 +1,5 @@
 import { Icons } from '@/components/Icons'
+import { LoginForm } from '@/components/LoginForm'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
@@ -17,20 +18,7 @@ export default function LoginPage() {
         </Button>
 
         <p className="typo-p text-muted">or</p>
-        <form action="/dashboard" className="flex flex-col gap-6">
-          <input
-            className="bg-input flex gap-3 rounded-full p-4 py-4 px-8 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary "
-            type="text"
-            placeholder="leaf.link/ Username"
-          />
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 px-8 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="password"
-            placeholder="Password"
-          />
-
-          <Button variant="primary">Log in</Button>
-        </form>
+        <LoginForm />
         <p className="typo-p text-muted">
           {`Don't have an account yet? `}
           <Link className="typo-a" href="/register">

@@ -1,5 +1,6 @@
 import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
 import data from '@/lib/data'
 
 export default function ProfilePage() {
@@ -12,36 +13,26 @@ export default function ProfilePage() {
         <div>
           <h2 className="typo-h2">User</h2>
         </div>
+
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted flex gap-2" htmlFor="username">
             <Icons.logo /> leaf.link/
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-32 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            name="username"
-            value={username}
-          />
+          <Input className="pl-32" type="text" name="username" placeholder="username" value={username} />
         </div>
+
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="profile-image">
             <Icons.media />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your profile image URL"
-            name="profile-image"
-            value={imageUrl}
-          />
+          <Input type="text" placeholder="Insert your profile image URL" name="profile-image" value={imageUrl} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="profile-image">
             <Icons.link />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
+          <Input
             type="text"
             placeholder="Insert URL for your profile username & image"
             name="profile-image"
@@ -55,78 +46,42 @@ export default function ProfilePage() {
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="instagram">
             <Icons.instagram />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your Instagram Link"
-            name="instagram"
-            value={socials?.instagram}
-          />
+          <Input type="text" placeholder="Insert your Instagram Link" name="instagram" value={socials?.instagram} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="facebook">
             <Icons.facebook />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your Facebook Link"
-            name="facebook"
-            value={socials?.facebook}
-          />
+          <Input type="text" placeholder="Insert your Facebook Link" name="facebook" value={socials?.facebook} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="youtube">
             <Icons.youtube />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your YouTube Link"
-            name="youtube"
-            value={socials?.youtube}
-          />
+          <Input type="text" placeholder="Insert your YouTube Link" name="youtube" value={socials?.youtube} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="twitter">
             <Icons.twitter />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your Twitter Link"
-            name="twitter"
-            value={socials?.twitter}
-          />
+          <Input type="text" placeholder="Insert your Twitter Link" name="twitter" value={socials?.twitter} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="gitHub">
             <Icons.gitHub />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your Github Link"
-            name="gitHub"
-            value={socials?.github}
-          />
+          <Input type="text" placeholder="Insert your Github Link" name="gitHub" value={socials?.github} />
         </div>
 
         <div className="relative">
           <label className="absolute top-0 py-4 px-8 text-muted" htmlFor="instagram">
             <Icons.link />
           </label>
-          <input
-            className="bg-input flex gap-3 rounded-full py-4 pr-8 pl-16 items-center justify-center self-stretch placeholder:text-muted w-full focus-visible:outline-primary"
-            type="text"
-            placeholder="Insert your Website Link"
-            name="instagram"
-            value={socials?.website}
-          />
+          <Input type="text" placeholder="Insert your Website Link" name="instagram" value={socials?.website} />
         </div>
         <Button className="mt-14">Save settings</Button>
       </form>

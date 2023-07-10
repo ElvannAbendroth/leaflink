@@ -2,32 +2,34 @@ import { FC } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Icons } from '@/components/Icons'
 import { Input } from '@/components/ui/Input'
+import { InputGroup } from '@/components/ui/InputGroup'
+import { Label } from '@/components/ui/Label'
 
 interface RegisterFormProps {}
 
 export const RegisterForm: FC<RegisterFormProps> = () => {
   return (
     <form action="/dashboard" className="flex flex-col gap-6">
-      <div className="relative">
-        <label className="absolute top-0 py-4 px-8 text-muted flex gap-2" htmlFor="username">
+      <InputGroup className="relative">
+        <Label htmlFor="username">
           <Icons.logo /> leaf.link/
-        </label>
+        </Label>
         <Input className="pl-32" type="text" name="username" placeholder="username" />
-      </div>
+      </InputGroup>
 
-      <div className="relative">
-        <label className="absolute top-0 py-4 px-8 text-muted flex gap-2" htmlFor="email">
+      <InputGroup>
+        <Label htmlFor="email">
           <Icons.email />
-        </label>
+        </Label>
         <Input type="text" placeholder="Enter your email" name="email" />
-      </div>
+      </InputGroup>
 
-      <div className="relative">
-        <label className="absolute top-0 py-4 px-8 text-muted flex gap-2" htmlFor="password">
+      <InputGroup>
+        <Label htmlFor="password">
           <Icons.key />
-        </label>
+        </Label>
         <Input type="password" placeholder="Choose your password" name="password" />
-      </div>
+      </InputGroup>
 
       <Button variant="primary">Create account</Button>
     </form>

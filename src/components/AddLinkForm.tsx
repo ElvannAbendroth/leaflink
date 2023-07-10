@@ -1,23 +1,26 @@
+import { FC } from 'react'
 import { Icons } from './Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { InputGroup } from '@/components/ui/InputGroup'
+import { Label } from '@/components/ui/Label'
 
 export default function AddLinkForm({}) {
   return (
     <form action="" id="add-link-card" className="flex flex-col gap-4 border-border border-2 rounded-lg p-8">
-      <div className="relative">
-        <label className="absolute top-0 py-3 px-6 text-muted flex gap-2" htmlFor="title">
+      <InputGroup>
+        <Label variant="sm" htmlFor="title">
           <Icons.title size={20} />
-        </label>
+        </Label>
         <Input type="text" placeholder="Title" variant="sm" icon="sm" name="title" />
-      </div>
+      </InputGroup>
 
-      <div className="relative">
-        <label className="absolute top-0 py-3 px-6 text-muted flex gap-2" htmlFor="url">
+      <InputGroup>
+        <Label variant="sm" htmlFor="url">
           <Icons.link size={20} />
-        </label>
+        </Label>
         <Input type="text" placeholder="URL" variant="sm" icon="sm" name="url" />
-      </div>
+      </InputGroup>
 
       <Button variant="primary" size="sm">
         <Icons.add size={20} />

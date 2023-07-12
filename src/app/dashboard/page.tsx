@@ -4,9 +4,12 @@ import LinkCardEdit from '@/components/LinkCardEdit'
 import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
 import { redirect } from 'next/navigation'
+import { options } from '@/app/api/auth/[...nextauth]/route'
+import { getServerSession } from 'next-auth/next'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   const userData = users.find(user => user.id === loggedUser.id)
+  const session = await getServerSession(options)
 
   if (!userData) {
     return redirect('/login')

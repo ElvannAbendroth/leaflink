@@ -1,4 +1,4 @@
-import { User, UserData } from "@/lib/types";
+import { User, UserCredentials, UserData } from "@/lib/types";
 
 export const loggedUser : User = {
     id: '1',
@@ -45,3 +45,10 @@ export const users : UserData[] = [
         }
     }
 ]
+
+export const userCredentials : UserCredentials = 
+{  
+    id: '1',
+    username: "elvann", 
+    password: "salainen"
+}

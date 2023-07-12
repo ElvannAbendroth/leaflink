@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import { Lato } from 'next/font/google'
 import { siteConfig } from '@/lib/config'
 import { Navbar } from '@/components/Navbar'
+import { SessionProvider } from 'next-auth/react'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 

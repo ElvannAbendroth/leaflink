@@ -37,6 +37,10 @@ export interface UserData extends User {
   socials: Social
  }
 
+ export interface UserCredentials extends User {
+  password: "salainen"
+ }
+
 export type Link = {
   title: string
   href: string

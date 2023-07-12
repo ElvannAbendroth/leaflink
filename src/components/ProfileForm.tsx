@@ -5,12 +5,19 @@ import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 
-import data from '@/lib/data'
+import { loggedUser, users } from '@/lib/data'
+import { redirect } from 'next/navigation'
 
 interface ProfileFormProps {}
 
 export const ProfileForm: FC<ProfileFormProps> = () => {
-  const { username, imageUrl, socials, website } = data
+  const userData = users.find(user => user.id === loggedUser.id)
+
+  if (!userData) {
+    return redirect('/login')
+  }
+
+  const { username, imageUrl, socials, website } = userData
 
   return (
     <form action="/dashboard" className="mt-14 flex flex-col gap-6">
@@ -22,7 +29,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/
         </Label>
-        <Input className="pl-32" type="text" name="username" placeholder="username" value={username} />
+        <Input className="pl-32" type="text" name="username" placeholder="username" value={username.toLowerCase()} />
       </InputGroup>
 
       <InputGroup>

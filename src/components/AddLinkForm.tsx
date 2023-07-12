@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/Label'
 
 export default function AddLinkForm({}) {
   return (
-    <form action="" id="add-link-card" className="flex flex-col gap-4 border-border border-2 rounded-lg p-8">
+    <form action="" id="add-link-card" className="flex flex-col gap-4 outline outline-border outline-2 rounded-lg p-8">
       <InputGroup>
         <Label variant="sm" htmlFor="title">
           <Icons.title size={20} />

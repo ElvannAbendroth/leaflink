@@ -32,7 +32,11 @@ module.exports = {
         DEFAULT: '#41BB72',
         hover: '#5FD58E',
         foreground: colors.white,
-        hover: '#5FD58E',
+      },
+      danger: {
+        DEFAULT: colors.red[500],
+        hover: colors.red[400],
+        foreground: colors.white,
       },
       google: { DEFAULT: '#DB4437', foreground: colors.white, hover: '#EA6155' },
     },

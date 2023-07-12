@@ -1,5 +1,5 @@
 import { NavItem, SiteConfig } from "@/lib/types"
-import data from '@/lib/data'
+import {loggedUser} from '@/lib/data'
 
 export const siteConfig: SiteConfig = {
   name: "Leaflink",
@@ -20,5 +20,5 @@ export const siteConfig: SiteConfig = {
 export const navItems: NavItem[] = [
   { label: 'dashboard', href: '/dashboard' },
   { label: 'profile', href: '/profile' },
-  { label: 'preview page', href: `/${data.username}` }
+  { label: 'preview page', href: `/${loggedUser.username}` }
 ]

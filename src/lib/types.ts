@@ -26,10 +26,13 @@ export type Author = {
 }
 
 export type User = {
+  id: string
   username: string
+}
+export interface UserData extends User {
   email: string
   website?: string
-  imageUrl: string
+  imageUrl?: string
   links: Link[],
   socials: Social
  }
@@ -37,6 +40,7 @@ export type User = {
 export type Link = {
   title: string
   href: string
+  isActive: boolean
 }
 
 export type Social = {
@@ -47,3 +51,4 @@ export type Social = {
   github?: string
   website?: string
 }
+

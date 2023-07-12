@@ -18,6 +18,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-foreground text-background hover:bg-foreground-hover',
         primary: 'bg-primary text-primary-foreground hover:bg-primary-hover',
+        danger: 'bg-danger text-danger-foreground hover:bg-danger-hover',
       },
       size: {
         default: 'py-4 px-8',

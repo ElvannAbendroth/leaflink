@@ -16,7 +16,7 @@ export const users : UserData[] = [
             {title: "My Store!", href: "http://www.elvannstore.com", isActive: true},
             {title: "My Website", href: "http://www.elvann.com", isActive: true},
             {title: "Latest Video", href: "https://www.youtube.com/channel/UCY3DEEgMSMvjww7v3aKDsig", isActive: true},
-            {title: "Some link", href: "https://www.youtube.com/channel/UCY3DEEgMSMvjww7v3aKDsig", isActive: false},
+            {title: "Patreon Link", href: "http://patreon.com/elvann", isActive: false},
         ],
         socials: {
             github: "https://github.com/ElvannAbendroth",

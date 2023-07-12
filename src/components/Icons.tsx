@@ -22,9 +22,7 @@ import {
   Twitter,
   User,
   X,
-  type Icon as LucideIcon,
   Pen,
-  Paperclip,
   Calendar,
   Tag,
   HashIcon,
@@ -40,6 +38,8 @@ import {
   Key,
   Mail,
   Type,
+  type Icon as LucideIcon,
+  Menu,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -178,4 +178,5 @@ export const Icons = {
   key: Key,
   email: Mail,
   title: Type,
+  menu: Menu,
 }

@@ -18,7 +18,7 @@ interface NavItemsProps {
 
 export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
   const pathname = usePathname()
-  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   const mobileMenu = () => {
     return (
@@ -43,7 +43,7 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
                     onClick={e => setShowMobileMenu(false)}
                     key={`mobile-${item.label}`}
                     href={item.href}
-                    className="hover:bg-muted/10 text-lg p-4 w-full text-center rounded-md"
+                    className="text-foreground-faded hover:bg-muted/10 text-lg p-4 w-full text-center rounded-md font-semibold"
                   >
                     {item.label}
                   </Link>
@@ -51,9 +51,9 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
               })}
               <Link
                 href="/login"
-                className="hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center"
+                className="text-foreground-faded hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center font-semibold"
               >
-                <Icons.logout className="cursor-pointer " size={16} strokeWidth={2} />
+                <Icons.logout className="cursor-pointer " size={16} strokeWidth={3} />
                 <span className="">Logout</span>
               </Link>
             </div>

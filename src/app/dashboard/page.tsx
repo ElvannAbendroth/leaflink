@@ -4,7 +4,7 @@ import LinkCardEdit from '@/components/LinkCardEdit'
 import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
 import { redirect } from 'next/navigation'
-import { options } from '@/app/api/auth/[...nextauth]/route'
+import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 
 export default async function DashboardPage() {

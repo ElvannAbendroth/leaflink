@@ -1,6 +1,5 @@
-import { loggedUser } from '@/lib/data'
 import { redirect } from 'next/navigation'
-import { options } from '@/app/api/auth/[...nextauth]/route'
+import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 
 export default async function Home() {

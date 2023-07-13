@@ -3,8 +3,7 @@ import { FC } from 'react'
 import { NavItems } from '@/components/NavItems'
 import { siteConfig, navItems } from '@/lib/config'
 import { Icons } from './Icons'
-import { loggedUser, users } from '@/lib/data'
-import { options } from '@/app/api/auth/[...nextauth]/route'
+import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 
 interface NavbarProps {}

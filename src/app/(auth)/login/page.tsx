@@ -2,6 +2,7 @@ import { Icons } from '@/components/Icons'
 import { LoginForm } from '@/components/LoginForm'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
+import { nextAuthLinks } from '@/lib/data'
 
 export default function LoginPage() {
   return (
@@ -12,10 +13,12 @@ export default function LoginPage() {
       </p>
 
       <div className="mt-14 flex flex-col text-center justify-center">
-        <Button className="bg-google hover:bg-google-hover">
-          <Icons.google size={20} />
-          Log in with Google
-        </Button>
+        <Link href={nextAuthLinks.signin}>
+          <Button className="bg-google hover:bg-google-hover">
+            <Icons.google size={20} />
+            Log in with Google
+          </Button>
+        </Link>
 
         <p className="typo-p text-muted">or</p>
         <LoginForm />

@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import { Lato } from 'next/font/google'
 import { siteConfig } from '@/lib/config'
 import { Navbar } from '@/components/Navbar'
-import { SessionProvider } from 'next-auth/react'
+import AuthProvider from '@/components/AuthProvider'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 
@@ -18,10 +18,12 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${lato.className}`}>
-        <Navbar />
-        <main className="max-w-content mx-auto pt-36 pb-12 px-8">{children}</main>
-      </body>
+      <AuthProvider>
+        <body className={`${lato.className}`}>
+          <Navbar />
+          <main className="max-w-content mx-auto pt-36 pb-12 px-8">{children}</main>
+        </body>
+      </AuthProvider>
     </html>
   )
 }

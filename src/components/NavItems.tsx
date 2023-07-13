@@ -5,6 +5,7 @@ import { FC, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
+import { nextAuthLinks } from '@/lib/data'
 // import { useWindowWidth } from '@react-hook/window-size'
 
 interface NavItem {
@@ -50,11 +51,11 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
                 )
               })}
               <Link
-                href="/login"
+                href={nextAuthLinks.signout}
                 className="text-foreground-faded hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center font-semibold"
               >
                 <Icons.logout className="cursor-pointer " size={16} strokeWidth={3} />
-                <span className="">Logout</span>
+                <span>Logout</span>
               </Link>
             </div>
           </div>
@@ -80,7 +81,7 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
             </Link>
           )
         })}
-        <Link href="/login">
+        <Link href={nextAuthLinks.signout}>
           <Icons.logout
             className="cursor-pointer text-foreground-inactive hover:text-primary"
             size={20}

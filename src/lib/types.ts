@@ -38,7 +38,7 @@ export interface UserData extends User {
  }
 
  export interface UserCredentials extends User {
-  password: "salainen"
+  password: string
  }
 
 export type Link = {

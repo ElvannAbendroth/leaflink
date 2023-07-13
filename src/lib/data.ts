@@ -52,3 +52,8 @@ export const userCredentials : UserCredentials =
     username: "elvann", 
     password: "salainen"
 }
+
+export const nextAuthLinks = {
+    signout: "/api/auth/signout",
+    signin: "/api/auth/signin"
+}

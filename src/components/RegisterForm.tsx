@@ -5,7 +5,6 @@ import { Icons } from '@/components/Icons'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 interface RegisterFormProps {}
@@ -23,6 +22,7 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
     password: '',
   })
   const router = useRouter()
+  const [formMessage, setFormMessage] = useState<string | null>(null)
 
   const { username, email, password } = userInfo
 
@@ -42,16 +42,18 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
       body: JSON.stringify(userInfo),
     })
 
-    res.ok ? router.push('/dashboard') : console.error('Registration failed')
+    res.ok ? router.push('/dashboard') : setFormMessage('Registration Failed')
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      {formMessage && <p className="text-danger">{formMessage}</p>}
       <InputGroup className="relative">
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/
         </Label>
         <Input
+          required={true}
           value={username}
           className="pl-32"
           type="text"
@@ -65,7 +67,14 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
         <Label htmlFor="email">
           <Icons.email />
         </Label>
-        <Input value={email} type="email" placeholder="Enter your email" name="email" onChange={handleChange} />
+        <Input
+          required={true}
+          value={email}
+          type="email"
+          placeholder="Enter your email"
+          name="email"
+          onChange={handleChange}
+        />
       </InputGroup>
 
       <InputGroup>
@@ -73,6 +82,7 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
           <Icons.key />
         </Label>
         <Input
+          required={true}
           value={password}
           type="password"
           placeholder="Choose your password"

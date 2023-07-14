@@ -42,6 +42,10 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
       body: JSON.stringify(userInfo),
     })
 
+    const responseBody = await res.json() // Read the response body
+
+    console.log(responseBody)
+
     res.ok ? router.push('/dashboard') : setFormMessage('Registration Failed')
   }
 

@@ -46,11 +46,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     if (existingUser)
       return NextResponse.json({ error: 'There already is a user with that username or email!' }, { status: 422 })
 
-    const newUser = await new User({
-      username: username,
-      email: email,
-      password: password,
-    })
+    const newUser = await new User({ ...body })
 
     return NextResponse.json(await newUser.save())
   } catch (error) {

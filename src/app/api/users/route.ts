@@ -43,7 +43,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       $or: [{ username: username }, { email: email }],
     })
 
-    if (!existingUser)
+    if (existingUser)
       return NextResponse.json({ error: 'There already is a user with that username or email!' }, { status: 422 })
 
     const newUser = await new User({

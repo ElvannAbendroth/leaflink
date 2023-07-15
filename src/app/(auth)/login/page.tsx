@@ -3,7 +3,7 @@ import { LoginForm } from '@/components/LoginForm'
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
-export default function LoginPage() {
+export default async function LoginPage() {
   return (
     <div className="">
       <h1 className="typo-h1">Log in to your Leaflink</h1>

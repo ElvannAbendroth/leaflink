@@ -2,8 +2,6 @@
 import { notFound } from 'next/navigation'
 import { LinkCard } from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
-
-import { users } from '@/lib/data'
 import { SocialLinks } from '@/components/SocialLinks'
 import User from '@/models/userModel'
 import { UserDocument } from '@/lib/types'

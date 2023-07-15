@@ -21,6 +21,10 @@ export const NavItems: FC<NavItemsProps> = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const { data, status } = useSession()
 
+  if (!data?.user) {
+    return <code className="typo-pre fixed bottom-0 max-w-full">{JSON.stringify(data, null, 2)}</code>
+  }
+
   const user = data!.user as UserDocument
 
   const navItems: NavItem[] = [
@@ -76,6 +80,7 @@ export const NavItems: FC<NavItemsProps> = () => {
 
   return (
     <div className="flex items-center">
+      <code className="typo-pre fixed bottom-0 left-0 m-8 max-w-full">{JSON.stringify(data, null, 2)}</code>
       <div id="desktop-nav-items" className="hidden sm:flex items-center gap-8">
         {navItems.map(item => {
           const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 interface RegisterFormProps {}
 
@@ -16,12 +17,20 @@ interface FormInputValues {
 }
 
 export const RegisterForm: FC<RegisterFormProps> = () => {
+  const { status } = useSession()
+  const router = useRouter()
+
+  //redirect authenticated users
+  if (status === 'authenticated') {
+    router.replace('/dashboard')
+  }
+
   const [userInfo, setUserInfo] = useState<FormInputValues>({
     username: '',
     email: '',
     password: '',
   })
-  const router = useRouter()
+
   const [formMessage, setFormMessage] = useState<string | null>(null)
 
   const { username, email, password } = userInfo

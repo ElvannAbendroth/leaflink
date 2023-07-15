@@ -19,6 +19,7 @@ export const Navbar: FC<NavbarProps> = async () => {
         >
           <Icons.logo strokeWidth={3} /> <span>{siteConfig.name}</span>
         </Link>
+        <code className="typo-pre fixed bottom-0 max-w-full">{JSON.stringify(session, null, 2)}</code>
 
         {session && <NavItems navItems={navItems} />}
       </div>

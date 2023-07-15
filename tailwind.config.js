@@ -33,6 +33,7 @@ module.exports = {
         hover: '#5FD58E',
         foreground: colors.white,
       },
+      pre: '#5B6B6C',
       danger: {
         DEFAULT: colors.red[500],
         hover: colors.red[400],
@@ -43,6 +44,7 @@ module.exports = {
     fontFamily: {
       body: ['Lato'],
       display: ['Poppins'],
+      mono: ['Roboto Mono'],
     },
 
     extend: {

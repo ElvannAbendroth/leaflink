@@ -5,6 +5,7 @@ import { FC, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
+import { signOut, useSession } from 'next-auth/react'
 // import { useWindowWidth } from '@react-hook/window-size'
 
 interface NavItem {
@@ -19,6 +20,7 @@ interface NavItemsProps {
 export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const { data, status } = useSession()
 
   const mobileMenu = () => {
     return (
@@ -49,13 +51,15 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
                   </Link>
                 )
               })}
-              <Link
-                href="/login"
-                className="text-foreground-faded hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center font-semibold"
-              >
-                <Icons.logout className="cursor-pointer " size={16} strokeWidth={3} />
-                <span className="">Logout</span>
-              </Link>
+              {status === 'authenticated' && (
+                <a
+                  onClick={() => signOut()}
+                  className="text-foreground-faded hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center font-semibold"
+                >
+                  <Icons.logout className="cursor-pointer " size={16} strokeWidth={3} />
+                  <span className="">Logout {data.user?.name}</span>
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -80,13 +84,13 @@ export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
             </Link>
           )
         })}
-        <Link href="/login">
+        <a onClick={() => signOut()}>
           <Icons.logout
             className="cursor-pointer text-foreground-inactive hover:text-primary"
             size={20}
             strokeWidth={2.5}
           />
-        </Link>
+        </a>
       </div>
 
       {mobileMenu()}

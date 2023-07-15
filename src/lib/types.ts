@@ -1,3 +1,5 @@
+import { Document } from 'mongoose'
+
 export type SiteConfig = {
   name: string
   description: string
@@ -7,7 +9,7 @@ export type SiteConfig = {
     twitter?: string
     github?: string
     behance?: string
-    instagram?:string
+    instagram?: string
     youtube?: string
   }
   author: Author
@@ -33,13 +35,13 @@ export interface UserData extends User {
   email: string
   website?: string
   imageUrl?: string
-  links: Link[],
+  links: Link[]
   socials: Social
- }
+}
 
- export interface UserCredentials extends User {
+export interface UserCredentials extends User {
   password: string
- }
+}
 
 export type Link = {
   title: string
@@ -48,7 +50,7 @@ export type Link = {
 }
 
 export type Social = {
-  instagram?:string
+  instagram?: string
   facebook?: string
   youtube?: string
   twitter?: string
@@ -56,3 +58,12 @@ export type Social = {
   website?: string
 }
 
+// Database User Document
+export interface UserDocument extends Document {
+  username: string
+  email: string
+  password: string
+  imageUrl: string
+  links: Link[]
+  socials: Social
+}

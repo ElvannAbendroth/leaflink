@@ -1,15 +1,6 @@
-import { Model, models, model, Document, Schema } from 'mongoose'
+import { models, model, Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
-import { Link, Social } from '@/lib/types'
-
-interface UserDocument extends Document {
-  username: string
-  email: string
-  password: string
-  imageUrl: string
-  links: Link[]
-  socials: Social
-}
+import { UserDocument } from '@/lib/types'
 
 interface Methods {
   comparePassword(password: string): Promise<boolean>

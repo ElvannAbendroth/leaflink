@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 import { UserDocument } from '@/lib/types'
+import { LinksEditList } from '@/components/LinksEditList'
 
 export default async function DashboardPage() {
   const session = await getServerSession(options)
@@ -30,9 +31,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
       <AddLinkForm />
-      {links.map(link => (
-        <LinkCardEdit key={link.href} link={link} />
-      ))}
+      <LinksEditList />
     </div>
   )
 }

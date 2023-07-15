@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 import User from '@/models/userModel'
 import { AdapterUser } from 'next-auth/adapters'
-import { UserDocument } from './types'
 import { makeSafe } from './utils'
 
 interface SessionUser extends AdapterUser {
@@ -49,7 +48,7 @@ export const options: NextAuthOptions = {
   },
   callbacks: {
     session: ({ session, token }) => {
-      console.log('Session Callback', { session, token })
+      //console.log('Session Callback', { session, token })
 
       return {
         ...session,
@@ -60,7 +59,7 @@ export const options: NextAuthOptions = {
       }
     },
     jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user })
+      //console.log('JWT Callback', { token, user })
       if (user) {
         const u = user as unknown as any
 

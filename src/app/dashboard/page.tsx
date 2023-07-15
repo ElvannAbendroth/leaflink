@@ -1,4 +1,3 @@
-import { loggedUser, users } from '@/lib/data'
 import AddLinkForm from '@/components/AddLinkForm'
 import LinkCardEdit from '@/components/LinkCardEdit'
 import Link from 'next/link'
@@ -6,16 +5,17 @@ import { ProfilePictureEditable } from '@/components/ProfilePicture'
 import { redirect } from 'next/navigation'
 import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
+import { UserDocument } from '@/lib/types'
 
 export default async function DashboardPage() {
-  const userData = users.find(user => user.id === loggedUser.id)
   const session = await getServerSession(options)
 
-  if (!userData) {
+  if (!session?.user) {
     return redirect('/login')
   }
 
-  const { username, imageUrl, links } = userData
+  const { username, imageUrl, links } = session.user as UserDocument
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">

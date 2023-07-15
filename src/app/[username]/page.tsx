@@ -1,9 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
 import { notFound } from 'next/navigation'
 import { LinkCard } from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 
 import { users } from '@/lib/data'
 import { SocialLinks } from '@/components/SocialLinks'
+import User from '@/models/userModel'
+import { UserDocument } from '@/lib/types'
 
 export interface UserLinksPageProps {
   params: {
@@ -11,14 +14,14 @@ export interface UserLinksPageProps {
   }
 }
 
-export default function UserLinksPage({ params }: UserLinksPageProps) {
-  const user = users.find(user => user.username.toLowerCase() === params.username.toLowerCase())
+export default async function UserLinksPage({ params }: UserLinksPageProps) {
+  const user = await User.findOne({ username: params.username })
 
   if (!user) {
     return notFound()
   }
 
-  const { username, imageUrl, links, socials, website } = user
+  const { username, imageUrl, links, socials, website } = user as UserDocument
   const websiteRedirect = website ? website : '#'
   const websiteTarget = website ? '_blank' : '_self'
   const activeLinks = links.filter(link => link.isActive === true)
@@ -33,9 +36,11 @@ export default function UserLinksPage({ params }: UserLinksPageProps) {
           @{username.toLowerCase()}
         </a>
       </div>
-      {activeLinks.map(link => (
-        <LinkCard key={link.title} link={link} />
-      ))}
+      {user.links.length > 0 ? (
+        activeLinks.map(link => <LinkCard key={link.title} link={link} />)
+      ) : (
+        <p className="typo-p text-center italic text-muted">This user doesn't have links to show yet!</p>
+      )}
       <SocialLinks socials={socials} />
     </div>
   )

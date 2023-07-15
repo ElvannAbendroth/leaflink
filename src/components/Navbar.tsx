@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import { NavItems } from '@/components/NavItems'
-import { siteConfig, navItems } from '@/lib/config'
+import { siteConfig } from '@/lib/config'
 import { Icons } from './Icons'
 import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
@@ -21,7 +21,7 @@ export const Navbar: FC<NavbarProps> = async () => {
         </Link>
         <code className="typo-pre fixed bottom-0 max-w-full">{JSON.stringify(session, null, 2)}</code>
 
-        {session && <NavItems navItems={navItems} />}
+        {session && <NavItems />}
       </div>
     </nav>
   )

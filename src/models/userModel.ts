@@ -20,6 +20,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
     required: true,
     unique: true,
   },
+  website: { type: String },
   password: {
     type: String,
     required: true,

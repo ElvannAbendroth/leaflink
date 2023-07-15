@@ -64,6 +64,7 @@ export interface UserDocument extends Document {
   email: string
   password: string
   imageUrl: string
+  website?: string
   links: Link[]
   socials: Social
 }

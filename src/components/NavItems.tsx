@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
 import { signOut, useSession } from 'next-auth/react'
+import { UserDocument } from '@/lib/types'
 // import { useWindowWidth } from '@react-hook/window-size'
 
 interface NavItem {
@@ -13,14 +14,20 @@ interface NavItem {
   href: string
 }
 
-interface NavItemsProps {
-  navItems: NavItem[]
-}
+interface NavItemsProps {}
 
-export const NavItems: FC<NavItemsProps> = ({ navItems }) => {
+export const NavItems: FC<NavItemsProps> = () => {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const { data, status } = useSession()
+
+  const user = data!.user as UserDocument
+
+  const navItems: NavItem[] = [
+    { label: 'dashboard', href: '/dashboard' },
+    { label: 'profile', href: '/profile' },
+    { label: 'preview', href: `/${user.username}` },
+  ]
 
   const mobileMenu = () => {
     return (

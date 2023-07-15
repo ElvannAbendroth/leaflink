@@ -5,19 +5,21 @@ import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 
-import { loggedUser, users } from '@/lib/data'
 import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
+import { options } from '@/lib/auth'
+import { UserDocument } from '@/lib/types'
 
 interface ProfileFormProps {}
 
-export const ProfileForm: FC<ProfileFormProps> = () => {
-  const userData = users.find(user => user.id === loggedUser.id)
+export const ProfileForm: FC<ProfileFormProps> = async () => {
+  const session = await getServerSession(options)
 
-  if (!userData) {
+  if (!session?.user) {
     return redirect('/login')
   }
 
-  const { username, imageUrl, socials, website } = userData
+  const { username, imageUrl, website, socials } = session.user as UserDocument
 
   return (
     <form action="/dashboard" className="mt-14 flex flex-col gap-6">

@@ -6,13 +6,16 @@ import startDb from './db'
 import User from '@/models/userModel'
 import { AdapterUser } from 'next-auth/adapters'
 import { makeSafe } from './utils'
+import { JWT } from 'next-auth/jwt'
+import { UserDocument } from './types'
 
 interface SessionUser extends AdapterUser {
   username: string | null | undefined // Add the username property
+  id: string
 }
 
-interface CustomSession extends Session {
-  user: SessionUser
+export interface CustomSession extends Session {
+  user: UserDocument
 }
 
 export const options: NextAuthOptions = {
@@ -47,8 +50,9 @@ export const options: NextAuthOptions = {
     signOut: '/logout',
   },
   callbacks: {
-    session: ({ session, token }) => {
-      //console.log('Session Callback', { session, token })
+    //session: ({ session, token, user }: { session: CustomSession; token: JWT | null; user: UserDocument | null }) => {
+    session: ({ session, token, user }) => {
+      //console.log('Session Callback', { session, token, user })
 
       return {
         ...session,

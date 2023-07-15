@@ -13,7 +13,12 @@ export interface UserLinksPageProps {
 }
 
 export default async function UserLinksPage({ params }: UserLinksPageProps) {
-  const user = await User.findOne({ username: params.username })
+  let user
+  try {
+    user = await User.findOne({ username: params.username })
+  } catch (error) {
+    console.log(error)
+  }
 
   if (!user) {
     return notFound()

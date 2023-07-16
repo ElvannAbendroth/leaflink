@@ -64,7 +64,7 @@ export type Social = {
 export interface UserDocument extends Document {
   username: string
   email: string
-  password: string
+  password?: string
   imageUrl: string
   website?: string
   links: Link[]

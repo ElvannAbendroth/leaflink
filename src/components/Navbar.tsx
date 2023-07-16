@@ -4,12 +4,17 @@ import { NavItems } from '@/components/NavItems'
 import { siteConfig } from '@/lib/config'
 import { Icons } from './Icons'
 import { getSessionUser, getUserById } from '@/lib/data.server'
+import { redirect } from 'next/dist/server/api-utils'
 
 interface NavbarProps {}
 
 export const Navbar: FC<NavbarProps> = async () => {
   const sessionUser = await getSessionUser()
-  const user = await getUserById(sessionUser.id)
+
+  let user
+  if (sessionUser?.id) {
+    user = await getUserById(sessionUser?.id)
+  }
 
   return (
     <nav className="bg-background py-6 px-8 fixed top-0 left-0 right-0 z-50">
@@ -21,7 +26,7 @@ export const Navbar: FC<NavbarProps> = async () => {
           <Icons.logo strokeWidth={3} /> <span>{siteConfig.name}</span>
         </Link>
 
-        <NavItems username={user.username} />
+        {user && <NavItems username={user.username} />}
       </div>
     </nav>
   )

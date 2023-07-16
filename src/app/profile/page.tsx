@@ -3,7 +3,9 @@ import { getSessionUser, getUserById } from '@/lib/data.server'
 
 export default async function ProfilePage() {
   const sessionUser = await getSessionUser()
-  const user = await getUserById(sessionUser.id)
+  if (!sessionUser.id) throw new Error('The is no user id in this session')
+
+  const user = await getUserById(sessionUser?.id)
 
   console.log(user)
   return (

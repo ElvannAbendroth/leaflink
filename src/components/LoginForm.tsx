@@ -5,20 +5,11 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Label } from '@/components/ui/Label'
 import { InputGroup } from './ui/InputGroup'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 interface LoginFormProps {}
 
 export const LoginForm: FC<LoginFormProps> = () => {
-  const { status } = useSession()
-  const router = useRouter()
-
-  //redirect authenticated users
-  if (status === 'authenticated') {
-    router.replace('/dashboard')
-  }
-
   const [error, setError] = useState('')
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -37,11 +28,11 @@ export const LoginForm: FC<LoginFormProps> = () => {
     const res = await signIn('credentials', {
       username,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: '/dashboard',
     })
 
     if (res?.error) return setError(res.error)
-    router.replace('/dashboard')
   }
 
   return (

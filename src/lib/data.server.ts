@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 export async function getSessionUser() {
   const session = (await getServerSession(options)) as CustomSession
 
-  return !session?.user ? redirect('/login') : session?.user
+  return session?.user
 }
 
 const getUserById = async (id: string) => {

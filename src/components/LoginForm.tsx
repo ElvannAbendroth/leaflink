@@ -5,13 +5,19 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Label } from '@/components/ui/Label'
 import { InputGroup } from './ui/InputGroup'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 interface LoginFormProps {}
 
+interface FormInputValues {
+  username: string
+  password: string
+}
+
 export const LoginForm: FC<LoginFormProps> = () => {
   const [error, setError] = useState('')
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<FormInputValues>({
     username: '',
     password: '',
   })

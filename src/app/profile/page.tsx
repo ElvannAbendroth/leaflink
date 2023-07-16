@@ -7,7 +7,6 @@ export default async function ProfilePage() {
 
   const user = await getUserById(sessionUser?.id)
 
-  console.log(user)
   return (
     <div className="">
       <h1 className="typo-h1">Profile Settings</h1>

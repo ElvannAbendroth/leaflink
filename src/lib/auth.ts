@@ -50,7 +50,6 @@ export const options: NextAuthOptions = {
     signOut: '/logout',
   },
   callbacks: {
-    //session: ({ session, token, user }: { session: CustomSession; token: JWT | null; user: UserDocument | null }) => {
     session: ({ session, token, user }) => {
       //console.log('Session Callback', { session, token, user })
 

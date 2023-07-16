@@ -22,6 +22,7 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
       body: JSON.stringify(payload),
+      cache: 'no-store',
     })
 
     // Validates the Response Status
@@ -40,6 +41,7 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
       body: JSON.stringify(payload),
+      cache: 'no-store',
     })
 
     if (!res?.ok) throw new Error('There was an error updating this link!')
@@ -52,6 +54,7 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
       body: JSON.stringify({ links: updatedLinks }),
+      cache: 'no-store',
     })
 
     if (!res?.ok) throw new Error('There was an error removing this link!')

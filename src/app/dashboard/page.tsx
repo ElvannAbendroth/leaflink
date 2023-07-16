@@ -5,9 +5,6 @@ import { getSessionUser, getUserById } from '@/lib/data.server'
 
 export default async function DashboardPage() {
   const sessionUser = await getSessionUser()
-
-  if (!sessionUser.id) throw new Error('The is no user id in this session')
-
   const user = await getUserById(sessionUser?.id)
 
   return (

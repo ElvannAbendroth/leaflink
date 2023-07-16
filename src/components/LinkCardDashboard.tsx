@@ -44,7 +44,6 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
   }
 
   const handleDeleteButton = () => {
-    console.log('exterminate!', link._id)
     removeLink(link)
   }
 
@@ -105,7 +104,7 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
             <p className="typo-h4 flex gap-2 items-center justify-between">
               {title}
               <button onClick={toggleEditMode}>
-                <Icons.pen className="cursor-pointer" size={20} />
+                <Icons.pen className="cursor-pointer text-muted hover:text-foreground transition-all" size={20} />
               </button>
             </p>
             <p className="typo-p text-muted break-words pr-8">{href}</p>
@@ -121,7 +120,11 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
                   onCheckedChange={checked => handleToggle(checked)}
                 />
               </div>
-              <Icons.trash onClick={handleDeleteButton} className="cursor-pointer" size={20} />
+              <Icons.trash
+                onClick={handleDeleteButton}
+                className="cursor-pointer text-muted hover:text-danger transition-all"
+                size={20}
+              />
             </div>
           </div>
         </div>

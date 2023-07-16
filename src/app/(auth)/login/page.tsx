@@ -1,9 +1,14 @@
 import { Icons } from '@/components/Icons'
 import { LoginForm } from '@/components/LoginForm'
 import { Button } from '@/components/ui/Button'
+import { getSessionUser } from '@/lib/data.server'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function LoginPage() {
+  const sessionUser = await getSessionUser()
+  if (sessionUser) redirect('dashboard')
+
   return (
     <div className="">
       <h1 className="typo-h1">Log in to your Leaflink</h1>

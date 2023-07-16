@@ -1,9 +1,15 @@
 import { Icons } from '@/components/Icons'
 import { RegisterForm } from '@/components/RegisterForm'
 import { Button } from '@/components/ui/Button'
+import { getSessionUser } from '@/lib/data.server'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const sessionUser = await getSessionUser()
+
+  if (sessionUser) redirect('dashboard')
+
   return (
     <div className="">
       <h1 className="typo-h1">Create your account</h1>

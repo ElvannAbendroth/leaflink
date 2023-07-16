@@ -1,12 +1,10 @@
 'use client'
-
 import Link from 'next/link'
 import { FC, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
-import { signOut, useSession } from 'next-auth/react'
-import { User, UserData, UserDocument } from '@/lib/types'
+import { signOut } from 'next-auth/react'
 
 interface NavItem {
   label: string
@@ -20,22 +18,6 @@ interface NavItemsProps {
 export const NavItems: FC<NavItemsProps> = ({ username }) => {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  // const { data, status } = useSession()
-
-  //const user = data!.user as UserDocument
-
-  // const getUserById = async (id: string) => {
-  //   // if (!data?.user || !data.user?.id) return new Error('There is no session data')
-
-  //   const res = await fetch(`/api/users/${id}`, {
-  //     method: 'GET',
-  //   })
-
-  //   if (!res?.ok) throw new Error('There was an error fetching this user')
-
-  //   const body = await res.json()
-  //   return body
-  // }
 
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },

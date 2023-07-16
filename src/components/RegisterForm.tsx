@@ -7,6 +7,7 @@ import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 interface RegisterFormProps {}
 
@@ -17,13 +18,13 @@ interface FormInputValues {
 }
 
 export const RegisterForm: FC<RegisterFormProps> = () => {
-  const { status } = useSession()
-  const router = useRouter()
+  // const { status } = useSession()
+  // const router = useRouter()
 
-  //redirect authenticated users
-  if (status === 'authenticated') {
-    router.replace('/dashboard')
-  }
+  // //redirect authenticated users
+  // if (status === 'authenticated') {
+  //   router.replace('/dashboard')
+  // }
 
   const [userInfo, setUserInfo] = useState<FormInputValues>({
     username: '',
@@ -51,11 +52,18 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
       body: JSON.stringify(userInfo),
     })
 
-    const responseBody = await res.json() // Read the response body
+    res.ok ? loginUser() : setFormMessage('Registration Failed')
+  }
 
-    console.log(responseBody)
+  const loginUser = async () => {
+    const res = await signIn('credentials', {
+      username,
+      password,
+      redirect: true,
+      callbackUrl: '/dashboard',
+    })
 
-    res.ok ? router.push('/dashboard') : setFormMessage('Registration Failed')
+    if (res?.error) return console.log('There was an error logging in')
   }
 
   return (

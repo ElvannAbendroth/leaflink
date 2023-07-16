@@ -17,12 +17,12 @@ export default async function LoginPage() {
       </p>
 
       <div className="mt-14 flex flex-col text-center justify-center">
-        <Button className="bg-google hover:bg-google-hover">
+        {/* <Button className="bg-google hover:bg-google-hover">
           <Icons.google size={20} />
           Log in with Google
-        </Button>
+        </Button> */}
 
-        <p className="typo-p text-muted">or</p>
+        {/* <p className="typo-p text-muted">or</p> */}
         <LoginForm />
         <p className="typo-p text-muted">
           {`Don't have an account yet? `}

@@ -36,11 +36,17 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
   }
 
   //TODO: Refactor this, shouldn't send the link but rather the fields.
+  // const handleToggle: any = (checked: boolean) => {
+  //   const newActiveState = !fieldValues.isActive
+  //   setFieldValues({ ...fieldValues, isActive: newActiveState })
+  //   link.isActive = newActiveState
+  //   updateLink(link)
+  // }
+
   const handleToggle: any = (checked: boolean) => {
-    const newActiveState = !fieldValues.isActive
-    setFieldValues({ ...fieldValues, isActive: newActiveState })
-    link.isActive = newActiveState
-    updateLink(link)
+    const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
+    setFieldValues(updatedLink)
+    updateLink(updatedLink)
   }
 
   const handleDeleteButton = () => {
@@ -115,7 +121,6 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
                   className="data-[state=unchecked]:bg-muted/20"
                   value="on"
                   name="isActive"
-                  // checked={isActive}
                   checked={isActive}
                   onCheckedChange={checked => handleToggle(checked)}
                 />

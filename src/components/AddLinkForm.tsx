@@ -51,7 +51,6 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
           name="title"
           onChange={handleChange}
           required
-          pattern={linkTitlePattern}
         />
       </InputGroup>
 
@@ -68,7 +67,6 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
           value={href}
           onChange={handleChange}
           required
-          pattern={linkUrlPattern}
         />
       </InputGroup>
 

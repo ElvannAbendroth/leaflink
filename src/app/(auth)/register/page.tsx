@@ -16,11 +16,11 @@ export default async function RegisterPage() {
       <p className="typo-p text-muted">Choose your Leaflink username. You can always change it later.</p>
 
       <div className="mt-14 flex flex-col text-center justify-center">
-        <Button className="bg-google hover:bg-google-hover">
+        {/* <Button className="bg-google hover:bg-google-hover">
           <Icons.google size={20} />
           Create Account with Google
-        </Button>
-        <p className="typo-p text-muted">or</p>
+        </Button> */}
+        {/* <p className="typo-p text-muted">or</p> */}
         <RegisterForm />
         <p className="typo-p text-muted">
           Already have an account?{' '}

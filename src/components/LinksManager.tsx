@@ -45,15 +45,18 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     })
 
     if (!res?.ok) throw new Error('There was an error updating this link!')
+    const responseBody = await res.json()
+    console.log(responseBody.user.links)
+    setLinksState(responseBody.user.links)
   }
 
   const removeLink = async (link: Link) => {
     // Removes the link from the array
-    const updatedLinks = linkState.filter(oldLink => link._id != oldLink._id)
+    const payload = linkState.filter(oldLink => link._id != oldLink._id)
 
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
-      body: JSON.stringify({ links: updatedLinks }),
+      body: JSON.stringify({ links: payload }),
       cache: 'no-store',
     })
 

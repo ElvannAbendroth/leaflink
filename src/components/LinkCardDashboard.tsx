@@ -42,6 +42,11 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
     updateLink(link)
   }
 
+  const handleDeleteButton = () => {
+    console.log('exterminate!', link._id)
+    removeLink(link)
+  }
+
   return (
     <>
       {isEditMode ? (
@@ -51,12 +56,12 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
           id="add-link-card"
           className="flex flex-col gap-4 outline outline-border outline-2 outline-offset-2 rounded-lg p-8"
         >
-          <p className="typo-h4 mb-4 flex gap-4 items-center cursor-pointer justify-between">
+          {/* <p className="typo-h4 mb-4 flex gap-4 items-center cursor-pointer justify-between">
             Edit link
             <button onClick={toggleEditMode}>
               <Icons.close className="cursor-pointer" size={20} />
             </button>
-          </p>
+          </p> */}
 
           <InputGroup>
             <Label variant="sm" htmlFor="title">
@@ -115,7 +120,7 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
                   onCheckedChange={checked => handleToggle(checked)}
                 />
               </div>
-              <Icons.trash className="cursor-pointer" size={20} />
+              <Icons.trash onClick={handleDeleteButton} className="cursor-pointer" size={20} />
             </div>
           </div>
         </div>

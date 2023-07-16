@@ -5,13 +5,14 @@ import { Link } from '@/lib/types'
 import LinkCardDashboard from './LinkCardDashboard'
 import { useSession } from 'next-auth/react'
 import { CustomSession } from '@/lib/auth'
+import { set } from 'mongoose'
 
 interface LinksManagerProps {
   links: Link[]
 }
 
 export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
-  const [linkState, setLinksState] = useState(links)
+  const [linkState, setLinksState] = useState<Link[]>(links)
   const session = useSession()?.data as CustomSession
 
   //TODO: Fix here, there's a but where some new links get deleted soon after their creation??
@@ -19,16 +20,20 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     console.log('🌈🌈🌈🌈LINK:', fieldValues)
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
-      body: JSON.stringify({ links: [...links, fieldValues] }),
+      body: JSON.stringify({ links: [...linkState, fieldValues] }),
     })
 
-    if (res?.ok) setLinksState(linkState.concat(fieldValues))
+    if (res?.ok) {
+      const responseBody = await res.json()
+
+      setLinksState(responseBody.user.links)
+    }
   }
 
   const updateLink = async (link: Link) => {
     console.log('💖💖💖💖💖💖LINK:', link)
     // Updates the Links array with the updated link
-    const updatedLinks = links.map(oldLink => (link._id != oldLink._id ? oldLink : link))
+    const updatedLinks = linkState.map(oldLink => (link._id != oldLink._id ? oldLink : link))
 
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
@@ -36,14 +41,28 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
     })
   }
 
-  const removeLink = () => {}
+  const removeLink = async (link: Link) => {
+    console.log('💖💖💖💖💖💖LINK:', link)
+    // Removes the link from the array
+    const updatedLinks = linkState.filter(oldLink => link._id != oldLink._id)
+
+    const res = await fetch(`/api/users/${session.user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ links: updatedLinks }),
+    })
+    if (res?.ok) {
+      const responseBody = await res.json()
+
+      setLinksState(responseBody.user.links)
+    }
+  }
 
   return (
     <>
       <AddLinkForm addLink={addLink} />
 
       {linkState.map((link: Link) => (
-        <LinkCardDashboard key={link.href} link={link} updateLink={updateLink} removeLink={removeLink} />
+        <LinkCardDashboard key={link._id} link={link} updateLink={updateLink} removeLink={removeLink} />
       ))}
     </>
   )

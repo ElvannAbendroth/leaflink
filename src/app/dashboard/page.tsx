@@ -1,11 +1,9 @@
-import AddLinkForm from '@/components/AddLinkForm'
 import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
 import { redirect } from 'next/navigation'
 import { CustomSession, options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
-import LinkCardDashboard from '@/components/LinkCardDashboard'
-import { Link as LinkType } from '@/lib/types'
+import { LinksManager } from '@/components/LinksManager'
 
 export default async function DashboardPage() {
   const session = (await getServerSession(options)) as CustomSession
@@ -40,11 +38,7 @@ export default async function DashboardPage() {
           @{user.username}
         </Link>
       </div>
-      <AddLinkForm />
-
-      {user.links.map((link: LinkType) => (
-        <LinkCardDashboard key={link.href} link={link} />
-      ))}
+      <LinksManager links={user.links} />
     </div>
   )
 }

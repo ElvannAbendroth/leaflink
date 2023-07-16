@@ -1,15 +1,17 @@
 'use client'
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FormEventHandler, useState, FC } from 'react'
 import { Icons } from './Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { Link, UserDocument } from '@/lib/types'
-import { useSession } from 'next-auth/react'
+import { Link } from '@/lib/types'
 
-export default function AddLinkForm({}) {
-  const { data } = useSession()
+interface AddLinkFormProps {
+  addLink: Function
+}
+
+export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
   const [fieldValues, setFieldValues] = useState<Link>({
     title: '',
     href: '',
@@ -17,7 +19,6 @@ export default function AddLinkForm({}) {
   })
 
   const { title, href } = fieldValues
-  const { id } = data?.user as UserDocument
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
@@ -27,13 +28,6 @@ export default function AddLinkForm({}) {
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
     addLink(fieldValues)
-  }
-
-  const addLink = async (fieldValues: Link) => {
-    const res = await fetch(`/api/users/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(fieldValues),
-    })
   }
 
   return (
@@ -46,7 +40,15 @@ export default function AddLinkForm({}) {
         <Label variant="sm" htmlFor="title">
           <Icons.title size={20} />
         </Label>
-        <Input type="text" placeholder="Title" variant="sm" icon="sm" name="title" onChange={handleChange} />
+        <Input
+          value={title}
+          type="text"
+          placeholder="Title"
+          variant="sm"
+          icon="sm"
+          name="title"
+          onChange={handleChange}
+        />
       </InputGroup>
 
       <InputGroup>
@@ -56,10 +58,12 @@ export default function AddLinkForm({}) {
         <Input type="text" placeholder="URL" variant="sm" icon="sm" name="href" value={href} onChange={handleChange} />
       </InputGroup>
 
-      <Button variant="primary" size="sm">
+      <Button type="submit" variant="primary" size="sm">
         <Icons.add size={20} />
         Add link
       </Button>
     </form>
   )
 }
+
+export default AddLinkForm

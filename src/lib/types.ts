@@ -47,6 +47,7 @@ export type Link = {
   title: string
   href: string
   isActive: boolean
+  _id?: string
 }
 
 export type Social = {

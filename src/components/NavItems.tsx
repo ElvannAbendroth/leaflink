@@ -2,35 +2,45 @@
 
 import Link from 'next/link'
 import { FC, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
 import { signOut, useSession } from 'next-auth/react'
-import { UserDocument } from '@/lib/types'
-// import { useWindowWidth } from '@react-hook/window-size'
+import { User, UserData, UserDocument } from '@/lib/types'
 
 interface NavItem {
   label: string
   href: string
 }
 
-interface NavItemsProps {}
+interface NavItemsProps {
+  username: string
+}
 
-export const NavItems: FC<NavItemsProps> = () => {
+export const NavItems: FC<NavItemsProps> = ({ username }) => {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const { data, status } = useSession()
+  // const { data, status } = useSession()
 
-  if (!data?.user) {
-    return <code className="typo-pre fixed bottom-0 max-w-full">{JSON.stringify(data, null, 2)}</code>
-  }
+  //const user = data!.user as UserDocument
 
-  const user = data!.user as UserDocument
+  // const getUserById = async (id: string) => {
+  //   // if (!data?.user || !data.user?.id) return new Error('There is no session data')
+
+  //   const res = await fetch(`/api/users/${id}`, {
+  //     method: 'GET',
+  //   })
+
+  //   if (!res?.ok) throw new Error('There was an error fetching this user')
+
+  //   const body = await res.json()
+  //   return body
+  // }
 
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },
     { label: 'profile', href: '/profile' },
-    { label: 'preview', href: `/${user.username}` },
+    { label: 'preview', href: `/${username}` },
   ]
 
   const mobileMenu = () => {
@@ -68,7 +78,7 @@ export const NavItems: FC<NavItemsProps> = () => {
                   className="text-foreground-faded hover:bg-muted/10 w-full p-4 text-lg text-center rounded-md flex gap-2 items-center place-content-center font-semibold"
                 >
                   <Icons.logout className="cursor-pointer " size={16} strokeWidth={3} />
-                  <span className="">Logout {data.user?.name}</span>
+                  <span className="">Logout {username}</span>
                 </a>
               )}
             </div>

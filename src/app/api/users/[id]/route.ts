@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
-
 import db from '@/lib/db'
 import User from '@/models/userModel'
-import { UserDocument } from '@/lib/types'
 import startDb from '@/lib/db'
-import { getServerSession } from 'next-auth'
-import { CustomSession, options } from '@/lib/auth'
+import { getSessionUser } from '@/lib/data.server'
 
 export async function GET(req: Request, { params }: any) {
   try {
@@ -19,17 +16,14 @@ export async function GET(req: Request, { params }: any) {
 
 export async function PUT(req: Request, { params }: any) {
   try {
-    const session = (await getServerSession(options)) as CustomSession
-    const body = await req.json()
-    // console.log('Session: ' + JSON.stringify(session))
-    // console.log('Body: ' + JSON.stringify(body))
+    const sessionUser = await getSessionUser()
 
     // Validates the session user
-    const sessionUser = session?.user
-    if (!session?.user || params.id !== session?.user.id) {
-      return new Response(null, { status: 403 })
+    if (!sessionUser || params.id !== sessionUser.id) {
+      return NextResponse.json({ error: 'You are not authorized to perform this action' }, { status: 403 })
     }
 
+    const body = await req.json()
     const payload = { ...body }
 
     await startDb()

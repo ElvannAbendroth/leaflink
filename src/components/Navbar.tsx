@@ -5,6 +5,8 @@ import { siteConfig } from '@/lib/config'
 import { Icons } from './Icons'
 import { getSessionUser, getUserById } from '@/lib/data.server'
 import { redirect } from 'next/dist/server/api-utils'
+import User from '@/models/userModel'
+import { UserDocument } from '@/lib/types'
 
 interface NavbarProps {}
 
@@ -13,7 +15,7 @@ export const Navbar: FC<NavbarProps> = async () => {
 
   let user
   if (sessionUser?.id) {
-    user = await getUserById(sessionUser?.id)
+    user = (await User.findById(sessionUser?.id).lean()) as UserDocument
   }
 
   return (

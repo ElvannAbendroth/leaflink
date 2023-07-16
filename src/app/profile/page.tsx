@@ -1,11 +1,17 @@
 import { ProfileForm } from '@/components/ProfileForm'
 import { getSessionUser, getUserById } from '@/lib/data.server'
+import { UserDocument } from '@/lib/types'
+import User from '@/models/userModel'
 
 export default async function ProfilePage() {
   const sessionUser = await getSessionUser()
   if (!sessionUser.id) throw new Error('The is no user id in this session')
 
-  const user = await getUserById(sessionUser?.id)
+  let user
+  if (sessionUser.id) {
+    user = (await User.findById(sessionUser?.id).lean()) as UserDocument
+  }
+  if (!user) return new Error('error')
 
   return (
     <div className="">

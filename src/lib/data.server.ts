@@ -2,7 +2,6 @@ import User from '@/models/userModel'
 import { UserData, UserDocument } from './types'
 import { getServerSession } from 'next-auth/next'
 import { CustomSession, options } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 
 export async function getSessionUser() {
   const session = (await getServerSession(options)) as CustomSession
@@ -11,12 +10,18 @@ export async function getSessionUser() {
 }
 
 const getUserById = async (id: string) => {
-  const user = (await User.findById(id).lean()) as UserDocument
-  if (!user) throw new Error("Coulnd't find user")
+  let user
+
+  try {
+    user = (await User.findById(id).lean()) as UserDocument
+    if (!user) throw new Error("Couldn't find user")
+  } catch (error) {
+    console.log(error)
+  }
 
   let safeUser = {
     ...user,
-    id: user._id.toString(),
+    id: user?._id.toString(),
   }
   delete safeUser.password
   delete safeUser._id

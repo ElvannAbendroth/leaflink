@@ -34,7 +34,6 @@ export const options: NextAuthOptions = {
         const { username, password } = credentials as { username: string; password: string }
 
         await startDb()
-
         const user = await User.findOne({ username })
         if (!user) throw Error('Email/Password mismatch!')
 

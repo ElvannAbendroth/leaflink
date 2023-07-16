@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Link } from '@/lib/types'
+import { linkTitlePattern, linkUrlPattern } from '@/lib/validation'
 
 interface AddLinkFormProps {
   addLink: Function
@@ -28,6 +29,7 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
     addLink(fieldValues)
+    setFieldValues({ title: '', href: '', isActive: true })
   }
 
   return (
@@ -48,6 +50,8 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
           icon="sm"
           name="title"
           onChange={handleChange}
+          required
+          pattern={linkTitlePattern}
         />
       </InputGroup>
 
@@ -55,7 +59,17 @@ export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
         <Label variant="sm" htmlFor="href">
           <Icons.link size={20} />
         </Label>
-        <Input type="text" placeholder="URL" variant="sm" icon="sm" name="href" value={href} onChange={handleChange} />
+        <Input
+          type="url"
+          placeholder="URL"
+          variant="sm"
+          icon="sm"
+          name="href"
+          value={href}
+          onChange={handleChange}
+          required
+          pattern={linkUrlPattern}
+        />
       </InputGroup>
 
       <Button type="submit" variant="primary" size="sm">

@@ -185,7 +185,9 @@ export const ProfileForm: FC<ProfileFormProps> = ({ user }) => {
           value={socials?.website}
         />
       </InputGroup>
-      <Button className="mt-14">Save settings</Button>
+      <Button type="submit" className="mt-14">
+        Save settings
+      </Button>
     </form>
   )
 }

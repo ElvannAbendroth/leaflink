@@ -15,8 +15,8 @@ interface LinkCardDashboardProps {
 }
 
 export default function LinkCardDashboard({ link, updateLink, removeLink }: LinkCardDashboardProps) {
-  const [isEditMode, setIsEditMode] = useState(false)
-  const [fieldValues, setFieldValues] = useState(link)
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
+  const [fieldValues, setFieldValues] = useState<Link>(link)
   const { title, href, isActive } = fieldValues
 
   const toggleEditMode = () => {
@@ -35,6 +35,7 @@ export default function LinkCardDashboard({ link, updateLink, removeLink }: Link
     setFieldValues({ ...fieldValues, [name]: value })
   }
 
+  //TODO: Refactor this, shouldn't send the link but rather the fields.
   const handleToggle: any = (checked: boolean) => {
     const newActiveState = !fieldValues.isActive
     setFieldValues({ ...fieldValues, isActive: newActiveState })

@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation'
 import { CustomSession, options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 import { LinksManager } from '@/components/LinksManager'
+import User from '@/models/userModel'
+import { UserData } from '@/lib/types'
 
 export default async function DashboardPage() {
   const session = (await getServerSession(options)) as CustomSession
@@ -12,18 +14,14 @@ export default async function DashboardPage() {
     return redirect('/login')
   }
 
-  const getUserById = async (id: string) => {
-    const res = await fetch(`http://localhost:3000/api/users/${id}`)
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch data')
-    }
-
-    const user = await res.json()
+  const getUserId = async (id: string) => {
+    const user = (await User.findById(id).lean()) as UserData
+    if (!user) throw new Error("Coulnd't find user")
+    //There's a warning in the console when passing down links because they have the _id property, but it seems to work anyways
     return user
   }
 
-  const user = await getUserById(session?.user.id)
+  const user = await getUserId(session?.user.id)
 
   return (
     <div className="flex flex-col gap-8">

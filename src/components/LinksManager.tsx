@@ -5,7 +5,6 @@ import { Link } from '@/lib/types'
 import LinkCardDashboard from './LinkCardDashboard'
 import { useSession } from 'next-auth/react'
 import { CustomSession } from '@/lib/auth'
-import { set } from 'mongoose'
 
 interface LinksManagerProps {
   links: Link[]
@@ -15,34 +14,38 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
   const [linkState, setLinksState] = useState<Link[]>(links)
   const session = useSession()?.data as CustomSession
 
-  //TODO: Fix here, there's a but where some new links get deleted soon after their creation??
   const addLink = async (fieldValues: Link) => {
-    console.log('🌈🌈🌈🌈LINK:', fieldValues)
+    // Creates the payload for the Links property by adding the field values to the existing state array
+    const payload = { links: [...linkState, fieldValues] }
+
+    //Sends a PUT request to the user with the body
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
-      body: JSON.stringify({ links: [...linkState, fieldValues] }),
+      body: JSON.stringify(payload),
     })
 
-    if (res?.ok) {
-      const responseBody = await res.json()
+    // Validates the Response Status
+    if (!res?.ok) throw new Error('There was an error adding this link!')
 
-      setLinksState(responseBody.user.links)
-    }
+    // Updates the state with the response
+    const responseBody = await res.json()
+    setLinksState(responseBody.user.links)
   }
 
   const updateLink = async (link: Link) => {
-    console.log('💖💖💖💖💖💖LINK:', link)
-    // Updates the Links array with the updated link
-    const updatedLinks = linkState.map(oldLink => (link._id != oldLink._id ? oldLink : link))
+    // Creates the payload for the new Links property by replacing the updated link from the state
+    const payload = { links: linkState.map(oldLink => (link._id != oldLink._id ? oldLink : link)) }
 
+    //Sends a PUT request to the user with the body
     const res = await fetch(`/api/users/${session.user.id}`, {
       method: 'PUT',
-      body: JSON.stringify({ links: updatedLinks }),
+      body: JSON.stringify(payload),
     })
+
+    if (!res?.ok) throw new Error('There was an error updating this link!')
   }
 
   const removeLink = async (link: Link) => {
-    console.log('💖💖💖💖💖💖LINK:', link)
     // Removes the link from the array
     const updatedLinks = linkState.filter(oldLink => link._id != oldLink._id)
 
@@ -50,11 +53,11 @@ export const LinksManager: FC<LinksManagerProps> = ({ links }) => {
       method: 'PUT',
       body: JSON.stringify({ links: updatedLinks }),
     })
-    if (res?.ok) {
-      const responseBody = await res.json()
 
-      setLinksState(responseBody.user.links)
-    }
+    if (!res?.ok) throw new Error('There was an error removing this link!')
+
+    const responseBody = await res.json()
+    setLinksState(responseBody.user.links)
   }
 
   return (

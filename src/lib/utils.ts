@@ -13,7 +13,6 @@ export const makeSafe = (user: UserDocument) => {
   }
 
   // Delete Unwanted fields
-
   delete safeUser.password
   delete safeUser._id
   delete safeUser.__v

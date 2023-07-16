@@ -34,7 +34,7 @@ export async function GET(req: Request) {
 export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const body = (await req.json()) as NewUserRequest
-    const { username, email, password } = body
+    const { username, email } = body
 
     await startDb()
 

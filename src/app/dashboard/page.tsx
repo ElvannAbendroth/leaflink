@@ -1,27 +1,11 @@
 import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
-import { redirect } from 'next/navigation'
-import { CustomSession, options } from '@/lib/auth'
-import { getServerSession } from 'next-auth/next'
 import { LinksManager } from '@/components/LinksManager'
-import User from '@/models/userModel'
-import { UserData } from '@/lib/types'
+import { getSessionUser, getUserById } from '@/lib/data.server'
 
 export default async function DashboardPage() {
-  const session = (await getServerSession(options)) as CustomSession
-
-  if (!session?.user) {
-    return redirect('/login')
-  }
-
-  const getUserId = async (id: string) => {
-    const user = (await User.findById(id).lean()) as UserData
-    if (!user) throw new Error("Coulnd't find user")
-    //There's a warning in the console when passing down links because they have the _id property, but it seems to work anyways
-    return user
-  }
-
-  const user = await getUserId(session?.user.id)
+  const sessionUser = await getSessionUser()
+  const user = await getUserById(sessionUser.id)
 
   return (
     <div className="flex flex-col gap-8">

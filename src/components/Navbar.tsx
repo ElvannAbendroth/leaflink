@@ -1,50 +1,102 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+'use client'
+import { FC, useEffect, useState, MouseEventHandler } from 'react'
+import { usePathname } from 'next/navigation'
+import { Icons } from '@/components/Icons'
+import { signOut, useSession } from 'next-auth/react'
+import { NavItem, UserData } from '@/lib/types'
 import Link from 'next/link'
-import { FC } from 'react'
-import { NavItems } from '@/components/NavItems'
-import { siteConfig } from '@/lib/config'
-import { Icons } from './Icons'
-import { getSessionUser } from '@/lib/data.server'
+import { MobileMenu } from './MobileMenu'
+import { Logo } from '@/components/Logo'
 
 interface NavbarProps {}
 
-export const Navbar: FC<NavbarProps> = async () => {
-  // let user
-  // if (sessionUser?.id) {
-  //   user = (await User.findById(sessionUser?.id).lean()) as UserDocument
-  // }
+export const Navbar: FC<NavbarProps> = () => {
+  const pathname = usePathname()
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [username, setUsername] = useState('')
 
-  const sessionUser = await getSessionUser()
-  //console.log(sessionUser)
+  const { data, status } = useSession()
+  const sessionUser = data?.user as UserData
 
-  let user
-
-  try {
-    if (sessionUser && sessionUser.id) {
-      console.log('Fetching the user...')
-      const res = await fetch(`${process.env.VERCEL_URL}/api/users/${sessionUser.id}`, {
-        method: 'GET',
-        cache: 'no-store',
-      })
-      //console.log('User fetched!...response: ', res)
-
-      user = await res.json()
-      //console.log('user: ', user)
+  useEffect(() => {
+    console.log('👋useEffect running')
+    if (status === 'authenticated' && sessionUser.id) {
+      fetch(`/api/users/${sessionUser.id}`, { cache: 'no-store' })
+        .then(res => res.json())
+        .then(data => {
+          setUsername(data.username)
+        })
+        .catch(error => console.log('There was an error fetching this user: ', error))
     }
-  } catch (error) {
-    console.log('There was an error fetching this user', error)
+  }, [])
+
+  if (status === 'unauthenticated')
+    return (
+      <Link href="/login" className="flex items-center">
+        <Icons.login className="cursor-pointer hover:text-foreground text-muted" size={16} strokeWidth={3} />
+      </Link>
+    )
+
+  const navItems: NavItem[] = [
+    { label: 'dashboard', href: '/dashboard' },
+    { label: 'profile', href: '/profile' },
+    // { label: 'preview', href: `/${username}` },
+    { label: username, href: `/${username}` },
+  ]
+
+  const toggleMobileMenu: MouseEventHandler<HTMLButtonElement | HTMLDivElement> = e => {
+    e.stopPropagation()
+    setShowMobileMenu(!showMobileMenu)
+  }
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/login' })
   }
 
   return (
     <nav className="bg-background py-6 px-8 fixed top-0 left-0 right-0 z-50">
       <div className="flex justify-between max-w-layout mx-auto">
-        <Link
-          className="font-semibold text-2xl font-display hover:text-gray-800 flex gap-2 place-items-center"
-          href="/"
-        >
-          <Icons.logo strokeWidth={3} /> <span>{siteConfig.name}</span>
-        </Link>
+        <Logo />
 
-        {<NavItems username={user?.username} />}
+        <div id="nav-items" className="flex items-center">
+          {/* Desktop Nav Items: shows only on desktop */}
+          <div className="hidden sm:flex items-center gap-8">
+            {navItems.map(item => {
+              const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+              return (
+                <Link
+                  key={`desktop-${item.label}`}
+                  className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
+                    isActive ? 'underline text-foreground' : 'text-foreground-inactive'
+                  }`}
+                  href={item.href}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+            <button onClick={handleSignOut}>
+              <Icons.logout
+                className="cursor-pointer text-foreground-inactive hover:text-primary"
+                size={20}
+                strokeWidth={2.5}
+              />
+            </button>
+          </div>
+
+          {/* Hamburger menu: shows only on mobile */}
+          <button className="flex sm:hidden" onClick={toggleMobileMenu}>
+            <Icons.menu />
+          </button>
+
+          {/* Mobile menu: can be toggled through the hamburger icon */}
+          <div className="fixed sm:hidden">
+            {showMobileMenu && (
+              <MobileMenu navItems={navItems} toggleMobileMenu={toggleMobileMenu} handleSignOut={handleSignOut} />
+            )}
+          </div>
+        </div>
       </div>
     </nav>
   )

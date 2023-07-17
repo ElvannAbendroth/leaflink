@@ -1,10 +1,12 @@
 'use client'
 import Link from 'next/link'
 import { FC, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { notFound, usePathname } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import { CustomSession } from '@/lib/auth'
+import { UserData, UserDocument } from '@/lib/types'
 
 interface NavItem {
   label: string
@@ -12,17 +14,27 @@ interface NavItem {
 }
 
 interface NavItemsProps {
-  username: string
+  username: string | undefined | null
 }
 
 export const NavItems: FC<NavItemsProps> = ({ username }) => {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
+  // If the user is not logged in, return a login button
+  const { data } = useSession()
+  if (!data?.user || !username)
+    return (
+      <Link href="/login" className="flex items-center">
+        <Icons.login className="cursor-pointer hover:text-foreground text-muted" size={16} strokeWidth={3} />
+      </Link>
+    )
+
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },
     { label: 'profile', href: '/profile' },
-    { label: 'preview', href: `/${username}` },
+    // { label: 'preview', href: `/${username}` },
+    { label: username, href: `/${username}` },
   ]
 
   const mobileMenu = () => {
@@ -72,7 +84,6 @@ export const NavItems: FC<NavItemsProps> = ({ username }) => {
 
   return (
     <div className="flex items-center">
-      {/* <code className="typo-pre fixed bottom-0 left-0 m-8 max-w-full">{JSON.stringify(data, null, 2)}</code> */}
       <div id="desktop-nav-items" className="hidden sm:flex items-center gap-8">
         {navItems.map(item => {
           const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)

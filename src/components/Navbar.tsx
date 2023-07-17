@@ -3,19 +3,31 @@ import { FC } from 'react'
 import { NavItems } from '@/components/NavItems'
 import { siteConfig } from '@/lib/config'
 import { Icons } from './Icons'
-import { getSessionUser, getUserById } from '@/lib/data.server'
-import { redirect } from 'next/dist/server/api-utils'
-import User from '@/models/userModel'
-import { UserDocument } from '@/lib/types'
+import { getSessionUser } from '@/lib/data.server'
 
 interface NavbarProps {}
 
 export const Navbar: FC<NavbarProps> = async () => {
+  // let user
+  // if (sessionUser?.id) {
+  //   user = (await User.findById(sessionUser?.id).lean()) as UserDocument
+  // }
+
   const sessionUser = await getSessionUser()
 
   let user
-  if (sessionUser?.id) {
-    user = (await User.findById(sessionUser?.id).lean()) as UserDocument
+
+  try {
+    if (sessionUser && sessionUser.id) {
+      const res = await fetch(`http://localhost:3000/api/users/${sessionUser.id}`, {
+        method: 'GET',
+        cache: 'no-store',
+      })
+
+      user = await res.json()
+    }
+  } catch (error) {
+    console.log(error)
   }
 
   return (
@@ -28,7 +40,7 @@ export const Navbar: FC<NavbarProps> = async () => {
           <Icons.logo strokeWidth={3} /> <span>{siteConfig.name}</span>
         </Link>
 
-        {user && <NavItems username={user.username} />}
+        {<NavItems username={user?.username} />}
       </div>
     </nav>
   )

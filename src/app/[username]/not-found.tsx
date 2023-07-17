@@ -14,6 +14,7 @@ export default function NotFound({ params }: UserLinksPageProps) {
           alt="Unknown User"
           width={120}
           height={120}
+          priority={true}
         />
       </a>
       <div>

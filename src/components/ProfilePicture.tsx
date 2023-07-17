@@ -21,6 +21,7 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({
       height={size}
       quality={100}
       unoptimized
+      priority={true}
       {...props}
     />
   )

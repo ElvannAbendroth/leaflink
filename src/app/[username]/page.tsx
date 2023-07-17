@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation'
 import { LinkCard } from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 import { SocialLinks } from '@/components/SocialLinks'
-import User from '@/models/userModel'
 import { UserDocument } from '@/lib/types'
+import User from '@/models/userModel'
 
 export interface UserLinksPageProps {
   params: {

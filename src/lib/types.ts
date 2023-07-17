@@ -43,6 +43,17 @@ export interface UserCredentials extends User {
   password: string
 }
 
+// Database User Document
+export interface UserDocument extends Document {
+  username: string
+  email: string
+  password?: string
+  imageUrl: string
+  website?: string
+  links: Link[]
+  socials: Social
+}
+
 export type Link = {
   title: string
   href: string
@@ -58,15 +69,4 @@ export type Social = {
   twitter?: string
   github?: string
   website?: string
-}
-
-// Database User Document
-export interface UserDocument extends Document {
-  username: string
-  email: string
-  password?: string
-  imageUrl: string
-  website?: string
-  links: Link[]
-  socials: Social
 }

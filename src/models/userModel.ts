@@ -54,8 +54,6 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
   },
 })
 
-//THE HASHING DOESNT WORK HERE ??
-
 // Hash the password before saving
 userSchema.pre('save', async function (this: UserDocument, next) {
   let password = this.password

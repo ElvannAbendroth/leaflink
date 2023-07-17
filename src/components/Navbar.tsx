@@ -19,7 +19,7 @@ export const Navbar: FC<NavbarProps> = async () => {
 
   try {
     if (sessionUser && sessionUser.id) {
-      const res = await fetch(`http://localhost:3000/api/users/${sessionUser.id}`, {
+      const res = await fetch(`${process.env.VERCEL_URL}/api/users/${sessionUser.id}`, {
         method: 'GET',
         cache: 'no-store',
       })

@@ -22,6 +22,10 @@ export const NavItems: FC<NavItemsProps> = ({ username }) => {
 
   // If the user is not logged in, return a login button
   const { data } = useSession()
+
+  console.log('Session User: ', data?.user)
+  console.log('Username: ', username)
+
   if (!data?.user || !username)
     return (
       <Link href="/login" className="flex items-center">

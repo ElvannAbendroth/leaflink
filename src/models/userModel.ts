@@ -57,11 +57,14 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
 //THE HASHING DOESNT WORK HERE ??
 
 // Hash the password before saving
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (this: UserDocument, next) {
+  let password = this.password
+  if (!password) throw new Error('The password is not defined')
   if (!this.isModified('password')) return next()
   try {
     const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
+    const hashedPassword = await bcrypt.hash(password, salt)
+    password = hashedPassword
   } catch (error) {
     throw error
   }

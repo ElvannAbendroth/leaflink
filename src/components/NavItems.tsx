@@ -1,12 +1,10 @@
 'use client'
 import Link from 'next/link'
 import { FC, useState } from 'react'
-import { notFound, usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Icons } from './Icons'
 import { siteConfig } from '@/lib/config'
 import { signOut, useSession } from 'next-auth/react'
-import { CustomSession } from '@/lib/auth'
-import { UserData, UserDocument } from '@/lib/types'
 
 interface NavItem {
   label: string
@@ -19,6 +17,7 @@ interface NavItemsProps {
 
 export const NavItems: FC<NavItemsProps> = ({ username }) => {
   const pathname = usePathname()
+  const router = useRouter()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   // If the user is not logged in, return a login button
@@ -94,6 +93,7 @@ export const NavItems: FC<NavItemsProps> = ({ username }) => {
                 isActive ? 'underline text-foreground' : 'text-foreground-inactive'
               }`}
               href={item.href}
+              onClick={() => router.refresh()}
             >
               {item.label}
             </Link>

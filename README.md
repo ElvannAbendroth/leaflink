@@ -3,7 +3,7 @@
 A [Linktree](https://linktr.ee/) clone built using Next, NextAuth, Tailwind & MongoDB.
 
 > **Warning**
-> This app is a work in progress that I'm building in public.  It is currently in alpha.  Make sure to read the security notes down below before using.
+> This app is a work in progress that I'm building in public. It is currently in alpha. Make sure to read the security notes down below before using.
 
 LIVE DEMO: http://www.leaflink.vercel.app
 
@@ -14,6 +14,7 @@ This project is an learning experiment on how to build a simple, modern fullstac
 The goal of this app is to create a simple content management system that allows users to create an account & login, aanage a public page featuring links, and share their public page with the world.
 
 ## Features
+
 - **NextJS 13**'& the new `/app` dir,
 - Server & Client Components
 - API Routes and Middlewares
@@ -35,11 +36,11 @@ The goal of this app is to create a simple content management system that allows
 - [ ] Proper Testing
 - [ ] Refactoring of Data Fetching
 
-
 ## Known Issues
-- [ ] Issues with re-fetching data when navigating between pages.  The current workaround is to force a refresh during navigation.
+
+- [ ] Issues with re-fetching data when navigating between pages. The current workaround is to force a refresh during navigation.
 - [ ] Data validation needs to be implemented.
-- [ ] Expired session sometimes crashes the app.  Needing better error handling in the backend & frontend.
+- [ ] A yet unknown timeout error sometimes crashes the app. Needing better error handling in the backend & frontend. In the meantime, clearing the cache seems to help.
 
 ## Security & User Information Notice
 
@@ -51,7 +52,7 @@ Nonetheless, due to the learning nature of this project and the nature of **Next
 
 **When using this app, please make sure to not enter any sensitive information**, and only do so for testing and demo purposes.
 
-Also, keep in mind **database will be wiped out periodically & without warning**, as this app is still in its testing stages.  Make sure to backup any information you would like to keep.
+Also, keep in mind **database will be wiped out periodically & without warning**, as this app is still in its testing stages. Make sure to backup any information you would like to keep.
 
 ## Commit History
 
@@ -64,4 +65,4 @@ In order to keep track of commit history, I use some emoji symbols.
 - 🔨 Fix
 - 📂 Refactor
 
-Although I do not always create separate commits for each of them.  I'm hoping to be more consistent with their usage as development progresses.
+Although I do not always create separate commits for each of them. I'm hoping to be more consistent with their usage as development progresses.

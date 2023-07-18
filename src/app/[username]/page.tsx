@@ -24,7 +24,7 @@ export default function UserLinksPage({ params }: UserLinksPageProps) {
     id: '',
     email: '',
   }
-  const [pageUser, setPageUser] = useState<UserData | null>(initialUser)
+  const [pageUser, setPageUser] = useState<UserData>(initialUser)
 
   const getUserByUsername = async (username: string) => {
     console.log('Username: ', params.username)
@@ -34,8 +34,6 @@ export default function UserLinksPage({ params }: UserLinksPageProps) {
     const users = await res.json()
 
     const user = users.find((user: UserDocument) => user.username === params.username)
-
-    if (!user) return notFound()
     setPageUser(user)
   }
 
@@ -44,6 +42,7 @@ export default function UserLinksPage({ params }: UserLinksPageProps) {
   }, [])
 
   if (!pageUser) return notFound()
+  if (pageUser.username === '') return null
 
   const websiteRedirect = pageUser.website ? pageUser.website : '#'
   const websiteTarget = pageUser.website ? '_blank' : '_self'

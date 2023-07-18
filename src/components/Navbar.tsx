@@ -20,7 +20,6 @@ export const Navbar: FC<NavbarProps> = () => {
   const sessionUser = data?.user as UserData
 
   useEffect(() => {
-    console.log('👋useEffect running')
     if (status === 'authenticated' && sessionUser.id) {
       fetch(`/api/users/${sessionUser.id}`, { cache: 'no-store' })
         .then(res => res.json())
@@ -30,13 +29,6 @@ export const Navbar: FC<NavbarProps> = () => {
         .catch(error => console.log('There was an error fetching this user: ', error))
     }
   }, [])
-
-  if (status === 'unauthenticated')
-    return (
-      <Link href="/login" className="flex items-center">
-        <Icons.login className="cursor-pointer hover:text-foreground text-muted" size={16} strokeWidth={3} />
-      </Link>
-    )
 
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },
@@ -59,44 +51,53 @@ export const Navbar: FC<NavbarProps> = () => {
       <div className="flex justify-between max-w-layout mx-auto">
         <Logo />
 
-        <div id="nav-items" className="flex items-center">
-          {/* Desktop Nav Items: shows only on desktop */}
-          <div className="hidden sm:flex items-center gap-8">
-            {navItems.map(item => {
-              const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
-              return (
-                <Link
-                  key={`desktop-${item.label}`}
-                  className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
-                    isActive ? 'underline text-foreground' : 'text-foreground-inactive'
-                  }`}
-                  href={item.href}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
-            <button onClick={handleSignOut}>
-              <Icons.logout
-                className="cursor-pointer text-foreground-inactive hover:text-primary"
-                size={20}
-                strokeWidth={2.5}
-              />
+        {status === 'authenticated' ? (
+          <div id="nav-items" className="flex items-center">
+            {/* Desktop Nav Items: shows only on desktop */}
+            <div className="hidden sm:flex items-center gap-8">
+              {navItems.map(item => {
+                const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+                return (
+                  <Link
+                    key={`desktop-${item.label}`}
+                    className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
+                      isActive ? 'underline text-foreground' : 'text-foreground-inactive'
+                    }`}
+                    href={item.href}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
+              <button onClick={handleSignOut}>
+                <Icons.logout
+                  className="cursor-pointer text-foreground-inactive hover:text-primary"
+                  size={20}
+                  strokeWidth={2.5}
+                />
+              </button>
+            </div>
+
+            {/* Hamburger menu: shows only on mobile */}
+            <button className="flex sm:hidden" onClick={toggleMobileMenu}>
+              <Icons.menu />
             </button>
-          </div>
 
-          {/* Hamburger menu: shows only on mobile */}
-          <button className="flex sm:hidden" onClick={toggleMobileMenu}>
-            <Icons.menu />
-          </button>
-
-          {/* Mobile menu: can be toggled through the hamburger icon */}
-          <div className="fixed sm:hidden">
-            {showMobileMenu && (
-              <MobileMenu navItems={navItems} toggleMobileMenu={toggleMobileMenu} handleSignOut={handleSignOut} />
-            )}
+            {/* Mobile menu: can be toggled through the hamburger icon */}
+            <div className="fixed sm:hidden">
+              {showMobileMenu && (
+                <MobileMenu navItems={navItems} toggleMobileMenu={toggleMobileMenu} handleSignOut={handleSignOut} />
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            {/* Login: shows when user isn't authenticated */}
+            <Link href="/login" className="flex items-center">
+              <Icons.login className="cursor-pointer hover:text-foreground text-muted" size={16} strokeWidth={3} />
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   )

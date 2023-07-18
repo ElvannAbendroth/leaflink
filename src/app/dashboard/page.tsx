@@ -2,16 +2,10 @@ import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
 import { LinksManager } from '@/components/LinksManager'
 import { getSessionUser, getUserById } from '@/lib/data.server'
-import User from '@/models/userModel'
-import { UserDocument } from '@/lib/types'
 
 export default async function DashboardPage() {
   const sessionUser = await getSessionUser()
-  let user
-  if (sessionUser.id) {
-    user = (await User.findById(sessionUser?.id).lean()) as UserDocument
-  }
-  if (!user) return new Error('error')
+  const user = await getUserById(sessionUser.id)
 
   return (
     <div className="flex flex-col gap-8">

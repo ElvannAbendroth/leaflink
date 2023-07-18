@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server'
-import db from '@/lib/db'
 import User from '@/models/userModel'
 import startDb from '@/lib/db'
 import { getSessionUser } from '@/lib/data.server'
 
 export async function GET(req: Request, { params }: any) {
   try {
-    await db()
+    await startDb()
     const user = await User.findById(params.id)
     return NextResponse.json(user)
   } catch (error) {

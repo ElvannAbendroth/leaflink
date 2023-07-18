@@ -5,13 +5,7 @@ import User from '@/models/userModel'
 
 export default async function ProfilePage() {
   const sessionUser = await getSessionUser()
-  if (!sessionUser.id) throw new Error('The is no user id in this session')
-
-  let user
-  if (sessionUser.id) {
-    user = (await User.findById(sessionUser?.id).lean()) as UserDocument
-  }
-  if (!user) return new Error('error')
+  const user = await getUserById(sessionUser.id)
 
   return (
     <div className="">

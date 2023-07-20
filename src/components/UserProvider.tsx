@@ -31,13 +31,11 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null)
 
   useEffect(() => {
-    console.log('🌈UserContext useEffect')
     sessionData &&
       userService
         .getUserById(sessionData.user.id)
         .then(user => {
           setUser(user)
-          //console.log(user.links)
         })
         .catch(error => console.log(error))
   }, [setUser])

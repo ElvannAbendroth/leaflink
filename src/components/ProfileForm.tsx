@@ -1,14 +1,11 @@
 'use client'
-import { ChangeEventHandler, FC, FormEventHandler, useContext, useState } from 'react'
+import { ChangeEventHandler, FC, FormEventHandler, useContext, useEffect, useState } from 'react'
 import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { Social, UserData, UserDocument } from '@/lib/types'
-import { useSession } from 'next-auth/react'
-import { CustomSession } from '@/lib/auth'
-import { useRouter } from 'next/navigation'
+import { Social } from '@/lib/types'
 import { UserContext } from './UserProvider'
 
 interface ProfileFormProps {
@@ -24,41 +21,30 @@ interface ProfileFormFields {
 
 export const ProfileForm: FC<ProfileFormProps> = () => {
   const { user, updateUser } = useContext(UserContext)
-  const [formValues, setFormValue] = useState<ProfileFormFields>({
-    username: user?.username || '',
-    website: user?.website || '',
-    imageUrl: user?.imageUrl || '',
-    socials: user?.socials || {},
-  })
-  if (!user || !user.links) return null
+  const [formValues, setFormValues] = useState<ProfileFormFields | null>(null)
+
+  useEffect(() => {
+    setFormValues(user as ProfileFormFields)
+  }, [user])
+
+  if (!user || !formValues) return null
 
   const { username, imageUrl, website, socials } = formValues
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
-    setFormValue({ ...formValues, [name]: value })
+    setFormValues({ ...formValues, [name]: value })
   }
 
   const handleChangeSocials: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
-    setFormValue({ ...formValues, socials: { ...formValues.socials, [name]: value } })
+    setFormValues({ ...formValues, socials: { ...formValues.socials, [name]: value } })
   }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
     updateUser(formValues)
   }
-
-  // const updateUser = async () => {
-  //   const payload = { ...formValues }
-
-  //   const res = await fetch(`/api/users/${session.user.id}`, {
-  //     method: 'PUT',
-  //     body: JSON.stringify(payload),
-  //   })
-
-  //   if (!res?.ok) throw new Error('There was an error updating this link!')
-  // }
 
   return (
     <form onSubmit={handleSubmit} className="mt-14 flex flex-col gap-6">

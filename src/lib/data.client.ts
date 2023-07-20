@@ -1,5 +1,6 @@
-import { UserDocument } from '@/lib/types'
+import { Link, UserDocument } from '@/lib/types'
 
+/* Function used in public page */
 export const getUserByUsername = async (username: string) => {
   const res = await fetch(`/api/users/`, { cache: 'no-store' })
 
@@ -15,4 +16,18 @@ export async function getUserById(id: string) {
   if (!res?.ok) throw new Error('Error while fetching user from UserDataContext')
   const user = await res.json()
   return user
+}
+
+export async function updateUser(userId: string, payload: { links: Link[] }) {
+  const res = await fetch(`/api/users/${userId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+    cache: 'no-store',
+  })
+
+  // Validates the Response Status
+  if (!res?.ok) throw new Error('There was an error adding this link!')
+
+  const body = await res.json()
+  return body.user
 }

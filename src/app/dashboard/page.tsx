@@ -20,7 +20,7 @@ export default async function DashboardPage() {
           @{user.username}
         </Link>
       </div>
-      <LinksManager links={user.links} />
+      <LinksManager />
     </div>
   )
 }

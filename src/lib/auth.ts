@@ -50,8 +50,6 @@ export const options: NextAuthOptions = {
   },
   callbacks: {
     session: ({ session, token, user }) => {
-      //console.log('Session Callback', { session, token, user })
-
       return {
         ...session,
         user: {
@@ -61,7 +59,6 @@ export const options: NextAuthOptions = {
       }
     },
     jwt: ({ token, user }) => {
-      //console.log('JWT Callback', { token, user })
       if (user) {
         const u = user as unknown as any
 

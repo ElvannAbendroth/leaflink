@@ -1,17 +1,12 @@
-import { redirect } from 'next/navigation'
-import { CustomSession, options } from '@/lib/auth'
-import { getServerSession } from 'next-auth/next'
-import { Link as LinkType, UserDocument } from '@/lib/types'
-import User from '@/models/userModel'
+'use client'
+import { Link as LinkType } from '@/lib/types'
+import { useContext } from 'react'
+import { UserContext } from '@/components/UserProvider'
 
-export default async function TestPage() {
-  const session = (await getServerSession(options)) as CustomSession
-  if (!session?.user) {
-    return redirect('/login')
-  }
+export default function TestPage() {
+  const { user } = useContext(UserContext)
 
-  const user = await User.findById(session?.user.id)
-
+  if (!user) return null
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">

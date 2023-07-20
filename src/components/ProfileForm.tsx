@@ -43,9 +43,9 @@ export const ProfileForm: FC<ProfileFormProps> = ({ user }) => {
     setFormValue({ ...formValues, socials: { ...formValues.socials, [name]: value } })
   }
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
-    updateUser()
+    await updateUser()
     router.refresh()
   }
 

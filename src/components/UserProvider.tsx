@@ -8,6 +8,7 @@ import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 type UserContextProps = {
   user: UserData | null
+  updateUser: (dataToUpdate: {}) => void
   addLink: (linkObject: Link) => void
   removeLink: (linkToRemove: Link) => void
   updateLink: (linkToUpdate: Link) => void
@@ -15,6 +16,7 @@ type UserContextProps = {
 
 export const UserContext = createContext<UserContextProps>({
   user: null,
+  updateUser: () => {},
   addLink: () => {},
   removeLink: () => {},
   updateLink: () => {},
@@ -39,6 +41,19 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
         })
         .catch(error => console.log(error))
   }, [setUser])
+
+  const updateUser = async (dataToUpdate: any) => {
+    if (!user) throw new Error('A link can only be added when a user is logged in')
+    const payload = { ...dataToUpdate }
+    userService
+      .updateUser(user.id, payload)
+      .then(data => {
+        setUser(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   const addLink = async (newLink: Link) => {
     if (!user) throw new Error('A link can only be added when a user is logged in')
@@ -86,5 +101,9 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  return <UserContext.Provider value={{ user: user, addLink, removeLink, updateLink }}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider value={{ user: user, updateUser, addLink, removeLink, updateLink }}>
+      {children}
+    </UserContext.Provider>
+  )
 }

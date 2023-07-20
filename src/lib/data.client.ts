@@ -18,7 +18,7 @@ export async function getUserById(id: string) {
   return user
 }
 
-export async function updateUser(userId: string, payload: { links: Link[] }) {
+export async function updateUser(userId: string, payload: {}) {
   const res = await fetch(`/api/users/${userId}`, {
     method: 'PUT',
     body: JSON.stringify(payload),

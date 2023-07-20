@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FC, FormEventHandler, useContext, useState } from 'react'
 import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
@@ -9,9 +9,10 @@ import { Social, UserData, UserDocument } from '@/lib/types'
 import { useSession } from 'next-auth/react'
 import { CustomSession } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
+import { UserContext } from './UserProvider'
 
 interface ProfileFormProps {
-  user: UserData | UserDocument
+  // user: UserData | UserDocument
 }
 
 interface ProfileFormFields {
@@ -21,15 +22,15 @@ interface ProfileFormFields {
   socials: Social
 }
 
-export const ProfileForm: FC<ProfileFormProps> = ({ user }) => {
-  const router = useRouter()
+export const ProfileForm: FC<ProfileFormProps> = () => {
+  const { user, updateUser } = useContext(UserContext)
   const [formValues, setFormValue] = useState<ProfileFormFields>({
-    username: user.username,
-    website: user.website ? user.website : '',
-    imageUrl: user.imageUrl ? user.imageUrl : '',
-    socials: user.socials,
+    username: user?.username || '',
+    website: user?.website || '',
+    imageUrl: user?.imageUrl || '',
+    socials: user?.socials || {},
   })
-  const session = useSession()?.data as CustomSession
+  if (!user || !user.links) return null
 
   const { username, imageUrl, website, socials } = formValues
 
@@ -45,20 +46,19 @@ export const ProfileForm: FC<ProfileFormProps> = ({ user }) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
-    await updateUser()
-    router.refresh()
+    updateUser(formValues)
   }
 
-  const updateUser = async () => {
-    const payload = { ...formValues }
+  // const updateUser = async () => {
+  //   const payload = { ...formValues }
 
-    const res = await fetch(`/api/users/${session.user.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(payload),
-    })
+  //   const res = await fetch(`/api/users/${session.user.id}`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify(payload),
+  //   })
 
-    if (!res?.ok) throw new Error('There was an error updating this link!')
-  }
+  //   if (!res?.ok) throw new Error('There was an error updating this link!')
+  // }
 
   return (
     <form onSubmit={handleSubmit} className="mt-14 flex flex-col gap-6">

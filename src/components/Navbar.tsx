@@ -1,40 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { FC, useEffect, useState, MouseEventHandler } from 'react'
+import { FC, useState, MouseEventHandler, useContext } from 'react'
 import { usePathname } from 'next/navigation'
 import { Icons } from '@/components/Icons'
-import { signOut, useSession } from 'next-auth/react'
-import { NavItem, UserData } from '@/lib/types'
+import { signOut } from 'next-auth/react'
+import { NavItem } from '@/lib/types'
 import Link from 'next/link'
-import { MobileMenu } from './MobileMenu'
+import { MobileMenu } from '@/components//MobileMenu'
 import { Logo } from '@/components/Logo'
+import { UserContext } from './UserProvider'
 
 interface NavbarProps {}
 
 export const Navbar: FC<NavbarProps> = () => {
+  const { user } = useContext(UserContext)
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const [username, setUsername] = useState('')
-
-  const { data, status } = useSession()
-  const sessionUser = data?.user as UserData
-
-  useEffect(() => {
-    if (status === 'authenticated' && sessionUser.id) {
-      fetch(`/api/users/${sessionUser.id}`, { cache: 'no-store' })
-        .then(res => res.json())
-        .then(data => {
-          setUsername(data.username)
-        })
-        .catch(error => console.log('There was an error fetching this user: ', error))
-    }
-  }, [])
 
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },
     { label: 'profile', href: '/profile' },
-    // { label: 'preview', href: `/${username}` },
-    { label: username, href: `/${username}` },
+    { label: user?.username || '#', href: `/${user?.username || '#'}` },
   ]
 
   const toggleMobileMenu: MouseEventHandler<HTMLButtonElement | HTMLDivElement> = e => {
@@ -51,7 +37,7 @@ export const Navbar: FC<NavbarProps> = () => {
       <div className="flex justify-between max-w-layout mx-auto">
         <Logo />
 
-        {status === 'authenticated' ? (
+        {user ? (
           <div id="nav-items" className="flex items-center">
             {/* Desktop Nav Items: shows only on desktop */}
             <div className="hidden sm:flex items-center gap-8">

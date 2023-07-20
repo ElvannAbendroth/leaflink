@@ -1,11 +1,16 @@
+/* eslint-disable react/no-unescaped-entities */
+'use client'
 import Link from 'next/link'
 import { ProfilePictureEditable } from '@/components/ProfilePicture'
-import { LinksManager } from '@/components/LinksManager'
-import { getSessionUser, getUserById } from '@/lib/data.server'
+import AddLinkForm from '@/components/AddLinkForm'
+import LinkCard from '@/components/LinkCard'
+import { Link as LinkType } from '@/lib/types'
+import { useContext } from 'react'
+import { UserContext } from '@/components/UserProvider'
 
-export default async function DashboardPage() {
-  const sessionUser = await getSessionUser()
-  const user = await getUserById(sessionUser.id)
+export default function DashboardPage() {
+  const { user } = useContext(UserContext)
+  if (!user || !user.links) return null
 
   return (
     <div className="flex flex-col gap-8">
@@ -20,7 +25,13 @@ export default async function DashboardPage() {
           @{user.username}
         </Link>
       </div>
-      <LinksManager />
+      <AddLinkForm />
+
+      {user.links.length === 0 ? (
+        <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
+      ) : (
+        user?.links?.map((link: LinkType) => <LinkCard key={link._id} link={link} />)
+      )}
     </div>
   )
 }

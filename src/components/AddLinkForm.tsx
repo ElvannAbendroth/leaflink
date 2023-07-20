@@ -1,18 +1,17 @@
 'use client'
-import { ChangeEventHandler, FormEventHandler, useState, FC } from 'react'
+import { ChangeEventHandler, FormEventHandler, useState, FC, useContext } from 'react'
 import { Icons } from './Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Link } from '@/lib/types'
-import { linkTitlePattern, linkUrlPattern } from '@/lib/validation'
+import { UserContext } from './UserProvider'
 
-interface AddLinkFormProps {
-  addLink: Function
-}
+interface AddLinkFormProps {}
 
-export const AddLinkForm: FC<AddLinkFormProps> = ({ addLink }) => {
+export const AddLinkForm: FC<AddLinkFormProps> = () => {
+  const { addLink } = useContext(UserContext)
   const [fieldValues, setFieldValues] = useState<Link>({
     title: '',
     href: '',

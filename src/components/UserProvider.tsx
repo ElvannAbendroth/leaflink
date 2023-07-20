@@ -10,12 +10,14 @@ type UserContextProps = {
   user: UserData | null
   addLink: (linkObject: Link) => void
   removeLink: (linkToRemove: Link) => void
+  updateLink: (linkToUpdate: Link) => void
 }
 
 export const UserContext = createContext<UserContextProps>({
   user: null,
   addLink: () => {},
   removeLink: () => {},
+  updateLink: () => {},
 })
 
 interface UserProviderProps {
@@ -56,8 +58,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     //I only really need the id, but lets do that later
     if (!user) throw new Error('A link can only be added when a user is logged in')
 
-    const newLinkArray = user.links.filter(oldLink => linkToRemove._id != oldLink._id)
-    const payload = { links: newLinkArray }
+    const payload = { links: user.links.filter(oldLink => linkToRemove._id != oldLink._id) }
 
     userService
       .updateUser(user.id, payload)
@@ -69,5 +70,21 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  return <UserContext.Provider value={{ user: user, addLink, removeLink }}>{children}</UserContext.Provider>
+  const updateLink = async (linkToRemove: Link) => {
+    //I only really need the id, but lets do that later
+    if (!user) throw new Error('A link can only be added when a user is logged in')
+
+    const payload = { links: user.links.map(oldLink => (linkToRemove._id != oldLink._id ? oldLink : linkToRemove)) }
+
+    userService
+      .updateUser(user.id, payload)
+      .then(data => {
+        setUser(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  return <UserContext.Provider value={{ user: user, addLink, removeLink, updateLink }}>{children}</UserContext.Provider>
 }

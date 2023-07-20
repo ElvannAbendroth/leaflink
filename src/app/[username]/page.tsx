@@ -1,13 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
-import { LinkCard } from '@/components/LinkCard'
+import LinkCard from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 import { SocialLinks } from '@/components/SocialLinks'
 import { UserData } from '@/lib/types'
 import { getUserByUsername } from '@/lib/data.client'
 import { notFound } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { PublicLinksCards } from '@/components/PublicLinksCards'
 
 export interface UserLinksPageProps {
   params: {
@@ -58,7 +57,12 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
           @{pageUser.username.toLowerCase()}
         </a>
       </div>
-      <PublicLinksCards user={pageUser} />
+      {/* Displays active links to the user's profile */}
+      {activeLinks.length === 0 ? (
+        <p className="typo-p text-center italic text-muted">This user doesn't have links to show yet!</p>
+      ) : (
+        activeLinks.map(link => <LinkCard key={link.title} link={link} isPublic={true} />)
+      )}
       <SocialLinks socials={pageUser.socials} />
     </div>
   )

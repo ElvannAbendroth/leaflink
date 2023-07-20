@@ -9,11 +9,12 @@ export async function getSessionUser() {
 export async function getUserById(id: string) {
   console.log('getUserById', {
     id,
-    env: process.env.VERCEL_URL,
-    fullUrl: `${process.env.VERCEL_URL}/api/users/${id}`,
+    envUrl: process.env.VERCEL_URL,
+    envProtocol: process.env.PROTOCOL,
+    fullUrl: `${process.env.PROTOCOL}${process.env.VERCEL_URL}/api/users/${id}`,
   })
   try {
-    const res = await fetch(`${process.env.VERCEL_URL}/api/users/${id}`)
+    const res = await fetch(`${process.env.PROTOCOL}${process.env.VERCEL_URL}/api/users/${id}`)
     const user = await res.json()
     return user
   } catch (error) {

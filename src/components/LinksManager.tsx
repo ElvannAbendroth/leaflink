@@ -10,7 +10,7 @@ interface LinksManagerProps {
 }
 
 export const LinksManager: FC<LinksManagerProps> = () => {
-  const { user, addLink } = useContext(UserContext)
+  const { user, addLink, removeLink } = useContext(UserContext)
 
   useEffect(() => {
     console.log('👋Hello from LinksManager')
@@ -32,18 +32,18 @@ export const LinksManager: FC<LinksManagerProps> = () => {
     // setLinksState(responseBody.user.links)
   }
 
-  const removeLink = async (link: Link) => {
-    // // Removes the link from the array
-    // const payload = linkState.filter(oldLink => link._id != oldLink._id)
-    // const res = await fetch(`/api/users/${user.id}`, {
-    //   method: 'PUT',
-    //   body: JSON.stringify({ links: payload }),
-    //   cache: 'no-store',
-    // })
-    // if (!res?.ok) throw new Error('There was an error removing this link!')
-    // const responseBody = await res.json()
-    // setLinksState(responseBody.user.links)
-  }
+  // const removeLink = async (link: Link) => {
+  //   // // Removes the link from the array
+  //   // const payload = linkState.filter(oldLink => link._id != oldLink._id)
+  //   // const res = await fetch(`/api/users/${user.id}`, {
+  //   //   method: 'PUT',
+  //   //   body: JSON.stringify({ links: payload }),
+  //   //   cache: 'no-store',
+  //   // })
+  //   // if (!res?.ok) throw new Error('There was an error removing this link!')
+  //   // const responseBody = await res.json()
+  //   // setLinksState(responseBody.user.links)
+  // }
 
   if (!user || !user.links) return null
 

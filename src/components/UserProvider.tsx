@@ -9,11 +9,13 @@ import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 type UserContextProps = {
   user: UserData | null
   addLink: (linkObject: Link) => void
+  removeLink: (linkToRemove: Link) => void
 }
 
 export const UserContext = createContext<UserContextProps>({
   user: null,
   addLink: () => {},
+  removeLink: () => {},
 })
 
 interface UserProviderProps {
@@ -40,10 +42,32 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     if (!user) throw new Error('A link can only be added when a user is logged in')
     const payload = { links: [...user.links, newLink] }
 
-    userService.updateUser(user.id, payload).then(data => {
-      setUser(data)
-    })
+    userService
+      .updateUser(user.id, payload)
+      .then(data => {
+        setUser(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
-  return <UserContext.Provider value={{ user: user, addLink }}>{children}</UserContext.Provider>
+  const removeLink = async (linkToRemove: Link) => {
+    //I only really need the id, but lets do that later
+    if (!user) throw new Error('A link can only be added when a user is logged in')
+
+    const newLinkArray = user.links.filter(oldLink => linkToRemove._id != oldLink._id)
+    const payload = { links: newLinkArray }
+
+    userService
+      .updateUser(user.id, payload)
+      .then(data => {
+        setUser(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  return <UserContext.Provider value={{ user: user, addLink, removeLink }}>{children}</UserContext.Provider>
 }

@@ -54,20 +54,6 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
   },
 })
 
-// Hash the password before saving
-userSchema.pre('save', async function (this: UserDocument, next) {
-  let password = this.password
-  if (!password) throw new Error('The password is not defined')
-  if (!this.isModified('password')) return next()
-  try {
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
-    password = hashedPassword
-  } catch (error) {
-    throw error
-  }
-})
-
 //Compare Password Method
 userSchema.methods.comparePassword = async function (password) {
   try {

@@ -2,6 +2,7 @@ import startDb from '@/lib/db'
 import { Link, Social } from '@/lib/types'
 import { NextResponse } from 'next/server'
 import User from '@/models/userModel'
+import bcrypt from 'bcrypt'
 
 interface NewUserRequest {
   username: string
@@ -46,7 +47,9 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     if (existingUser)
       return NextResponse.json({ error: 'There already is a user with that username or email!' }, { status: 422 })
 
-    const newUser = await new User({ ...body })
+    const hashedPassword = await bcrypt.hash(body.password, 10)
+
+    const newUser = await new User({ ...body, password: hashedPassword })
 
     return NextResponse.json(await newUser.save())
   } catch (error) {

@@ -35,10 +35,10 @@ export const options: NextAuthOptions = {
 
         await startDb()
         const user = await User.findOne({ username })
-        if (!user) throw Error('Email/Password mismatch!')
+        if (!user) return null
 
         const passwordMatch = await user.comparePassword(password)
-        if (!passwordMatch) throw Error('Email/Password mismatch!')
+        if (!passwordMatch) return null
 
         return makeSafe(user)
       },
@@ -56,7 +56,7 @@ export const options: NextAuthOptions = {
           ...session.user,
           ...token,
         },
-      }
+      } as CustomSession
     },
     jwt: ({ token, user }) => {
       if (user) {

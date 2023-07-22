@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Label } from '@/components/ui/Label'
 import { InputGroup } from './ui/InputGroup'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 interface LoginFormProps {}
 
@@ -16,7 +15,7 @@ interface FormInputValues {
 }
 
 export const LoginForm: FC<LoginFormProps> = () => {
-  const [error, setError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [userInfo, setUserInfo] = useState<FormInputValues>({
     username: '',
     password: '',
@@ -38,12 +37,12 @@ export const LoginForm: FC<LoginFormProps> = () => {
       callbackUrl: '/dashboard',
     })
 
-    if (res?.error) return setError(res.error)
+    if (res?.error) return setErrorMessage(res.error)
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {error && <p>{error}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
       <InputGroup>
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/

@@ -18,21 +18,13 @@ interface FormInputValues {
 }
 
 export const RegisterForm: FC<RegisterFormProps> = () => {
-  // const { status } = useSession()
-  // const router = useRouter()
-
-  // //redirect authenticated users
-  // if (status === 'authenticated') {
-  //   router.replace('/dashboard')
-  // }
-
   const [userInfo, setUserInfo] = useState<FormInputValues>({
     username: '',
     email: '',
     password: '',
   })
 
-  const [formMessage, setFormMessage] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const { username, email, password } = userInfo
 
@@ -52,7 +44,8 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
       body: JSON.stringify(userInfo),
     })
 
-    res.ok ? loginUser() : setFormMessage('Registration Failed')
+    const body = await res.json()
+    res.ok ? loginUser() : setErrorMessage(body.error)
   }
 
   const loginUser = async () => {
@@ -63,12 +56,12 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
       callbackUrl: '/dashboard',
     })
 
-    if (res?.error) return console.log('There was an error logging in')
+    if (res?.error) return setErrorMessage(res.error)
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {formMessage && <p className="text-danger">{formMessage}</p>}
+      {errorMessage && <p className="text-danger">{errorMessage}</p>}
       <InputGroup className="relative">
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/

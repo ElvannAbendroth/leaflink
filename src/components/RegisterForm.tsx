@@ -50,7 +50,7 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
 
   const loginUser = async () => {
     const res = await signIn('credentials', {
-      username,
+      email,
       password,
       redirect: true,
       callbackUrl: '/dashboard',

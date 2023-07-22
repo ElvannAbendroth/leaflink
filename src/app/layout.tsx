@@ -6,6 +6,7 @@ import AuthProvider from '@/components/AuthProvider'
 import { getServerSession } from 'next-auth/next'
 import { options } from '@/lib/auth'
 import { UserProvider } from '@/components/UserProvider'
+import { Toaster } from '@/components/ui/Toaster'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <body className={`${lato.className}`}>
             <Navbar />
             <main className="max-w-content mx-auto pt-36 pb-12 px-8">{children}</main>
+            <Toaster />
           </body>
         </html>
       </UserProvider>

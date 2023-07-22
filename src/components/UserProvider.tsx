@@ -2,6 +2,7 @@
 'use client'
 import { CustomSession } from '@/lib/auth'
 import * as userService from '@/lib/data.client'
+import { useToast } from '@/lib/hooks/useToast'
 import { Link, UserData } from '@/lib/types'
 import { useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
@@ -28,6 +29,7 @@ interface UserProviderProps {
 
 export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const sessionData = useSession()?.data as CustomSession
+  const { toast } = useToast()
   const [user, setUser] = useState<UserData | null>(null)
 
   useEffect(() => {
@@ -47,9 +49,18 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .updateUser(user.id, payload)
       .then(data => {
         setUser(data)
+        toast({
+          title: 'Success!',
+          description: `User information was successfully updated!`,
+          variant: 'inverted',
+        })
       })
       .catch(error => {
-        console.log(error)
+        toast({
+          title: 'Error!',
+          description: `${error}`,
+          variant: 'danger',
+        })
       })
   }
 
@@ -61,9 +72,18 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .updateUser(user.id, payload)
       .then(data => {
         setUser(data)
+        toast({
+          title: 'Success!',
+          description: `Your link "${newLink.title}" was successfully added!`,
+          variant: 'inverted',
+        })
       })
       .catch(error => {
-        console.log(error)
+        toast({
+          title: 'Error!',
+          description: `${error}`,
+          variant: 'danger',
+        })
       })
   }
 
@@ -77,17 +97,26 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .updateUser(user.id, payload)
       .then(data => {
         setUser(data)
+        toast({
+          title: 'Success!',
+          description: `Your link "${linkToRemove.title}" was successfully removed!`,
+          variant: 'inverted',
+        })
       })
       .catch(error => {
-        console.log(error)
+        toast({
+          title: 'Error!',
+          description: `${error}`,
+          variant: 'danger',
+        })
       })
   }
 
-  const updateLink = async (linkToRemove: Link) => {
+  const updateLink = async (linkToUpdate: Link) => {
     //I only really need the id, but lets do that later
     if (!user) throw new Error('A link can only be added when a user is logged in')
 
-    const payload = { links: user.links.map(oldLink => (linkToRemove._id != oldLink._id ? oldLink : linkToRemove)) }
+    const payload = { links: user.links.map(oldLink => (linkToUpdate._id != oldLink._id ? oldLink : linkToUpdate)) }
 
     userService
       .updateUser(user.id, payload)
@@ -95,7 +124,11 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
         setUser(data)
       })
       .catch(error => {
-        console.log(error)
+        toast({
+          title: 'Error!',
+          description: `${error}`,
+          variant: 'danger',
+        })
       })
   }
 

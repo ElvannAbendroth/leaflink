@@ -103,7 +103,7 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
           </Button>
         </form>
       ) : (
-        <div className="bg-input/60 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-8 items-start ">
+        <div className="bg-gray-50 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-8 items-start ">
           <div className="flex flex-col gap-4 flex-grow max-w-full">
             <div className="flex gap-2 items-center justify-between">
               <div className="flex gap-2 items-center typo-h4">

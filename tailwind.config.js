@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
+const twColors = require('tailwindcss/colors')
+const themeColors = require('./src/lib/theme')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
@@ -8,38 +9,43 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
     './mdx-components.tsx',
   ],
   theme: {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      black: colors.black,
-      white: colors.white,
+      black: twColors.black,
+      white: twColors.white,
+      gray: themeColors.gray,
       foreground: {
-        DEFAULT: '#202823',
-        inactive: '#5B6B6C',
-        hover: '#363d39',
+        DEFAULT: themeColors.gray[800],
+        hover: themeColors.gray[700],
       },
-      background: colors.white,
+      background: twColors.white,
       muted: {
-        DEFAULT: '#8CA3A4',
+        DEFAULT: themeColors.gray[400],
       },
-      border: '#DAE3E4',
-      gray: colors.slate,
-      input: '#F2F7F7',
+      border: themeColors.gray[200],
+      pre: themeColors.gray[600],
+      input: themeColors.gray[100],
       primary: {
-        DEFAULT: '#41BB72',
-        hover: '#5FD58E',
-        foreground: colors.white,
+        DEFAULT: themeColors.green[500],
+        hover: themeColors.green[400],
+        foreground: twColors.white,
       },
-      pre: '#5B6B6C',
       danger: {
-        DEFAULT: colors.red[500],
-        hover: colors.red[400],
-        foreground: colors.white,
+        DEFAULT: twColors.red[500],
+        hover: twColors.red[400],
+        foreground: twColors.white,
       },
-      google: { DEFAULT: '#DB4437', foreground: colors.white, hover: '#EA6155' },
+      success: {
+        DEFAULT: themeColors.green[500],
+        hover: themeColors.green[500],
+        foreground: twColors.white,
+      },
+      google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
     },
     fontFamily: {
       body: ['Lato'],

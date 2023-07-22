@@ -47,7 +47,7 @@ export const Navbar: FC<NavbarProps> = () => {
                   <Link
                     key={`desktop-${item.label}`}
                     className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
-                      isActive ? 'underline text-foreground' : 'text-foreground-inactive'
+                      isActive ? 'underline text-foreground' : 'text-muted'
                     }`}
                     href={item.href}
                   >
@@ -56,11 +56,7 @@ export const Navbar: FC<NavbarProps> = () => {
                 )
               })}
               <button onClick={handleSignOut}>
-                <Icons.logout
-                  className="cursor-pointer text-foreground-inactive hover:text-primary"
-                  size={20}
-                  strokeWidth={2.5}
-                />
+                <Icons.logout className="cursor-pointer text-muted hover:text-primary" size={20} strokeWidth={2.5} />
               </button>
             </div>
 

@@ -114,14 +114,12 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
                 <Icons.pen className="cursor-pointer text-muted hover:text-foreground transition-all" size={20} />
               </button>
             </div>
-            <a
-              href={href}
-              target="_blank"
-              className="flex gap-2 items-center text-muted break-words pr-8 mb-1 hover:text-foreground/70 transition-all"
-            >
+            <div className="flex gap-2 items-center text-muted break-words pr-8 mb-1 ">
               <Icons.link size={18} />
-              <span>{href}</span>
-            </a>
+              <a href={href} className="hover:text-foreground transition-all" target="_blank">
+                {href}
+              </a>
+            </div>
 
             <div className="flex flex-row justify-between items-end">
               <div className="flex flex-col gap-4">

@@ -179,4 +179,5 @@ export const Icons = {
   email: Mail,
   title: Type,
   menu: Menu,
+  load: Loader2,
 }

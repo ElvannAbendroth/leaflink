@@ -5,14 +5,16 @@ import { Icons } from '@/components/Icons'
 interface ProfilePictureProps {
   src?: string
   size?: number
+  isLoading?: boolean
 }
 
 export const ProfilePicture: React.FC<ProfilePictureProps> = ({
   src = 'images/unknown-user.png',
   size = 120,
+  isLoading = false,
   ...props
 }) => {
-  return (
+  return !isLoading ? (
     <Image
       className="aspect-square object-cover rounded-full transition-all duration-500"
       src={src}
@@ -24,6 +26,8 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({
       priority={true}
       {...props}
     />
+  ) : (
+    <div className="h-[120px] w-[120px] bg-input rounded-full animate-pulse"></div>
   )
 }
 

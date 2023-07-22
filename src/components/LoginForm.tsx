@@ -10,18 +10,18 @@ import { signIn } from 'next-auth/react'
 interface LoginFormProps {}
 
 interface FormInputValues {
-  username: string
+  email: string
   password: string
 }
 
 export const LoginForm: FC<LoginFormProps> = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [userInfo, setUserInfo] = useState<FormInputValues>({
-    username: '',
+    email: '',
     password: '',
   })
 
-  const { username, password } = userInfo
+  const { email, password } = userInfo
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
@@ -31,7 +31,7 @@ export const LoginForm: FC<LoginFormProps> = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
     const res = await signIn('credentials', {
-      username,
+      email,
       password,
       redirect: true,
       callbackUrl: '/dashboard',
@@ -43,7 +43,7 @@ export const LoginForm: FC<LoginFormProps> = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       {errorMessage && <p>{errorMessage}</p>}
-      <InputGroup>
+      {/* <InputGroup>
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/
         </Label>
@@ -56,6 +56,13 @@ export const LoginForm: FC<LoginFormProps> = () => {
           placeholder="username"
           onChange={handleChange}
         />
+      </InputGroup> */}
+
+      <InputGroup>
+        <Label htmlFor="email">
+          <Icons.email />
+        </Label>
+        <Input required={true} value={email} type="email" name="email" placeholder="Email" onChange={handleChange} />
       </InputGroup>
 
       <InputGroup>

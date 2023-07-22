@@ -31,10 +31,10 @@ export const options: NextAuthOptions = {
       type: 'credentials',
       credentials: {},
       async authorize(credentials, req) {
-        const { username, password } = credentials as { username: string; password: string }
+        const { email, password } = credentials as { email: string; password: string }
 
         await startDb()
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ email: email })
         if (!user) return null
 
         const passwordMatch = await user.comparePassword(password)

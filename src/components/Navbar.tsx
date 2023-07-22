@@ -29,7 +29,7 @@ export const Navbar: FC<NavbarProps> = () => {
   }
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/login' })
+    signOut()
   }
 
   return (

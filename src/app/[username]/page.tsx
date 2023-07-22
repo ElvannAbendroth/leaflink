@@ -8,6 +8,7 @@ import { getUserByUsername } from '@/lib/data.client'
 import { notFound } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Icons } from '@/components/Icons'
+import { Skeleton } from '@/components/ui/Skeleton'
 
 export interface UserLinksPageProps {
   params: {
@@ -72,12 +73,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
           <SocialLinks socials={pageUser.socials} />
         </>
       ) : (
-        <div className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all animate-pulse">
-          <p className="typo-h4 p-6">
-            {' '}
-            <Icons.load className="text-muted/80 animate-spin items-center text-center mx-auto" />
-          </p>
-        </div>
+        <Skeleton className="flex justify-center items-center rounded-lg h-[72px]" />
       )}
     </div>
   )

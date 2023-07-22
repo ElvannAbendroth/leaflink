@@ -5,8 +5,6 @@ import { Icons } from '@/components/Icons'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
 
 interface RegisterFormProps {}

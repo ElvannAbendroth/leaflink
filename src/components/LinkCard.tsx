@@ -1,6 +1,6 @@
 'use client'
 import { Icons } from '@/components/Icons'
-import { Link } from '@/lib/types'
+import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
 import { ChangeEventHandler, FormEventHandler, useContext, useState } from 'react'
 import { InputGroup } from '@/components/ui/InputGroup'
@@ -8,16 +8,17 @@ import { Label } from '@/components/ui/Label'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { UserContext } from './UserProvider'
+import Link from 'next/link'
 
 interface LinkCardProps {
-  link: Link
+  link: LinkType
   isPublic?: boolean
 }
 
 export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
   const { removeLink, updateLink } = useContext(UserContext)
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
-  const [fieldValues, setFieldValues] = useState<Link>(link)
+  const [fieldValues, setFieldValues] = useState<LinkType>(link)
   const { title, href, isActive } = fieldValues
 
   const toggleEditMode = () => {
@@ -104,13 +105,23 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
       ) : (
         <div className="bg-input/60 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-8 items-start ">
           <div className="flex flex-col gap-4 flex-grow max-w-full">
-            <p className="typo-h4 flex gap-2 items-center justify-between">
-              {title}
+            <div className="flex gap-2 items-center justify-between">
+              <div className="flex gap-2 items-center typo-h4">
+                <Icons.title size={18} strokeWidth={3} />
+                {title}
+              </div>
               <button onClick={toggleEditMode}>
                 <Icons.pen className="cursor-pointer text-muted hover:text-foreground transition-all" size={20} />
               </button>
-            </p>
-            <p className="typo-p text-muted break-words pr-8">{href}</p>
+            </div>
+            <a
+              href={href}
+              target="_blank"
+              className="flex gap-2 items-center text-muted break-words pr-8 mb-1 hover:text-foreground/70 transition-all"
+            >
+              <Icons.link size={18} />
+              <span>{href}</span>
+            </a>
 
             <div className="flex flex-row justify-between items-end">
               <div className="flex flex-col gap-4">

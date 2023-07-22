@@ -20,7 +20,7 @@ export const Navbar: FC<NavbarProps> = () => {
   const navItems: NavItem[] = [
     { label: 'dashboard', href: '/dashboard' },
     { label: 'profile', href: '/profile' },
-    { label: user?.username || '#', href: `/${user?.username || '#'}` },
+    { label: 'preview' || '#', href: `/${user?.username || '#'}` },
   ]
 
   const toggleMobileMenu: MouseEventHandler<HTMLButtonElement | HTMLDivElement> = e => {

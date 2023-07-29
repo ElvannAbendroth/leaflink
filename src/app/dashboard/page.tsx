@@ -19,8 +19,6 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  //if (!user || !user.links) return null
-
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">

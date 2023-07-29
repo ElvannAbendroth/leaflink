@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import { Lato } from 'next/font/google'
 import { siteConfig } from '@/lib/config'
 import { Navbar } from '@/components/Navbar'
-import AuthProvider from '@/components/AuthProvider'
+import SessionProvider from '@/components/SessionProvider'
 import { getServerSession } from 'next-auth/next'
 import { options } from '@/lib/auth'
 import { UserProvider } from '@/components/UserProvider'
@@ -22,7 +22,7 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(options)
   return (
-    <AuthProvider session={session}>
+    <SessionProvider session={session}>
       <UserProvider>
         <html lang="en" className="scroll-smooth">
           <body className={`${lato.className}`}>
@@ -32,6 +32,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </body>
         </html>
       </UserProvider>
-    </AuthProvider>
+    </SessionProvider>
   )
 }

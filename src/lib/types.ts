@@ -70,3 +70,9 @@ export type Social = {
   github?: string
   website?: string
 }
+
+export interface RegisterFormInputFields {
+  username: string
+  email: string
+  password: string
+}

@@ -3,8 +3,8 @@
 import { CustomSession } from '@/lib/auth'
 import * as userService from '@/lib/data.client'
 import { useToast } from '@/lib/hooks/useToast'
-import { Link, UserData } from '@/lib/types'
-import { useSession } from 'next-auth/react'
+import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
+import { signIn, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 type UserContextProps = {
@@ -13,6 +13,8 @@ type UserContextProps = {
   addLink: (linkObject: Link) => void
   removeLink: (linkToRemove: Link) => void
   updateLink: (linkToUpdate: Link) => void
+  registerUser: (userInfo: RegisterFormInputFields) => void
+  loginUser: (email: string, password: string) => void
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -21,6 +23,8 @@ export const UserContext = createContext<UserContextProps>({
   addLink: () => {},
   removeLink: () => {},
   updateLink: () => {},
+  registerUser: () => {},
+  loginUser: () => {},
 })
 
 interface UserProviderProps {
@@ -132,8 +136,40 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
+  const registerUser = async (userInfo: RegisterFormInputFields) => {
+    const res = await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify(userInfo),
+    })
+
+    const body = await res.json()
+    res.ok
+      ? loginUser(userInfo.email, userInfo.password)
+      : toast({
+          title: 'Error',
+          description: `${body.error}`,
+          variant: 'danger',
+        })
+  }
+
+  const loginUser = async (email: string, password: string) => {
+    const res = await signIn('credentials', {
+      email,
+      password,
+      redirect: true,
+      callbackUrl: '/dashboard',
+    })
+
+    if (res?.error)
+      toast({
+        title: 'Error',
+        description: `${res.error}`,
+        variant: 'danger',
+      })
+  }
+
   return (
-    <UserContext.Provider value={{ user: user, updateUser, addLink, removeLink, updateLink }}>
+    <UserContext.Provider value={{ user, updateUser, addLink, removeLink, updateLink, registerUser, loginUser }}>
       {children}
     </UserContext.Provider>
   )

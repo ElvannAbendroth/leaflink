@@ -1,28 +1,25 @@
 'use client'
-import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FC, FormEventHandler, useContext, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Icons } from '@/components/Icons'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { signIn } from 'next-auth/react'
+import { RegisterFormInputFields } from '@/lib/types'
+import { UserContext } from './UserProvider'
 
 interface RegisterFormProps {}
 
-interface FormInputValues {
-  username: string
-  email: string
-  password: string
-}
-
 export const RegisterForm: FC<RegisterFormProps> = () => {
-  const [userInfo, setUserInfo] = useState<FormInputValues>({
+  const { registerUser } = useContext(UserContext)
+  const [userInfo, setUserInfo] = useState<RegisterFormInputFields>({
     username: '',
     email: '',
     password: '',
   })
 
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  // const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const { username, email, password } = userInfo
 
@@ -33,33 +30,12 @@ export const RegisterForm: FC<RegisterFormProps> = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    addUser(userInfo)
-  }
-
-  const addUser = async (userInfo: FormInputValues) => {
-    const res = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify(userInfo),
-    })
-
-    const body = await res.json()
-    res.ok ? loginUser() : setErrorMessage(body.error)
-  }
-
-  const loginUser = async () => {
-    const res = await signIn('credentials', {
-      email,
-      password,
-      redirect: true,
-      callbackUrl: '/dashboard',
-    })
-
-    if (res?.error) return setErrorMessage(res.error)
+    registerUser(userInfo)
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {errorMessage && <p className="text-danger">{errorMessage}</p>}
+      {/* {errorMessage && <p className="text-danger">{errorMessage}</p>} */}
       <InputGroup className="relative">
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/

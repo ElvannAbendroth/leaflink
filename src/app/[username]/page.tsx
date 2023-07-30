@@ -59,7 +59,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
           <ProfilePicture src={pageUser.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
         </a>
         <a target={websiteTarget} href={websiteRedirect} className="typo-p font-display font-semibold text-lg text">
-          @{username.toLowerCase()}
+          @{username}
         </a>
       </div>
       {/* Displays active links to the user's profile */}

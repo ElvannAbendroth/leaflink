@@ -1,3 +1,18 @@
+import { z } from 'zod'
+
+export const userRegisterSchema = z.object({
+  username: z
+    .string()
+    .min(5, { message: 'Username must be 3 or more characters long' })
+    .max(20, { message: 'Username must be 20 or fewer characters long' })
+    .regex(/^[a-zA-Z0-9._-]{3,16}$/, { message: 'Username can only contain letters, numbers, _ and - or .' }),
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(5, { message: 'Must be 5 or more characters long' })
+    .max(20, { message: 'Must be 20 or fewer characters long' }),
+})
+
 // Username
 // ^ asserts the start of the string.
 // [a-zA-Z0-9._-] matches any alphanumeric character, period, underscore, or hyphen.

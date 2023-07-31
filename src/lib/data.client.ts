@@ -32,3 +32,17 @@ export async function updateUser(userId: string, payload: {}) {
 
   return body.user
 }
+
+export async function deleteUser(userId: string) {
+  const res = await fetch(`/api/users/${userId}`, {
+    method: 'DELETE',
+    cache: 'no-store',
+  })
+
+  const body = await res.json()
+  console.log(body)
+  // Validates the Response Status
+  if (!res?.ok) throw new Error(body.message)
+
+  return body.user
+}

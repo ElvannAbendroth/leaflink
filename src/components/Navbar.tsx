@@ -40,7 +40,7 @@ export const Navbar: FC<NavbarProps> = () => {
         {user ? (
           <div id="nav-items" className="flex items-center">
             {/* Desktop Nav Items: shows only on desktop */}
-            <div className="hidden sm:flex items-center gap-8">
+            <div className="hidden sm:flex items-center gap-6">
               {navItems.map(item => {
                 const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
                 return (

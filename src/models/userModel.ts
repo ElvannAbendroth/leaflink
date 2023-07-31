@@ -14,6 +14,9 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
     unique: true,
     trim: true,
   },
+  name: {
+    type: String,
+  },
   email: {
     type: String,
     minLength: 3,

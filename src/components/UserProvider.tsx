@@ -4,7 +4,7 @@ import { CustomSession } from '@/lib/auth'
 import * as userService from '@/lib/data.client'
 import { useToast } from '@/lib/hooks/useToast'
 import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 
 type UserContextProps = {
@@ -15,6 +15,7 @@ type UserContextProps = {
   updateLink: (linkToUpdate: Link) => void
   registerUser: (userInfo: RegisterFormInputFields) => void
   loginUser: (email: string, password: string) => void
+  deleteUser: (id: string) => void
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -25,6 +26,7 @@ export const UserContext = createContext<UserContextProps>({
   updateLink: () => {},
   registerUser: () => {},
   loginUser: () => {},
+  deleteUser: () => {},
 })
 
 interface UserProviderProps {
@@ -167,9 +169,31 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
         variant: 'danger',
       })
   }
+  const deleteUser = async (id: string) => {
+    console.log(id)
+    userService
+      .deleteUser(id)
+      .then(res => {
+        signOut()
+        toast({
+          title: 'Success!',
+          description: `Your account was deleted`,
+          variant: 'inverted',
+        })
+      })
+      .catch(error => {
+        toast({
+          title: 'Error!',
+          description: `${error}`,
+          variant: 'danger',
+        })
+      })
+  }
 
   return (
-    <UserContext.Provider value={{ user, updateUser, addLink, removeLink, updateLink, registerUser, loginUser }}>
+    <UserContext.Provider
+      value={{ user, updateUser, addLink, removeLink, updateLink, registerUser, loginUser, deleteUser }}
+    >
       {children}
     </UserContext.Provider>
   )

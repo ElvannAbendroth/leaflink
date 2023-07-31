@@ -32,6 +32,7 @@ export type User = {
   username: string
 }
 export interface UserData extends User {
+  name?: string
   email: string
   website?: string
   imageUrl?: string
@@ -46,6 +47,7 @@ export interface UserCredentials extends User {
 // Database User Document
 export interface UserDocument extends Document {
   username: string
+  name: string
   email: string
   password?: string
   imageUrl: string

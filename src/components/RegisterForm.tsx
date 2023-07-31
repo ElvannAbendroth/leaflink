@@ -5,7 +5,6 @@ import { Icons } from '@/components/Icons'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { signIn } from 'next-auth/react'
 import { RegisterFormInputFields } from '@/lib/types'
 import { UserContext } from './UserProvider'
 

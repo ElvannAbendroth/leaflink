@@ -3,7 +3,7 @@ import { Link, Social } from '@/lib/types'
 import { NextResponse } from 'next/server'
 import User from '@/models/userModel'
 import bcrypt from 'bcrypt'
-import { userRegisterSchema } from '@/lib/validation'
+import { userSchema } from '@/lib/validation'
 import { z } from 'zod'
 
 interface NewUserRequest {
@@ -38,7 +38,8 @@ export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const body = (await req.json()) as NewUserRequest
     const { username, email, password } = body
-    userRegisterSchema.parse({ username, email, password })
+    //userRegisterSchema.parse({ username, email, password })
+    //userSchema.parse(body)
 
     await startDb()
 

@@ -25,9 +25,10 @@ export async function updateUser(userId: string, payload: {}) {
     cache: 'no-store',
   })
 
-  // Validates the Response Status
-  if (!res?.ok) throw new Error('There was an error adding this link!')
-
   const body = await res.json()
+  console.log(body)
+  // Validates the Response Status
+  if (!res?.ok) throw new Error(body.message)
+
   return body.user
 }

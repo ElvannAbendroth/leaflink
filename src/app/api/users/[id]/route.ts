@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import User from '@/models/userModel'
 import startDb from '@/lib/db'
 import { getSessionUser } from '@/lib/data.server'
+import { z } from 'zod'
 
 export async function GET(req: Request, { params }: any) {
   try {
@@ -23,9 +24,19 @@ export async function PUT(req: Request, { params }: any) {
     }
 
     const body = await req.json()
+    await startDb()
+    // Ensures that a the user doesn't change their username to an existing username
+    const existingUser = await User.findOne({ username: { $regex: new RegExp(`^${body.username}$`, 'i') } })
+
+    if (existingUser && existingUser.id != sessionUser.id) {
+      return NextResponse.json(
+        { message: 'This username is already in use.  Please choose a different username!' },
+        { status: 422 }
+      )
+    }
+
     const payload = { ...body }
 
-    await startDb()
     let user = await User.findByIdAndUpdate(params.id, { $set: payload }, { returnDocument: 'after' })
 
     if (user === null) {
@@ -37,6 +48,10 @@ export async function PUT(req: Request, { params }: any) {
       user: user,
     })
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      const errorMessage = JSON.stringify(error.issues[0].message)
+      return NextResponse.json({ error: `${errorMessage}` }, { status: 422 })
+    }
     return NextResponse.json({ message: `${error}` })
   }
 }

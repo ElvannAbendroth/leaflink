@@ -2,15 +2,6 @@
 
 A [Linktree](https://linktr.ee/) clone built using Next, NextAuth, Tailwind & MongoDB.
 
-<<<<<<< HEAD
-LIVE DEMO: http://www.leaflink.vercel.app
-=======
-> **Warning**
-> This app is a work in progress that I'm building in public. It is currently in alpha. Make sure to read the security notes down below before using.
-
-LIVE DEMO: https://leaflink.vercel.app/
->>>>>>> 66f5cbd32032ace5fb88781f1623568479a427b8
-
 ## About this Project
 
 This project is an learning experiment on how to build a simple, modern fullstack web application using NextJS 13 and server components, and is currently in Beta stage.

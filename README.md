@@ -5,7 +5,7 @@ A [Linktree](https://linktr.ee/) clone built using Next, NextAuth, Tailwind & Mo
 > **Warning**
 > This app is a work in progress that I'm building in public. It is currently in alpha. Make sure to read the security notes down below before using.
 
-LIVE DEMO: http://www.leaflink.vercel.app
+LIVE DEMO: https://leaflink.vercel.app/
 
 ## About this Project
 

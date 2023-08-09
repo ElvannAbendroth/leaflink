@@ -4,6 +4,7 @@ import startDb from '@/lib/db'
 import { getSessionUser } from '@/lib/data.server'
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
+import { userSchema, usernameSchema } from '@/lib/validation'
 
 export async function GET(req: Request, { params }: any) {
   try {
@@ -25,6 +26,9 @@ export async function PUT(req: Request, { params }: any) {
     }
 
     let body = await req.json()
+
+    // Validation
+    userSchema.parse(body)
 
     //If a new password is in the body, encrypt it.
     if (body.password) {

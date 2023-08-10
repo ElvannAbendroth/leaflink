@@ -38,8 +38,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const body = (await req.json()) as NewUserRequest
     const { username, email, password } = body
-    //userRegisterSchema.parse({ username, email, password })
-    //userSchema.parse(body)
+    userSchema.parse(body)
 
     await startDb()
 

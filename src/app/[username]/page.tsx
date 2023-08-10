@@ -4,10 +4,9 @@ import LinkCard from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 import { SocialLinks } from '@/components/SocialLinks'
 import { UserData } from '@/lib/types'
-import { getUserByUsername } from '@/lib/data.client'
-import { notFound } from 'next/navigation'
+import { getUserByUsername } from '@/services/userService'
+import { notFound, redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Icons } from '@/components/Icons'
 import { Skeleton } from '@/components/ui/Skeleton'
 
 export interface UserLinksPageProps {
@@ -29,37 +28,32 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
   const [pageUser, setPageUser] = useState<UserData>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const getUser = async () => {
-    try {
-      setIsLoading(true)
-      const user = await getUserByUsername(username)
-      setPageUser(user)
-      setIsLoading(false)
-    } catch (error) {
-      notFound()
-    }
-  }
-
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        setIsLoading(true)
+        const user = await getUserByUsername(username)
+        setPageUser(user)
+        setIsLoading(false)
+      } catch (error) {
+        notFound()
+      }
+    }
     getUser()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [username])
 
   if (!pageUser) return notFound()
 
-  const websiteRedirect = pageUser.website || '#'
-  const websiteTarget = pageUser.website ? '_blank' : '_self'
   const activeLinks = pageUser.links.filter(link => link.isActive === true)
 
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">
-        <a target={websiteTarget} href={websiteRedirect}>
+        <a target="_blank" href={pageUser.website || '#'}>
           <ProfilePicture src={pageUser.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
         </a>
-        <a target={websiteTarget} href={websiteRedirect} className="typo-p font-display font-semibold text-lg text">
-          @{username}
+        <a target="_blank" href={pageUser.website || '#'} className="typo-p font-display font-semibold text-lg text">
+          @{pageUser.username || username}
         </a>
       </div>
       {/* Displays active links to the user's profile */}

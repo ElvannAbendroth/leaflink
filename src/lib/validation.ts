@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const usernameSchema = z
   .string()
-  .min(5, { message: 'Username must be 3 or more characters long' })
+  .min(3, { message: 'Username must be 3 or more characters long' })
   .max(20, { message: 'Username must be 20 or fewer characters long' })
   .regex(/^[a-zA-Z0-9._-]{3,20}$/, { message: 'Username can only contain letters, numbers, _ and - or .' })
 

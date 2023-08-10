@@ -1,18 +1,10 @@
 import { NextAuthOptions, Session } from 'next-auth'
-// import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 import User from '@/models/userModel'
-import { AdapterUser } from 'next-auth/adapters'
 import { makeSafe } from './utils'
-import { JWT } from 'next-auth/jwt'
 import { UserDocument } from './types'
-
-interface SessionUser extends AdapterUser {
-  username: string | null | undefined // Add the username property
-  id: string
-}
 
 export interface CustomSession extends Session {
   user: UserDocument
@@ -20,7 +12,7 @@ export interface CustomSession extends Session {
 
 export const options: NextAuthOptions = {
   session: {
-    strategy: 'jwt', //I think this is default
+    strategy: 'jwt',
   },
   providers: [
     GoogleProvider({
@@ -49,6 +41,7 @@ export const options: NextAuthOptions = {
     signOut: '/logout',
   },
   callbacks: {
+    //TODO: Return only necessary user information, or maybe user data should be handled directly from the session??
     session: ({ session, token, user }) => {
       return {
         ...session,

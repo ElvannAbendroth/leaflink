@@ -1,4 +1,4 @@
-import { Link, UserDocument } from '@/lib/types'
+import { UserDocument } from '@/lib/types'
 
 /* Function used in public page */
 export const getUserByUsername = async (username: string) => {
@@ -7,7 +7,7 @@ export const getUserByUsername = async (username: string) => {
   if (!res?.ok) throw new Error('Error while fetching user.')
   const users = await res.json()
 
-  const user = users.find((user: UserDocument) => user.username === username)
+  const user = users.find((user: UserDocument) => user.username.toLowerCase() === username.toLowerCase())
   return user
 }
 
@@ -26,10 +26,8 @@ export async function updateUser(userId: string, payload: {}) {
   })
 
   const body = await res.json()
-  console.log(body)
   // Validates the Response Status
   if (!res?.ok) throw new Error(body.message)
-
   return body.user
 }
 
@@ -40,9 +38,12 @@ export async function deleteUser(userId: string) {
   })
 
   const body = await res.json()
-  console.log(body)
   // Validates the Response Status
-  if (!res?.ok) throw new Error(body.message)
+  if (!res?.ok) return body.message
 
   return body.user
 }
+
+const userService = { getUserByUsername, getUserById, updateUser, deleteUser }
+
+export default userService

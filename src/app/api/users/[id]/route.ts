@@ -55,13 +55,13 @@ export async function PUT(req: Request, { params }: any) {
     }
 
     return NextResponse.json({
-      message: `User with username '${user.username}' at id ${user.id} was successfully updated!`,
+      message: `Your information was successfully updated!`,
       user: user,
     })
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errorMessage = JSON.stringify(error.issues[0].message)
-      return NextResponse.json({ error: `${errorMessage}` }, { status: 422 })
+      return NextResponse.json({ message: `${errorMessage}` }, { status: 422 })
     }
     return NextResponse.json({ message: `${error}` })
   }
@@ -73,13 +73,12 @@ export async function DELETE(req: Request, { params }: any) {
 
     // Validates the session user
     if (!sessionUser || params.id !== sessionUser.id) {
-      return NextResponse.json({ error: 'You are not authorized to perform this action' }, { status: 403 })
+      return NextResponse.json({ message: 'You are not authorized to perform this action' }, { status: 403 })
     }
 
     await startDb()
     // Ensures that a the user doesn't change their username to an existing username
     const userToDelete = await User.findByIdAndDelete(params.id)
-    console.log(userToDelete)
 
     return NextResponse.json({
       message: `Your account was deleted.`,

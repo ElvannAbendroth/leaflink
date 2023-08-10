@@ -25,7 +25,8 @@ The goal of this app is to create a simple content management system that allows
 
 - [ ] Google Authentication with **NextAuth.js**
 - [ ] Page Theme Customization
-- [ ] UX Imnprovement for User Account Management
+- [ ] UX Improvement for User Account Management
+- [ ] UI Improvements for Form (validation states & error messages display)
 - [ ] Login with Google
 - [ ] Unit Testing for Validation
 - [ ] Integration Testing

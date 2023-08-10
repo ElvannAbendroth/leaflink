@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { CustomSession } from '@/lib/auth'
-import * as userService from '@/lib/data.client'
+import userService from '@/services/userService'
 import { useToast } from '@/lib/hooks/useToast'
 import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -56,15 +56,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .then(data => {
         setUser(data)
         toast({
-          title: 'Success!',
-          description: `User information was successfully updated!`,
+          title: `User information was successfully updated!`,
           variant: 'inverted',
         })
       })
       .catch(error => {
         toast({
-          title: 'Error!',
-          description: `${error}`,
+          title: `${error}`,
           variant: 'danger',
         })
       })
@@ -79,15 +77,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .then(data => {
         setUser(data)
         toast({
-          title: 'Success!',
-          description: `Your link "${newLink.title}" was successfully added!`,
+          title: `New Link successfully added!`,
           variant: 'inverted',
         })
       })
       .catch(error => {
         toast({
-          title: 'Error!',
-          description: `${error}`,
+          title: `${error}`,
           variant: 'danger',
         })
       })
@@ -104,15 +100,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .then(data => {
         setUser(data)
         toast({
-          title: 'Success!',
-          description: `Your link "${linkToRemove.title}" was successfully removed!`,
+          title: `Link successfully removed!`,
           variant: 'inverted',
         })
       })
       .catch(error => {
         toast({
-          title: 'Error!',
-          description: `${error}`,
+          title: `${error}`,
           variant: 'danger',
         })
       })
@@ -131,8 +125,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
       .catch(error => {
         toast({
-          title: 'Error!',
-          description: `${error}`,
+          title: `${error}`,
           variant: 'danger',
         })
       })
@@ -164,8 +157,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
     if (res?.error)
       toast({
-        title: 'Error',
-        description: `${res.error}`,
+        title: `${res.error}`,
         variant: 'danger',
       })
   }
@@ -176,15 +168,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .then(res => {
         signOut()
         toast({
-          title: 'Success!',
-          description: `Your account was deleted`,
+          title: `Your account was deleted`,
           variant: 'inverted',
         })
       })
       .catch(error => {
         toast({
-          title: 'Error!',
-          description: `${error}`,
+          title: `${error}`,
           variant: 'danger',
         })
       })

@@ -4,7 +4,7 @@ import startDb from '@/lib/db'
 import { getSessionUser } from '@/lib/data.server'
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
-import { userSchema, usernameSchema } from '@/lib/validation'
+import { userSchema } from '@/lib/validation'
 
 export async function GET(req: Request, { params }: any) {
   try {

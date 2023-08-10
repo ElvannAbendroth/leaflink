@@ -14,6 +14,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
     unique: true,
     trim: true,
   },
+  description: { type: String },
   name: {
     type: String,
   },

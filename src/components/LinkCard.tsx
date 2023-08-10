@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/Label'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { UserContext } from './UserProvider'
-import Link from 'next/link'
 
 interface LinkCardProps {
   link: LinkType
@@ -114,9 +113,9 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
                 <Icons.pen className="cursor-pointer text-muted hover:text-foreground transition-all" size={20} />
               </button>
             </div>
-            <div className="flex gap-2 items-center text-muted break-words pr-8 mb-1 ">
-              <Icons.link size={18} />
-              <a href={href} className="hover:text-foreground transition-all" target="_blank">
+            <div className="flex gap-2 text-muted items-start pr-8 mb-1 ">
+              <Icons.link size={18} className="min-w-[18px] mt-1" />
+              <a href={href} className="hover:text-foreground transition-all break-words overflow-auto" target="_blank">
                 {href}
               </a>
             </div>

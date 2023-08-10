@@ -29,6 +29,7 @@ export const linkSchema = z
 export const userSchema = z
   .object({
     username: usernameSchema,
+    description: z.string().max(140, { message: 'Description must be 140 characters or less' }),
     email: z.string().email('Invalid email format'),
     website: z.string().url('Invalid Website URL'),
     imageUrl: z.string().url('Invalid Image URL'),

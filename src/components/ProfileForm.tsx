@@ -16,6 +16,7 @@ interface ProfileFormFields {
   name: string
   email: string
   username: string
+  description: string
   website: string
   imageUrl: string
   socials: Social
@@ -32,7 +33,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
 
   if (!user || !formValues) return null
 
-  const { username, imageUrl, website, socials, name, email, password } = formValues
+  const { username, description, imageUrl, website, socials, name, email, password } = formValues
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
@@ -74,6 +75,20 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
             onChange={handleChange}
           />
         </InputGroup>
+
+        <InputGroup>
+          <Label htmlFor="description">
+            <Icons.title />
+          </Label>
+          <Input
+            type="text"
+            placeholder="Write something about you!"
+            name="description"
+            value={description || ''}
+            onChange={handleChange}
+          />
+        </InputGroup>
+
         <InputGroup>
           <Label htmlFor="imageUrl">
             <Icons.media />

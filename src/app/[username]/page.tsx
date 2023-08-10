@@ -47,7 +47,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
   const activeLinks = pageUser.links.filter(link => link.isActive === true)
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-col justify-center items-center">
         <a target="_blank" href={pageUser.website || '#'}>
           <ProfilePicture src={pageUser.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
@@ -55,7 +55,9 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
         <a target="_blank" href={pageUser.website || '#'} className="typo-p font-display font-semibold text-lg text">
           @{pageUser.username || username}
         </a>
+        {pageUser.description && <p className="my-6">{pageUser.description}</p>}
       </div>
+
       {/* Displays active links to the user's profile */}
       {!isLoading ? (
         <>

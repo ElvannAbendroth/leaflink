@@ -31,6 +31,9 @@ export default function DashboardPage() {
         >
           @{user?.username}
         </Link>
+        <Link href="/profile" className="typo-p">
+          {user?.description}
+        </Link>
       </div>
 
       {!isLoading ? (

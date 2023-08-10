@@ -12,6 +12,8 @@ const buttonVariants = cva(
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted/50 focus-visible:ring-offset-2 ring-offset-background',
     //disabled states
     'disabled:opacity-50 disabled:pointer-events-none',
+    //animations
+    'transition-all',
   ],
   {
     variants: {
@@ -19,6 +21,8 @@ const buttonVariants = cva(
         default: 'bg-foreground text-background hover:bg-foreground-hover',
         primary: 'bg-primary text-primary-foreground hover:bg-primary-hover',
         danger: 'bg-danger text-danger-foreground hover:bg-danger-hover',
+        link: 'bg-transparent text-foreground hover:text-primary',
+        ghost: 'text-foreground hover:bg-foreground/5',
       },
       size: {
         default: 'py-4 px-8',

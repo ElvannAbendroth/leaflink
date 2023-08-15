@@ -7,6 +7,7 @@ import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Social } from '@/lib/types'
 import { UserContext } from './UserProvider'
+import { Textarea } from '@/components/ui/Textarea'
 
 interface ProfileFormProps {
   // user: UserData | UserDocument
@@ -76,7 +77,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
           />
         </InputGroup>
 
-        <InputGroup>
+        <InputGroup className="whitespace-break-spaces">
           <Label htmlFor="description">
             <Icons.title />
           </Label>
@@ -86,6 +87,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
             name="description"
             value={description || ''}
             onChange={handleChange}
+            className="h-32 rounded-3xl "
           />
         </InputGroup>
 

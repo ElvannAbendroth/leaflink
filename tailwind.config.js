@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const twColors = require('tailwindcss/colors')
-const themeColors = require('./src/lib/theme')
+const themeColors = require('./src/styles/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
@@ -10,6 +10,7 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/styles/**/*.{js,ts,jsx,tsx,mdx}',
     './mdx-components.tsx',
   ],
   theme: {

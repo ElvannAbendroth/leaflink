@@ -15,8 +15,6 @@ export default function DashboardPage() {
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   return (
@@ -31,7 +29,7 @@ export default function DashboardPage() {
         >
           @{user?.username}
         </Link>
-        <Link href="/profile" className="typo-p">
+        <Link href="/profile" className="typo-p text-center">
           {user?.description}
         </Link>
       </div>

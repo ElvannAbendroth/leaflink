@@ -1,24 +1,45 @@
 import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+const textareaVariants = cva(
+  [
+    // general styling
+    'flex min-h-[80px] w-full rounded-3xl border border-input bg-input   placeholder:text-muted-foreground  ring-offset-background   placeholder:text-muted-foreground ',
+    //focus states
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-ring',
+    //disabled states
+    'disabled:cursor-not-allowed disabled:opacity-50',
+  ],
+  {
+    variants: {
+      variant: {
+        default: 'p-4 py-4 px-8',
+        sm: 'py-3 px-6',
+      },
+      icon: {
+        default: 'pl-16',
+        none: '',
+        sm: 'pl-14',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      icon: 'default',
+    },
+  }
+)
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, onChange, ...props }, ref) => {
-  return (
-    <textarea
-      className={cn(
-        'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-        className
-      )}
-      ref={ref}
-      onChange={onChange}
-      {...props}
-    />
-  )
+export type TextareaVariant = VariantProps<typeof textareaVariants>
+
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof textareaVariants> {}
+
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, variant, icon, ...props }, ref) => {
+  return <textarea className={cn(textareaVariants({ variant, icon, className }))} ref={ref} {...props} />
 })
 Textarea.displayName = 'Textarea'
 
 export { Textarea }
-
-//TODO: Fix this component, dunno how to use onChange??? Getting a TS Error

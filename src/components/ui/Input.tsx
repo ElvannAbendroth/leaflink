@@ -17,7 +17,6 @@ const inputVariants = cva(
       variant: {
         default: 'p-4 py-4 px-8',
         sm: 'py-3 px-6',
-        textArea: 'p-4 py-4 px-8',
       },
       icon: {
         default: 'pl-16',

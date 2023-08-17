@@ -36,7 +36,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
 
   const { username, description, imageUrl, website, socials, name, email, password } = formValues
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = ({ target }) => {
     const { name, value } = target
     setFormValues({ ...formValues, [name]: value })
   }
@@ -77,17 +77,16 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
           />
         </InputGroup>
 
-        <InputGroup className="whitespace-break-spaces">
+        <InputGroup className="">
           <Label htmlFor="description">
             <Icons.title />
           </Label>
-          <Input
-            type="text"
+          <Textarea
             placeholder="Write something about you!"
             name="description"
             value={description || ''}
             onChange={handleChange}
-            className="h-32 rounded-3xl "
+            className=""
           />
         </InputGroup>
 

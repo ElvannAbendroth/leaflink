@@ -1,19 +1,48 @@
 'use client'
-import { FC } from 'react'
+import { FC, HTMLAttributes, MouseEventHandler, useState } from 'react'
 import { Icons } from '@/components/Icons'
 import { NavItem } from '@/lib/types'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
+import { cn } from '@/lib/utils'
+import { signOut, useSession } from 'next-auth/react'
 
-interface MobileMenuProps {
+interface MobileMenuProps extends HTMLAttributes<HTMLDivElement> {
   navItems: NavItem[]
-  toggleMobileMenu: any
-  handleSignOut: any
 }
 
-export const MobileMenu: FC<MobileMenuProps> = ({ navItems, toggleMobileMenu, handleSignOut }) => {
+export const MobileMenu: FC<MobileMenuProps> = ({ navItems, className }) => {
+  const session = useSession()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleSignOut = () => {
+    signOut()
+  }
+
+  const toggleMobileMenu: MouseEventHandler<HTMLButtonElement | HTMLDivElement> = e => {
+    e.stopPropagation()
+    setIsOpen(!isOpen)
+  }
+
+  if (session.status === 'unauthenticated')
+    return (
+      <Link
+        href="/login"
+        className="flex items-center gap-2 font-semibold hover:text-foreground text-muted cursor-pointer"
+      >
+        <Icons.login size={18} strokeWidth={3} />
+      </Link>
+    )
+
+  if (!isOpen)
+    return (
+      <button className="flex sm:hidden" onClick={toggleMobileMenu}>
+        <Icons.menu />
+      </button>
+    )
+
   return (
-    <div onClick={toggleMobileMenu} className="bg-input fixed w-full top-0 bottom-0 left-0 py-6 px-8">
+    <div onClick={toggleMobileMenu} className={cn('bg-input fixed w-full top-0 bottom-0 left-0 py-6 px-8', className)}>
       <div id="mobile-menu-header" className="flex justify-between items-start place-content-start mb-10">
         <Logo />
         <button onClick={toggleMobileMenu}>

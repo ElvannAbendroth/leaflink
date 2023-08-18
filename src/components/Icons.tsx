@@ -40,6 +40,8 @@ import {
   Type,
   type Icon as LucideIcon,
   Menu,
+  LayoutDashboard,
+  EyeIcon,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -180,4 +182,6 @@ export const Icons = {
   title: Type,
   menu: Menu,
   load: Loader2,
+  dashboard: LayoutDashboard,
+  preview: EyeIcon,
 }

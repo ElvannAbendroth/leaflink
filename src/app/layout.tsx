@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth/next'
 import { options } from '@/lib/auth'
 import { UserProvider } from '@/components/UserProvider'
 import { Toaster } from '@/components/ui/Toaster'
+import { RemoveScroll } from 'react-remove-scroll'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 
@@ -24,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <SessionProvider session={session}>
       <UserProvider>
-        <html lang="en" className="scroll-smooth">
+        <html lang="en" className={`scroll-smooth`}>
           <body className={`${lato.className}`}>
             <Navbar />
             <main className="max-w-content mx-auto pt-36 pb-12 px-8">{children}</main>

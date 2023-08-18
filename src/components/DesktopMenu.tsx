@@ -1,12 +1,20 @@
 'use client'
-import { FC, HTMLAttributes } from 'react'
+import { FC, HTMLAttributes, useContext } from 'react'
 import { Icons } from '@/components/Icons'
 import { NavItem } from '@/lib/types'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { signOut } from 'next-auth/react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar'
+import { UserContext } from './UserProvider'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu'
 
 interface DesktopMenuProps extends HTMLAttributes<HTMLDivElement> {
   navItems: NavItem[]
@@ -15,10 +23,7 @@ interface DesktopMenuProps extends HTMLAttributes<HTMLDivElement> {
 export const DesktopMenu: FC<DesktopMenuProps> = ({ navItems, className }) => {
   const pathname = usePathname()
   const session = useSession()
-
-  const handleSignOut = () => {
-    signOut()
-  }
+  const { user } = useContext(UserContext)
 
   if (session.status === 'unauthenticated')
     return (
@@ -32,23 +37,40 @@ export const DesktopMenu: FC<DesktopMenuProps> = ({ navItems, className }) => {
 
   return (
     <div className={cn('items-center gap-6', className)}>
-      {navItems.map(item => {
-        const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
-        return (
-          <Link
-            key={`desktop-${item.label}`}
-            className={`text-sm font-display lowercase font-semibold hover:underline underline-offset-4 decoration-2 hover:text-primary ${
-              isActive ? 'underline text-foreground' : 'text-muted'
-            }`}
-            href={item.href}
-          >
-            {item.label}
-          </Link>
-        )
-      })}
-      <button onClick={handleSignOut}>
-        <Icons.logout className="cursor-pointer text-muted hover:text-primary" size={18} strokeWidth={2.5} />
-      </button>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted/50 focus-visible:ring-offset-2 ring-offset-background">
+          <Avatar>
+            <AvatarImage src={user?.imageUrl || 'images/unknown-user.png'} alt={`@${user?.username}`} />
+            <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56 p-2" side="bottom" align="end" sideOffset={10}>
+          {navItems.map(item => {
+            const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
+
+            if (item.type === 'page')
+              return (
+                <DropdownMenuItem asChild key={`desktop-${item.label}`}>
+                  <Link
+                    className={`flex gap-2 items-center text-foreground ${isActive && ' font-bold'}`}
+                    href={item.href}
+                  >
+                    {item.icon} {item.label}
+                  </Link>
+                </DropdownMenuItem>
+              )
+            if (item.type === 'separator') return <DropdownMenuSeparator key={item.label} />
+            if (item.type === 'button')
+              return (
+                <DropdownMenuItem key={item.label}>
+                  <button className="flex gap-2 items-center" onClick={item.action}>
+                    <Icons.logout className="" size={16} /> Logout
+                  </button>
+                </DropdownMenuItem>
+              )
+          })}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   )
 }

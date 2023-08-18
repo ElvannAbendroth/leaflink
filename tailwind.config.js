@@ -47,6 +47,10 @@ module.exports = {
         foreground: twColors.white,
       },
       google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
+      card: twColors.white,
+      popover: { DEFAULT: twColors.white, foreground: themeColors.gray[800] },
+      accent: { DEFAULT: themeColors.gray[100], foreground: themeColors.gray[800] },
+      border: themeColors.gray[200],
     },
     fontFamily: {
       body: ['Lato'],

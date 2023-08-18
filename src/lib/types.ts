@@ -18,7 +18,11 @@ export type SiteConfig = {
 export type NavItem = {
   label: string
   href: string
+  action?: () => void
   disabled?: boolean
+  icon?: string | React.ReactNode
+  hasSeparator?: boolean
+  type: 'page' | 'button' | 'separator'
 }
 
 export type Author = {

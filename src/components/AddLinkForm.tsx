@@ -7,11 +7,20 @@ import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Link } from '@/lib/types'
 import { UserContext } from './UserProvider'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/Dialog'
 
 interface AddLinkFormProps {}
 
 export const AddLinkForm: FC<AddLinkFormProps> = () => {
   const { addLink } = useContext(UserContext)
+  const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<Link>({
     title: '',
     href: '',
@@ -28,52 +37,62 @@ export const AddLinkForm: FC<AddLinkFormProps> = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
     addLink(fieldValues)
+    setOpen(false)
     setFieldValues({ title: '', href: '', isActive: true })
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      id="add-link-card"
-      className="flex flex-col gap-4 outline outline-border outline-2 rounded-lg p-8"
-    >
-      <InputGroup>
-        <Label variant="sm" htmlFor="title">
-          <Icons.title size={20} />
-        </Label>
-        <Input
-          value={title}
-          type="text"
-          placeholder="Title"
-          variant="sm"
-          icon="sm"
-          name="title"
-          onChange={handleChange}
-          required
-        />
-      </InputGroup>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="primary" size="sm">
+          <Icons.add size={20} />
+          Add link
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="typo-h2">Add a new link</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} id="add-link-card" className="flex flex-col gap-4">
+          <InputGroup>
+            <Label variant="sm" htmlFor="title">
+              <Icons.title size={20} />
+            </Label>
+            <Input
+              value={title}
+              type="text"
+              placeholder="Title"
+              variant="sm"
+              icon="sm"
+              name="title"
+              onChange={handleChange}
+              required
+            />
+          </InputGroup>
 
-      <InputGroup>
-        <Label variant="sm" htmlFor="href">
-          <Icons.link size={20} />
-        </Label>
-        <Input
-          type="url"
-          placeholder="URL"
-          variant="sm"
-          icon="sm"
-          name="href"
-          value={href}
-          onChange={handleChange}
-          required
-        />
-      </InputGroup>
+          <InputGroup>
+            <Label variant="sm" htmlFor="href">
+              <Icons.link size={20} />
+            </Label>
+            <Input
+              type="url"
+              placeholder="URL"
+              variant="sm"
+              icon="sm"
+              name="href"
+              value={href}
+              onChange={handleChange}
+              required
+            />
+          </InputGroup>
 
-      <Button type="submit" variant="primary" size="sm">
-        <Icons.add size={20} />
-        Add link
-      </Button>
-    </form>
+          <Button type="submit" variant="primary" size="sm">
+            <Icons.add size={20} />
+            Add link
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
   )
 }
 

@@ -8,6 +8,16 @@ import { Link as LinkType } from '@/lib/types'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
+import { Button } from '@/components/ui/Button'
+import { Icons } from '@/components/Icons'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/Dialog'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
@@ -34,6 +44,23 @@ export default function DashboardPage() {
         </Link>
       </div>
 
+      <AddLinkForm />
+
+      {/* <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="primary" size="sm">
+            <Icons.add size={20} />
+            Add link
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="typo-h2">Add a new link</DialogTitle>
+          </DialogHeader>
+          <AddLinkForm />
+        </DialogContent>
+      </Dialog> */}
+
       {!isLoading ? (
         <>
           {user?.links.length === 0 ? (
@@ -45,7 +72,6 @@ export default function DashboardPage() {
       ) : (
         <Skeleton className="flex justify-center items-center rounded-lg h-[172px]" />
       )}
-      <AddLinkForm />
     </div>
   )
 }

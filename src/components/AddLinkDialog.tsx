@@ -7,18 +7,11 @@ import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Link } from '@/lib/types'
 import { UserContext } from './UserProvider'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 
-interface AddLinkFormProps {}
+interface AddLinkDialogProps {}
 
-export const AddLinkForm: FC<AddLinkFormProps> = () => {
+export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
   const { addLink } = useContext(UserContext)
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<Link>({
@@ -96,4 +89,4 @@ export const AddLinkForm: FC<AddLinkFormProps> = () => {
   )
 }
 
-export default AddLinkForm
+export default AddLinkDialog

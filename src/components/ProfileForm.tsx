@@ -7,7 +7,15 @@ import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
 import { Social } from '@/lib/types'
 import { UserContext } from './UserProvider'
-import { Textarea } from '@/components/ui/Textarea'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/Dialog'
+import { redirect } from 'next/navigation'
 
 interface ProfileFormProps {
   // user: UserData | UserDocument
@@ -23,6 +31,7 @@ interface ProfileFormFields {
 export const ProfileForm: FC<ProfileFormProps> = () => {
   const { user, updateUser, deleteUser } = useContext(UserContext)
   const [formValues, setFormValues] = useState<ProfileFormFields | null>(null)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setFormValues(user as ProfileFormFields)
@@ -37,99 +46,18 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
     setFormValues({ ...formValues, [name]: value })
   }
 
-  const handleChangeSocials: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { name, value } = target
-    setFormValues({ ...formValues, socials: { ...formValues.socials, [name]: value } })
-  }
-
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault()
     updateUser(formValues)
   }
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Do you really want to delete this account?')) {
-      deleteUser(id)
-    }
+    deleteUser(id)
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="mt-14 flex flex-col gap-6">
-        <h2 className="typo-h2">Socials</h2>
-        <InputGroup>
-          <Label htmlFor="instagram">
-            <Icons.instagram />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your Instagram Link"
-            name="instagram"
-            onChange={handleChangeSocials}
-            value={socials?.instagram}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="facebook">
-            <Icons.facebook />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your Facebook Link"
-            name="facebook"
-            onChange={handleChangeSocials}
-            value={socials?.facebook}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="youtube">
-            <Icons.youtube />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your YouTube Link"
-            name="youtube"
-            onChange={handleChangeSocials}
-            value={socials?.youtube}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="twitter">
-            <Icons.twitter />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your Twitter Link"
-            name="twitter"
-            onChange={handleChangeSocials}
-            value={socials?.twitter}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="gitHub">
-            <Icons.gitHub />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your Github Link"
-            name="github"
-            onChange={handleChangeSocials}
-            value={socials?.github}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="website">
-            <Icons.link />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your Website Link"
-            name="website"
-            onChange={handleChangeSocials}
-            value={socials?.website}
-          />
-        </InputGroup>
-        <h2 className="typo-h2">Account</h2>
         <InputGroup>
           <Label htmlFor="name">
             <Icons.user />
@@ -158,9 +86,41 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
           Save settings
         </Button>
       </form>
-      <Button onClick={() => handleDelete(user.id)} variant="danger" className="mt-6">
-        delete account
-      </Button>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="danger" className="mt-6">
+            Delete account
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="typo-h2">Are you sure absolutely sure?</DialogTitle>
+            <DialogDescription>
+              <p className="typo-p">
+                This action cannot be undone. This will permanently delete your account and remove your data from our
+                servers.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-4">
+            <Button
+              onClick={e => {
+                e.preventDefault()
+                setOpen(false)
+              }}
+              size="sm"
+              variant="default"
+              className=""
+            >
+              Cancel
+            </Button>
+            <Button size="sm" onClick={() => handleDelete(user.id)} variant="danger" className="">
+              Delete account
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

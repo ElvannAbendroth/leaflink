@@ -15,7 +15,6 @@ interface NavbarProps {}
 export const Navbar: FC<NavbarProps> = () => {
   const navItems: NavItem[] = [
     { type: 'page', label: 'Page Manager', href: '/dashboard', icon: Icons.dashboard },
-    { type: 'page', label: 'Page Settings', href: '/profile', icon: Icons.settings },
     {
       type: 'page',
       label: 'View Page',
@@ -24,6 +23,8 @@ export const Navbar: FC<NavbarProps> = () => {
     },
     { type: 'separator', label: 'separator 1', href: '#' },
     // { type: 'page', label: 'My Account', href: `/account`, icon: Icons.user },
+    { type: 'page', label: 'My Account', href: '/account', icon: Icons.user },
+
     { type: 'button', label: 'Logout', href: '#', icon: Icons.logout, action: () => signOut() },
   ]
 

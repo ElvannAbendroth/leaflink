@@ -10,6 +10,7 @@ import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { PageSettingsDialog } from '@/components/PageSettingsDialog'
 import { SocialLinks } from '@/components/SocialLinks'
+import { SocialsFormDialog } from '@/components/SocialsFormDialog'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
@@ -30,6 +31,7 @@ export default function DashboardPage() {
       </div>
       <div className="flex flex-col  gap-4">
         <PageSettingsDialog user={user} isLoading={isLoading} />
+        <SocialsFormDialog />
         <AddLinkDialog />
       </div>
 

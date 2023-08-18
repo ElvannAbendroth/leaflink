@@ -7,7 +7,6 @@ import { getServerSession } from 'next-auth/next'
 import { options } from '@/lib/auth'
 import { UserProvider } from '@/components/UserProvider'
 import { Toaster } from '@/components/ui/Toaster'
-import { RemoveScroll } from 'react-remove-scroll'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 

@@ -1,4 +1,6 @@
-# Linkleaf
+# Leaflink
+
+DEMO: https://leaflink.vercel.app/
 
 A [Linktree](https://linktr.ee/) clone built using Next, NextAuth, Tailwind & MongoDB.
 

@@ -5,7 +5,7 @@ import { NavItem } from '@/lib/types'
 import { MobileMenu } from '@/components//MobileMenu'
 import { Logo } from '@/components/Logo'
 import { UserContext } from './UserProvider'
-import { DesktopMenu } from './DesktopMenu'
+import { ProfileDropdownMenu } from './ProfileDropdownMenu'
 import { Icons } from './Icons'
 import { signOut } from 'next-auth/react'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -16,17 +16,17 @@ export const Navbar: FC<NavbarProps> = () => {
   const { user } = useContext(UserContext)
 
   const navItems: NavItem[] = [
-    { type: 'page', label: 'Page Manager', href: '/dashboard', icon: <Icons.dashboard size={16} /> },
-    { type: 'page', label: 'Page Settings', href: '/profile', icon: <Icons.settings size={16} /> },
+    { type: 'page', label: 'Page Manager', href: '/dashboard', icon: Icons.dashboard },
+    { type: 'page', label: 'Page Settings', href: '/profile', icon: Icons.settings },
     {
       type: 'page',
       label: 'View Page',
-      href: `/${user?.username || '#'}`,
-      icon: <Icons.preview size={16} />,
+      href: `/view`,
+      icon: Icons.preview,
     },
     { type: 'separator', label: 'separator 1', href: '#' },
-    // { type: 'page', label: 'My Account', href: `/account`, icon: <Icons.user size={16} /> },
-    { type: 'button', label: 'Logout', href: '#', icon: <Icons.logout size={16} />, action: () => signOut() },
+    // { type: 'page', label: 'My Account', href: `/account`, icon: Icons.user },
+    { type: 'button', label: 'Logout', href: '#', icon: Icons.logout, action: () => signOut() },
   ]
 
   return (
@@ -35,7 +35,7 @@ export const Navbar: FC<NavbarProps> = () => {
         <Logo />
 
         <div id="nav-items" className={`flex items-center`}>
-          <DesktopMenu className="" navItems={navItems} />
+          <ProfileDropdownMenu navItems={navItems} />
 
           {/* <MobileMenu className="fixed sm:hidden" navItems={navItems} /> */}
         </div>

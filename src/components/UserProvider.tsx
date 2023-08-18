@@ -6,6 +6,7 @@ import { useToast } from '@/lib/hooks/useToast'
 import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { redirect } from 'next/navigation'
 
 type UserContextProps = {
   user: UserData | null
@@ -147,6 +148,8 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
         })
   }
 
+  //TODO: Fix the notification on this function
+  //the problem is the page gets refreshed before the toast runs
   const loginUser = async (email: string, password: string) => {
     const res = await signIn('credentials', {
       email,

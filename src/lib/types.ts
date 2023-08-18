@@ -1,3 +1,4 @@
+import { LucideIcon } from 'lucide-react'
 import { Document } from 'mongoose'
 
 export type SiteConfig = {
@@ -20,8 +21,7 @@ export type NavItem = {
   href: string
   action?: () => void
   disabled?: boolean
-  icon?: string | React.ReactNode
-  hasSeparator?: boolean
+  icon?: LucideIcon
   type: 'page' | 'button' | 'separator'
 }
 

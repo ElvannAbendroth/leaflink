@@ -1,11 +1,11 @@
 'use client'
-import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react'
+import { ChangeEventHandler, FC, FormEventHandler, useContext, useState } from 'react'
 import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Label } from '@/components/ui/Label'
 import { InputGroup } from './ui/InputGroup'
-import { signIn } from 'next-auth/react'
+import { UserContext } from './UserProvider'
 
 interface LoginFormProps {}
 
@@ -15,7 +15,7 @@ interface FormInputValues {
 }
 
 export const LoginForm: FC<LoginFormProps> = () => {
-  const [errorMessage, setErrorMessage] = useState('')
+  const { loginUser } = useContext(UserContext)
   const [userInfo, setUserInfo] = useState<FormInputValues>({
     email: '',
     password: '',
@@ -28,21 +28,13 @@ export const LoginForm: FC<LoginFormProps> = () => {
     setUserInfo({ ...userInfo, [name]: value })
   }
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-    const res = await signIn('credentials', {
-      email,
-      password,
-      redirect: true,
-      callbackUrl: '/dashboard',
-    })
-
-    if (res?.error) return setErrorMessage(res.error)
+    loginUser(email, password)
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-      {errorMessage && <p>{errorMessage}</p>}
       {/* <InputGroup>
         <Label htmlFor="username">
           <Icons.logo /> leaf.link/

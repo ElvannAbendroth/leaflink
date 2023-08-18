@@ -1,6 +1,7 @@
 import { UserDocument } from '@/lib/types'
 
 /* Function used in public page */
+//TODO: Fix this cuz very not performant to loop through users like that.
 export const getUserByUsername = async (username: string) => {
   const res = await fetch(`/api/users/`, { cache: 'no-store' })
 

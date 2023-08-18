@@ -16,11 +16,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu'
 
-interface DesktopMenuProps extends HTMLAttributes<HTMLDivElement> {
+interface ProfileDropdownMenuProps extends HTMLAttributes<HTMLDivElement> {
   navItems: NavItem[]
 }
 
-export const DesktopMenu: FC<DesktopMenuProps> = ({ navItems, className }) => {
+export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, className }) => {
   const pathname = usePathname()
   const session = useSession()
   const { user } = useContext(UserContext)
@@ -55,7 +55,7 @@ export const DesktopMenu: FC<DesktopMenuProps> = ({ navItems, className }) => {
                     className={`flex gap-2 items-center text-foreground ${isActive && ' font-bold'}`}
                     href={item.href}
                   >
-                    {item.icon} {item.label}
+                    {item.icon && <item.icon size={16} />} {item.label}
                   </Link>
                 </DropdownMenuItem>
               )

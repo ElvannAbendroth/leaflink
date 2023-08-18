@@ -13,8 +13,6 @@ import { RemoveScroll } from 'react-remove-scroll'
 interface NavbarProps {}
 
 export const Navbar: FC<NavbarProps> = () => {
-  const { user } = useContext(UserContext)
-
   const navItems: NavItem[] = [
     { type: 'page', label: 'Page Manager', href: '/dashboard', icon: Icons.dashboard },
     { type: 'page', label: 'Page Settings', href: '/profile', icon: Icons.settings },
@@ -30,15 +28,15 @@ export const Navbar: FC<NavbarProps> = () => {
   ]
 
   return (
-    <nav className={`bg-background py-6 px-8 fixed top-0 left-0 right-0 z-50  ${RemoveScroll.classNames.zeroRight}`}>
-      <div className="flex justify-between max-w-layout mx-auto items-center">
+    <nav
+      className={`bg-background py-4 px-4 sm:px-8 fixed top-0 left-0 right-0 z-50  ${RemoveScroll.classNames.zeroRight}`}
+    >
+      <div className="flex justify-between max-w-layout mx-auto">
         <Logo />
 
-        <div id="nav-items" className={`flex items-center`}>
-          <ProfileDropdownMenu navItems={navItems} />
+        <ProfileDropdownMenu navItems={navItems} />
 
-          {/* <MobileMenu className="fixed sm:hidden" navItems={navItems} /> */}
-        </div>
+        {/* <MobileMenu className="fixed sm:hidden" navItems={navItems} /> */}
       </div>
     </nav>
   )

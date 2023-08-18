@@ -42,9 +42,21 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
           Add link
         </Button>
       </DialogTrigger>
+      {/* <DialogTrigger asChild>
+        <Button
+          title="Add Link"
+          variant="primary"
+          size="sm"
+          className="fixed bottom-0 self-center m-6 w-12 h-12 p-3 rounded-full"
+        >
+          <Icons.add size={20} strokeWidth={2.5} />
+        </Button>
+      </DialogTrigger> */}
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="typo-h2">Add a new link</DialogTitle>
+          <DialogTitle>
+            <h2 className="typo-h2 text-foreground">Add a New Link</h2>
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} id="add-link-card" className="flex flex-col gap-4">
           <InputGroup>

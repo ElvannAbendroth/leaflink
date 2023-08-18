@@ -55,7 +55,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
         <a target="_blank" href={pageUser.website || '#'} className="typo-p font-display font-semibold text-lg text">
           @{pageUser.username || username}
         </a>
-        {pageUser.description && <p className="my-6 text-center">{pageUser.description}</p>}
+        {pageUser.description && <p className="my-6 text-center text-muted">{pageUser.description}</p>}
       </div>
 
       {/* Displays active links to the user's profile */}

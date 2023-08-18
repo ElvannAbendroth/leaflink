@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import Image from 'next/image'
 import { Icons } from '@/components/Icons'
 import { Skeleton } from '@/components/ui/Skeleton'
@@ -9,7 +9,7 @@ interface ProfilePictureProps {
   isLoading?: boolean
 }
 
-export const ProfilePicture: React.FC<ProfilePictureProps> = ({
+export const ProfilePicture: FC<ProfilePictureProps> = ({
   src = 'images/unknown-user.png',
   size = 120,
   isLoading = false,
@@ -32,7 +32,7 @@ export const ProfilePicture: React.FC<ProfilePictureProps> = ({
   )
 }
 
-export const ProfilePictureEditable: React.FC<ProfilePictureProps> = ({ src, size = 120, isLoading }) => {
+export const ProfilePictureEditable: FC<ProfilePictureProps> = ({ src, size = 120, isLoading }) => {
   return (
     <div className="rounded-full relative shadow-md ">
       <div className="absolute hover:bg-background/50 flex justify-center items-center w-full h-full opacity-0 hover:opacity-100 transition-all duration-500 aspect-square">

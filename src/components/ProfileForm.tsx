@@ -16,10 +16,6 @@ interface ProfileFormProps {
 interface ProfileFormFields {
   name: string
   email: string
-  username: string
-  description: string
-  website: string
-  imageUrl: string
   socials: Social
   password?: string
 }
@@ -34,7 +30,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
 
   if (!user || !formValues) return null
 
-  const { username, description, imageUrl, website, socials, name, email, password } = formValues
+  const { socials, name, email, password } = formValues
 
   const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = ({ target }) => {
     const { name, value } = target
@@ -60,60 +56,6 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="mt-14 flex flex-col gap-6">
-        <div>
-          <h2 className="typo-h2">User</h2>
-        </div>
-        <InputGroup>
-          <Label htmlFor="username">
-            <Icons.logo /> leaf.link/
-          </Label>
-          <Input
-            className="pl-32"
-            type="text"
-            placeholder="username"
-            name="username"
-            value={username}
-            onChange={handleChange}
-          />
-        </InputGroup>
-
-        <InputGroup className="">
-          <Label htmlFor="description">
-            <Icons.title />
-          </Label>
-          <Textarea
-            placeholder="Write something about you!"
-            name="description"
-            value={description || ''}
-            onChange={handleChange}
-            className=""
-          />
-        </InputGroup>
-
-        <InputGroup>
-          <Label htmlFor="imageUrl">
-            <Icons.media />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert your profile image URL"
-            name="imageUrl"
-            value={imageUrl || ''}
-            onChange={handleChange}
-          />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="website">
-            <Icons.link />
-          </Label>
-          <Input
-            type="url"
-            placeholder="Insert URL for your profile username & image"
-            name="website"
-            value={website || ''}
-            onChange={handleChange}
-          />
-        </InputGroup>
         <h2 className="typo-h2">Socials</h2>
         <InputGroup>
           <Label htmlFor="instagram">

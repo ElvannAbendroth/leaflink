@@ -1,13 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 import Link from 'next/link'
-import { ProfilePictureEditable } from '@/components/ProfilePicture'
+import { ProfilePicture, ProfilePictureEditable } from '@/components/ProfilePicture'
 import AddLinkDialog from '@/components/AddLinkDialog'
 import LinkCard from '@/components/LinkCard'
 import { Link as LinkType } from '@/lib/types'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
+import { PageSettingsDialog } from '@/components/PageSettingsDialog'
+import { SocialLinks } from '@/components/SocialLinks'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
@@ -20,21 +22,16 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">
-        <Link href="/profile">
-          <ProfilePictureEditable src={user?.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
-        </Link>
-        <Link
-          href="/profile"
-          className="typo-p font-display font-semibold text-lg text flex gap-2 items-center hover:text-foreground hover:text-foreground/80"
-        >
+        <ProfilePicture src={user?.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
+        <p className="typo-p font-display font-semibold text-lg text flex gap-2 items-center hover:text-foreground hover:text-foreground/80">
           @{user?.username}
-        </Link>
-        <Link href="/profile" className="typo-p text-center">
-          {user?.description}
-        </Link>
+        </p>
+        <p className="typo-p text-center rounded-lg px-8 items-start text-muted">{user?.description}</p>
       </div>
-
-      <AddLinkDialog />
+      <div className="flex flex-col  gap-4">
+        <PageSettingsDialog user={user} isLoading={isLoading} />
+        <AddLinkDialog />
+      </div>
 
       {!isLoading ? (
         <>
@@ -43,6 +40,7 @@ export default function DashboardPage() {
           ) : (
             user?.links?.map((link: LinkType) => <LinkCard key={link._id} link={link} />)
           )}
+          {user?.socials && <SocialLinks socials={user.socials} />}
         </>
       ) : (
         <Skeleton className="flex justify-center items-center rounded-lg h-[172px]" />

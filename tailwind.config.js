@@ -30,7 +30,7 @@ module.exports = {
       },
       border: themeColors.gray[200],
       pre: themeColors.gray[600],
-      input: themeColors.gray[100],
+      input: { DEFAULT: themeColors.gray[100], hover: themeColors.gray[50] },
       primary: {
         DEFAULT: themeColors.green[500],
         hover: themeColors.green[400],

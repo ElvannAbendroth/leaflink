@@ -2,22 +2,25 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import { Icons } from '@/components/Icons'
 import { Skeleton } from '@/components/ui/Skeleton'
+import { cn } from '@/lib/utils'
 
 interface ProfilePictureProps {
   src?: string
   size?: number
   isLoading?: boolean
+  className?: string
 }
 
 export const ProfilePicture: FC<ProfilePictureProps> = ({
   src = 'images/unknown-user.png',
   size = 120,
   isLoading = false,
+  className,
   ...props
 }) => {
   return !isLoading ? (
     <Image
-      className="aspect-square object-cover rounded-full transition-all duration-500"
+      className={cn(`aspect-square object-cover rounded-full transition-all duration-500`, className)}
       src={src}
       alt="profile picture"
       width={size}

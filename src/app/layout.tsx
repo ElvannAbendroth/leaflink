@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <html lang="en" className={`scroll-smooth`}>
           <body className={`${lato.className}`}>
             <Navbar />
-            <main className="max-w-content mx-auto pt-36 pb-12 px-4 sm:px-8">{children}</main>
+            <main className="max-w-content mx-auto pt-44 sm:pt-36 pb-12 px-4 sm:px-8">{children}</main>
             <footer className="p-8 pb-10 ">
               <p className="typo-p text-sm text-center text-muted">
                 Webapp created with NextJS 13, Tailwind & MongoDB by Oodri. Checkout the project on{' '}

@@ -30,7 +30,6 @@ export default function DashboardPage() {
         <p className="typo-p text-center rounded-lg px-8 items-start text-muted">{user?.description}</p>
       </div>
       <div className="flex flex-col  gap-4">
-        <PageSettingsDialog user={user} isLoading={isLoading} />
         <SocialsFormDialog />
         <AddLinkDialog />
       </div>

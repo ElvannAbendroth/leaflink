@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 const buttonVariants = cva(
   [
     // general styling
-    'flex gap-2 rounded-full items-center justify-center self-stretch w-full transition-all',
+    'flex gap-2 rounded-full items-center justify-center  transition-all',
     //focus states
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted/50 focus-visible:ring-offset-2 ring-offset-background',
     //disabled states
@@ -19,14 +19,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-foreground text-background hover:bg-foreground-hover',
+        subtle: 'bg-input hover:bg-input-hover border-input border-2',
+        outline: 'bg-background hover:bg-input border-input border-2',
         primary: 'bg-primary text-primary-foreground hover:bg-primary-hover',
         danger: 'bg-danger text-danger-foreground hover:bg-danger-hover',
         link: 'bg-transparent text-foreground hover:text-primary',
         ghost: 'text-foreground hover:bg-foreground/5',
       },
       size: {
-        default: 'py-4 px-8',
+        default: 'py-4 px-8 w-full',
         sm: 'py-3 px-6',
+        xs: 'px-4 text-xs min-h-full',
       },
     },
     defaultVariants: {

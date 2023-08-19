@@ -56,10 +56,10 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       .updateUser(user.id, payload)
       .then(data => {
         setUser(data)
-        toast({
-          title: `User information was successfully updated!`,
-          variant: 'inverted',
-        })
+        // toast({
+        //   description: `User information was successfully updated!`,
+        //   variant: 'default',
+        // })
       })
       .catch(error => {
         toast({

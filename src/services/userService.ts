@@ -20,6 +20,7 @@ export async function getUserById(id: string) {
 }
 
 export async function updateUser(userId: string, payload: {}) {
+  console.log('🔥')
   const res = await fetch(`/api/users/${userId}`, {
     method: 'PUT',
     body: JSON.stringify(payload),

@@ -42,6 +42,10 @@ import {
   Menu,
   LayoutDashboard,
   EyeIcon,
+  Palette,
+  BarChartBig,
+  BrushIcon,
+  Share2,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -184,4 +188,8 @@ export const Icons = {
   load: Loader2,
   dashboard: LayoutDashboard,
   preview: EyeIcon,
+  style: Palette,
+  analytics: BarChartBig,
+  brush: BrushIcon,
+  social: Share2,
 }

@@ -22,7 +22,7 @@ export type NavItem = {
   action?: () => void
   disabled?: boolean
   icon?: LucideIcon
-  type: 'page' | 'button' | 'separator'
+  type: 'page' | 'button' | 'separator' | 'tab'
 }
 
 export type Author = {

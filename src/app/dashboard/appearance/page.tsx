@@ -13,6 +13,9 @@ import { request } from 'http'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 import { useSearchParams } from 'next/navigation'
 import { ProfileTab } from './ProfileTab'
+import { SocialTab } from './SocialTab'
+import { Social } from '@/lib/types'
+import { ThemeTab } from './ThemeTab'
 
 interface AppearancePageProps {}
 
@@ -21,6 +24,11 @@ export interface ProfileFormFields {
   description: string
   website: string
   imageUrl: string
+  socials: Social
+}
+
+interface SocialsFormDialogFields {
+  socials: Social
 }
 
 export default function AppearancePage({}) {
@@ -43,12 +51,24 @@ export default function AppearancePage({}) {
 
   const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = ({ target }) => {
     const { name, value } = target
-    const newFormValues = { ...formValues, [name]: value }
+    const newFormValues = { ...formValues, [name]: value || '' }
+    setFormValues(newFormValues)
+    debounceRequest(newFormValues)
+  }
+  const handleChangeSocials: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    const { name, value } = target
+    const newFormValues = { ...formValues, socials: { ...formValues.socials, [name]: value || '' } }
     setFormValues(newFormValues)
     debounceRequest(newFormValues)
   }
 
   return (
-    <div className="mt-8 sm:mt-0">{isActive && <ProfileTab formValues={formValues} handleChange={handleChange} />}</div>
+    <div className="mt-8 sm:mt-0">
+      {(currentTab === 'Profile' || currentTab === null) && (
+        <ProfileTab formValues={formValues} handleChange={handleChange} />
+      )}
+      {currentTab === 'Social' && <SocialTab socials={formValues.socials} handleChangeSocials={handleChangeSocials} />}
+      {currentTab === 'Theme' && <ThemeTab />}
+    </div>
   )
 }

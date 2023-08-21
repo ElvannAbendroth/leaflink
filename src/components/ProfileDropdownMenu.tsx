@@ -40,7 +40,7 @@ export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, cl
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted/50 focus-visible:ring-offset-2 ring-offset-background">
           <Avatar>
-            <AvatarImage src={user?.imageUrl || 'images/unknown-user.png'} alt={`@${user?.username}`} />
+            <AvatarImage src={user?.imageUrl} alt={`@${user?.username}`} />
             <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
@@ -52,7 +52,7 @@ export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, cl
               return (
                 <DropdownMenuItem asChild key={`desktop-${item.label}`}>
                   <Link
-                    className={`flex gap-2 items-center text-foreground ${isActive && ' font-bold'}`}
+                    className={`flex gap-2 w-full items-center text-foreground ${isActive && ' font-bold'}`}
                     href={item.href}
                   >
                     {item.icon && <item.icon size={16} />} {item.label}
@@ -62,8 +62,8 @@ export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, cl
             if (item.type === 'separator') return <DropdownMenuSeparator key={item.label} />
             if (item.type === 'button')
               return (
-                <DropdownMenuItem key={item.label}>
-                  <button className="flex gap-2 items-center" onClick={item.action}>
+                <DropdownMenuItem key={item.label} asChild>
+                  <button className="flex gap-2 items-center w-full" onClick={item.action}>
                     <Icons.logout className="" size={16} /> Logout
                   </button>
                 </DropdownMenuItem>

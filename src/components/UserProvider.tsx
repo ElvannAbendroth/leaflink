@@ -6,7 +6,7 @@ import { useToast } from '@/lib/hooks/useToast'
 import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 type UserContextProps = {
   user: UserData | null
@@ -38,6 +38,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const sessionData = useSession()?.data as CustomSession
   const { toast } = useToast()
   const [user, setUser] = useState<UserData | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     sessionData &&
@@ -47,7 +48,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
           setUser(user)
         })
         .catch(error => console.log(error))
-  }, [setUser])
+  }, [setUser, user, sessionData])
 
   const updateUser = async (dataToUpdate: any) => {
     if (!user) throw new Error('A link can only be added when a user is logged in')
@@ -154,16 +155,21 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     const res = await signIn('credentials', {
       email,
       password,
-      redirect: true,
+      redirect: false,
       callbackUrl: '/dashboard',
     })
 
-    if (res?.error)
+    if (res?.error) {
       toast({
         title: `${res.error}`,
         variant: 'danger',
       })
+    }
+    if (res?.url) {
+      router.push(res?.url)
+    }
   }
+
   const deleteUser = async (id: string) => {
     console.log(id)
     userService

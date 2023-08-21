@@ -42,7 +42,7 @@
   }
 
   .typo-p {
-    @apply leading-7 [&:not(:first-child)]:my-6;
+    @apply leading-7 [&:not(:first-child)]:my-3 sm:[&:not(:first-child)]:my-6;
   }
 
   .typo-blockquote {

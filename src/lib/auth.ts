@@ -30,7 +30,7 @@ export const options: NextAuthOptions = {
         if (!user) return null
 
         const passwordMatch = await user.comparePassword(password)
-        if (!passwordMatch) return null
+        if (!passwordMatch) throw new Error('Invalid password')
 
         return makeSafe(user)
       },

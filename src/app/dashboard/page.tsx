@@ -21,7 +21,9 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col justify-center items-center">
-        <ProfilePictureEditable src={user?.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
+        <Link href="/dashboard/appearance">
+          <ProfilePictureEditable src={user?.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
+        </Link>
         <p className="typo-p font-display font-semibold text-lg text flex gap-2 items-center hover:text-foreground hover:text-foreground/80">
           @{user?.username}
         </p>

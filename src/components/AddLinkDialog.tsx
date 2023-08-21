@@ -45,7 +45,7 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <h3 className="typo-h2 text-foreground">Add a New Link</h3>
+            <h2 className="typo-h3 text-left pl-2 text-foreground">Add a New Link</h2>
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} id="add-link-card" className="flex flex-col gap-4">

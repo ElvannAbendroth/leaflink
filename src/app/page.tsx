@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { options } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 import Image from 'next/image'
-import { Button, buttonVariants } from '@/components/ui/Button'
+import { buttonVariants } from '@/components/ui/Button'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 

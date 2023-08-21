@@ -15,13 +15,13 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: 'p-4 py-4 px-8',
-        sm: 'py-3 px-6',
+        default: 'p-4 py-4 pl-6',
+        sm: 'py-3 pl-4',
       },
       icon: {
         default: 'pl-16',
         none: '',
-        sm: 'pl-14',
+        sm: 'pl-12',
       },
     },
     defaultVariants: {

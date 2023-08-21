@@ -15,7 +15,7 @@ const textareaVariants = cva(
   {
     variants: {
       variant: {
-        default: 'p-4 py-4 px-8',
+        default: 'p-4 py-4 pl-6',
         sm: 'py-3 px-6',
       },
       icon: {

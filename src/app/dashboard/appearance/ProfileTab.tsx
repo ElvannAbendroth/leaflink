@@ -35,7 +35,7 @@ export const ProfileTab: FC<ProfileTabProps> = ({ formValues, handleChange }) =>
                 <Icons.logo /> leaf.link/
               </Label>
               <Input
-                className="pl-32"
+                className="pl-28 ml-2"
                 type="text"
                 placeholder="username"
                 name="username"

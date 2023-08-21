@@ -11,8 +11,8 @@ const labelVariants = cva(
   {
     variants: {
       variant: {
-        default: 'py-4 px-8',
-        sm: 'py-3 px-6',
+        default: 'py-4 pl-6',
+        sm: 'py-3 pl-6',
       },
     },
     defaultVariants: {

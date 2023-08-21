@@ -99,11 +99,7 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-              <Icons.trash
-                //onClick={handleDeleteButton}
-                className="cursor-pointer text-muted hover:text-danger transition-all"
-                size={18}
-              />
+              <Icons.trash className="cursor-pointer text-muted hover:text-danger transition-all" size={18} />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

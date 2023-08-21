@@ -102,8 +102,8 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
           </Button>
         </form>
       ) : (
-        <div className="bg-gray-50 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-8 items-start ">
-          <div className="flex flex-col gap-4 flex-grow max-w-full">
+        <div className="bg-gray-50 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-6 items-start ">
+          <div className="flex flex-col gap-3 flex-grow max-w-full">
             <div className="flex gap-2 items-center justify-between">
               <div className="flex gap-2 items-center typo-h4">
                 <Icons.title size={18} strokeWidth={3} />
@@ -113,8 +113,8 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
                 <Icons.pen className="cursor-pointer text-muted hover:text-foreground transition-all" size={20} />
               </button>
             </div>
-            <div className="flex gap-2 text-muted items-start pr-8 mb-1 ">
-              <Icons.link size={18} className="min-w-[18px] mt-1" />
+            <div className="flex gap-2 text-muted items-start pr-8 mb-1 text-sm">
+              <Icons.link size={16} className="min-w-[18px] mt-1" />
               <a href={href} className="hover:text-foreground transition-all break-words overflow-auto" target="_blank">
                 {href}
               </a>

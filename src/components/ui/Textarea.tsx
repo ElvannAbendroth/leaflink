@@ -6,9 +6,9 @@ import { cn } from '@/lib/utils'
 const textareaVariants = cva(
   [
     // general styling
-    'flex min-h-[80px] w-full rounded-3xl border border-input bg-input   placeholder:text-muted-foreground  ring-offset-background   placeholder:text-muted-foreground ',
+    'flex min-h-[120px] sm:min-h-[100px] w-full rounded-3xl border border-input bg-input placeholder:text-muted-foreground  ring-offset-background   placeholder:text-muted-foreground ',
     //focus states
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-ring',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-primary/50',
     //disabled states
     'disabled:cursor-not-allowed disabled:opacity-50',
   ],

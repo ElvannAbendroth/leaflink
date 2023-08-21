@@ -19,7 +19,7 @@ export default function DashboardPage() {
   }, [user])
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-col justify-center items-center">
         <Link href="/dashboard/appearance">
           <ProfilePictureEditable src={user?.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />

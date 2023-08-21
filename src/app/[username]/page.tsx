@@ -47,10 +47,14 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
   const activeLinks = pageUser.links.filter(link => link.isActive === true)
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col justify-center items-center -mt-14 sm:mt-0">
         <a target="_blank" href={pageUser.website || '#'}>
-          <ProfilePicture src={pageUser.imageUrl || 'images/unknown-user.png'} isLoading={isLoading} />
+          <ProfilePicture
+            src={pageUser.imageUrl || 'images/unknown-user.png'}
+            isLoading={isLoading}
+            className="hover:shadow-lg hover:opacity-90 transition-all hover:scale-105"
+          />
         </a>
         <a target="_blank" href={pageUser.website || '#'} className="typo-p font-display font-semibold text-lg text">
           @{pageUser.username || username}
@@ -62,7 +66,9 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
       {!isLoading ? (
         <>
           {activeLinks.length === 0 ? (
-            <p className="typo-p text-center italic text-muted">This user doesn't have links to show yet!</p>
+            <p className="typo-p text-center italic text-muted -mt-14 sm:mt-0">
+              This user doesn't have links to show yet!
+            </p>
           ) : (
             activeLinks.map(link => <LinkCard key={link.title} link={link} isPublic={true} />)
           )}

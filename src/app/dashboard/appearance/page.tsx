@@ -30,9 +30,8 @@ export default function AppearancePage({}) {
     setFormValues(user as ProfileFormFields)
   }, [user])
 
-  const request = debounce((formValues: ProfileFormFields) => updateUser(formValues), 3000)
-
-  const debounceRequest = useCallback((formValues: ProfileFormFields) => request(formValues), [user])
+  const request = debounce(updateUser, 3000)
+  const debounceRequest = useCallback(request, [user]) //allows sending only 1 request after the debounce
 
   if (!user || !formValues) return null
 

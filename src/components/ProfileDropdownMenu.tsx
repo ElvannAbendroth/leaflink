@@ -44,7 +44,7 @@ export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, cl
             <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 p-2" side="bottom" align="end" sideOffset={10}>
+        <DropdownMenuContent className="w-56 p-2" side="bottom" align="end" sideOffset={5} alignOffset={10}>
           {navItems.map(item => {
             const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
 

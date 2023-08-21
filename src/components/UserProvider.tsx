@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { CustomSession } from '@/lib/auth'
 import userService from '@/services/userService'
@@ -48,10 +47,10 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
           setUser(user)
         })
         .catch(error => console.log(error))
-  }, [setUser, user, sessionData])
+  }, [setUser, sessionData])
 
   const updateUser = async (dataToUpdate: any) => {
-    if (!user) throw new Error('A link can only be added when a user is logged in')
+    if (!user) throw new Error('There is no user to update.')
     const payload = { ...dataToUpdate }
     userService
       .updateUser(user.id, payload)
@@ -93,7 +92,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
   const removeLink = async (linkToRemove: Link) => {
     //I only really need the id, but lets do that later
-    if (!user) throw new Error('A link can only be added when a user is logged in')
+    if (!user) throw new Error('A link can only be removed when a user is logged in')
 
     const payload = { links: user.links.filter(oldLink => linkToRemove._id != oldLink._id) }
 
@@ -116,7 +115,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
   const updateLink = async (linkToUpdate: Link) => {
     //I only really need the id, but lets do that later
-    if (!user) throw new Error('A link can only be added when a user is logged in')
+    if (!user) throw new Error('A link can only be updated when a user is logged in')
 
     const payload = { links: user.links.map(oldLink => (linkToUpdate._id != oldLink._id ? oldLink : linkToUpdate)) }
 
@@ -171,7 +170,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   }
 
   const deleteUser = async (id: string) => {
-    console.log(id)
     userService
       .deleteUser(id)
       .then(res => {

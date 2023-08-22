@@ -51,22 +51,14 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
             <Label htmlFor="title">
               <Icons.title size={20} />
             </Label>
-            <Input
-              value={title}
-              type="text"
-              placeholder="Title"
-              icon="sm"
-              name="title"
-              onChange={handleChange}
-              required
-            />
+            <Input value={title} type="text" placeholder="Title" name="title" onChange={handleChange} required />
           </InputGroup>
 
           <InputGroup>
             <Label htmlFor="href">
               <Icons.link size={20} />
             </Label>
-            <Input type="url" placeholder="URL" icon="sm" name="href" value={href} onChange={handleChange} required />
+            <Input type="url" placeholder="URL" name="href" value={href} onChange={handleChange} required />
           </InputGroup>
 
           <Button type="submit" variant="primary">

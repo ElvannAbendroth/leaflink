@@ -28,7 +28,7 @@ export const ProfileTab: FC<ProfileTabProps> = ({ formValues, handleChange }) =>
       <p className="typo-p text-muted">Edit your public url, profile picture & bio</p>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row gap-4">
-          <ProfilePicture src={formValues.imageUrl} className="h-32 w-32 self-start" />
+          <ProfilePicture src={formValues.imageUrl} className="h-32 w-32 self-center" />
           <div className="flex flex-col gap-4 grow">
             <InputGroup>
               <Label htmlFor="username">

@@ -49,7 +49,7 @@ export default function AppearancePage({}) {
   }
 
   return (
-    <div className="mt-8 sm:mt-0">
+    <div className="">
       {(currentTab === 'Profile' || currentTab === null) && (
         <ProfileTab formValues={formValues} handleChange={handleChange} />
       )}

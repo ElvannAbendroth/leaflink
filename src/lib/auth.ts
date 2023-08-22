@@ -4,10 +4,11 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 import User from '@/models/userModel'
 import { makeSafe } from './utils'
-import { UserDocument } from './types'
+import { UserData, UserDocument } from './types'
 
 export interface CustomSession extends Session {
-  user: UserDocument
+  user: UserDocument | UserData
+  token: {}
 }
 
 export const options: NextAuthOptions = {
@@ -43,21 +44,20 @@ export const options: NextAuthOptions = {
   callbacks: {
     //TODO: Return only necessary user information, or maybe user data should be handled directly from the session??
     session: ({ session, token, user }) => {
+      console.log('User from Session:', user)
       return {
-        ...session,
-        user: {
-          ...session.user,
-          ...token,
-        },
+        user: { ...session.user, id: token.id, username: token.username },
+        token: token,
       } as CustomSession
     },
     jwt: ({ token, user }) => {
       if (user) {
-        const u = user as unknown as any
+        const u = user as unknown as UserData
 
         return {
           ...token,
-          ...u,
+          id: u.id,
+          picture: u.imageUrl,
         }
       }
       return token

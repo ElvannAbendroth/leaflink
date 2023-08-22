@@ -8,6 +8,5 @@ interface SessionProvider {
 }
 
 export default function SessionProvider({ children, session }: SessionProvider) {
-  console.log('Session: ', session)
   return <NextAuthSessionProvider session={session}>{children}</NextAuthSessionProvider>
 }

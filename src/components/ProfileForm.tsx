@@ -109,13 +109,12 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
                 e.preventDefault()
                 setOpen(false)
               }}
-              size="sm"
               variant="default"
               className=""
             >
               Cancel
             </Button>
-            <Button size="sm" onClick={() => handleDelete(user.id)} variant="danger" className="">
+            <Button onClick={() => handleDelete(user.id)} variant="danger" className="">
               Delete account
             </Button>
           </div>

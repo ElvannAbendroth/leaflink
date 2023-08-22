@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <SessionProvider session={session}>
       <UserProvider>
         <html lang="en" className={`scroll-smooth`}>
-          <body className={`${lato.className} min-h-screen flex flex-col align-middle items-stretch `}>
+          <body className={`min-h-screen flex flex-col align-middle items-stretch `}>
             <Navbar />
             <div className="flex-grow">
               <main className="max-w-content w-content mx-auto pt-12 pb-12 px-4 sm:px-8">{children}</main>

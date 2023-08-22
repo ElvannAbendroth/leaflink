@@ -37,7 +37,7 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="primary" size="sm">
+        <Button variant="primary">
           <Icons.add size={20} />
           Add link
         </Button>
@@ -48,14 +48,13 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
         </DialogHeader>
         <form onSubmit={handleSubmit} id="add-link-card" className="flex flex-col gap-4">
           <InputGroup>
-            <Label variant="sm" htmlFor="title">
+            <Label htmlFor="title">
               <Icons.title size={20} />
             </Label>
             <Input
               value={title}
               type="text"
               placeholder="Title"
-              variant="sm"
               icon="sm"
               name="title"
               onChange={handleChange}
@@ -64,22 +63,13 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
           </InputGroup>
 
           <InputGroup>
-            <Label variant="sm" htmlFor="href">
+            <Label htmlFor="href">
               <Icons.link size={20} />
             </Label>
-            <Input
-              type="url"
-              placeholder="URL"
-              variant="sm"
-              icon="sm"
-              name="href"
-              value={href}
-              onChange={handleChange}
-              required
-            />
+            <Input type="url" placeholder="URL" icon="sm" name="href" value={href} onChange={handleChange} required />
           </InputGroup>
 
-          <Button type="submit" variant="primary" size="sm">
+          <Button type="submit" variant="primary">
             <Icons.add size={20} />
             Add link
           </Button>

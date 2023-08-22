@@ -28,13 +28,13 @@ const buttonVariants = cva(
       },
       size: {
         default: 'py-4 px-8 w-full',
-        sm: 'py-3 px-6',
-        xs: 'px-4 text-xs h-10',
+        md: 'py-3 px-6',
+        sm: 'px-4 text-xs h-10',
       },
     },
     defaultVariants: {
       variant: 'default',
-      size: 'default',
+      size: 'md',
     },
   }
 )

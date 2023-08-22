@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+import { Icons } from '../Icons'
 
 const labelVariants = cva(
   [
@@ -11,8 +13,7 @@ const labelVariants = cva(
   {
     variants: {
       variant: {
-        default: 'py-4 pl-6',
-        sm: 'py-3 pl-6',
+        default: 'py-3 pl-6',
       },
     },
     defaultVariants: {

@@ -15,13 +15,11 @@ const textareaVariants = cva(
   {
     variants: {
       variant: {
-        default: 'p-4 py-4 pl-6',
-        sm: 'py-3 px-6',
+        default: 'p-3 py-3 pl-4',
       },
       icon: {
-        default: 'pl-16',
+        default: 'pl-14',
         none: '',
-        sm: 'pl-14',
       },
     },
     defaultVariants: {

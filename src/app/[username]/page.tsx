@@ -48,7 +48,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col justify-center items-center -mt-14 sm:mt-0">
+      <div className="flex flex-col justify-center items-center">
         <a target="_blank" href={pageUser.website || '#'}>
           <ProfilePicture
             src={pageUser.imageUrl || 'images/unknown-user.png'}

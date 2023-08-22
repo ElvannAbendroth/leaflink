@@ -116,7 +116,7 @@ export const Navbar: FC<NavbarProps> = () => {
         <div className="flex gap-3 items-center">
           {session?.status === 'authenticated' ? (
             <>
-              <Link className={cn(buttonVariants({ variant: 'outline', size: 'xs' }), '')} href="/view">
+              <Link className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), '')} href="/view">
                 <Icons.preview size={16} />
                 <span>View</span>
               </Link>

@@ -44,7 +44,6 @@ export const options: NextAuthOptions = {
   callbacks: {
     //TODO: Return only necessary user information, or maybe user data should be handled directly from the session??
     session: ({ session, token, user }) => {
-      console.log('User from Session:', user)
       return {
         user: { ...session.user, id: token.id, username: token.username },
         token: token,

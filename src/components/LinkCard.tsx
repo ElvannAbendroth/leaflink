@@ -110,10 +110,10 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
                 </DialogTitle>
               </DialogHeader>
               <div className="flex gap-2 justify-end">
-                <Button size="sm" variant="subtle" onClick={() => setOpen(false)}>
+                <Button variant="subtle" onClick={() => setOpen(false)}>
                   Cancel
                 </Button>
-                <Button size="sm" variant="danger" onClick={handleDeleteButton}>
+                <Button variant="danger" onClick={handleDeleteButton}>
                   Yes, delete this link!
                 </Button>
               </div>

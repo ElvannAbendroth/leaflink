@@ -46,6 +46,9 @@ import {
   BarChartBig,
   BrushIcon,
   Share2,
+  ArrowUp,
+  ArrowDown,
+  MousePointerClick,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -67,6 +70,8 @@ export const Icons = {
   warning: AlertTriangle,
   user: User,
   arrowRight: ArrowRight,
+  arrowUp: ArrowUp,
+  arrowDown: ArrowDown,
   help: HelpCircle,
   pizza: Pizza,
   sun: SunMedium,
@@ -192,4 +197,5 @@ export const Icons = {
   analytics: BarChartBig,
   brush: BrushIcon,
   social: Share2,
+  click: MousePointerClick,
 }

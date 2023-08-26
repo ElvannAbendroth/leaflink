@@ -10,7 +10,10 @@ interface LogoProps {
 export const Logo: FC<LogoProps> = ({ variant = 'default' }) => {
   if (variant === 'icon')
     return (
-      <Link className="font-semibold text-2xl font-display hover:text-gray-800 flex gap-2 place-items-center" href="/">
+      <Link
+        className="text-foreground hover:text-foreground-hover font-semibold text-2xl font-display flex gap-2 place-items-center"
+        href="/"
+      >
         <Icons.logo strokeWidth={3} />
       </Link>
     )

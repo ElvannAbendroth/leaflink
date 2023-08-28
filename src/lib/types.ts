@@ -43,6 +43,7 @@ export interface UserData extends User {
   imageUrl?: string
   links: Link[]
   socials: Social
+  visits: Date[]
 }
 
 export interface UserCredentials extends User {
@@ -60,6 +61,7 @@ export interface UserDocument extends Document {
   website?: string
   links: Link[]
   socials: Social
+  visits: Date[]
 }
 
 export type Link = {
@@ -68,6 +70,7 @@ export type Link = {
   isActive: boolean
   _id?: string
   id?: string
+  clicks: Date[]
 }
 
 export type Social = {

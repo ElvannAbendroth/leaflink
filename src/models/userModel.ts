@@ -43,8 +43,10 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
       isActive: {
         type: Boolean,
       },
+      clicks: [Date],
     },
   ],
+  visits: { type: [Date] },
   socials: {
     type: Object,
     default: {

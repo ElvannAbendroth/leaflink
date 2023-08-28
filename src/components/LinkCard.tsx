@@ -47,12 +47,19 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
     removeLink(link)
   }
 
+  const handleUserClick = () => {
+    const newDate = new Date()
+    const updatedLink = { ...fieldValues, clicks: [...link.clicks, newDate] }
+    updateLink(updatedLink)
+  }
+
   if (isPublic)
     return (
       <a
         target="_blank"
         className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
         href={href}
+        onClick={handleUserClick}
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
@@ -93,6 +100,10 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
         </div>
 
         <div className="flex flex-row justify-start items-center gap-4 border-t-2 pt-3 border-dotted">
+          <a href="/view" target="_blank" title="view page" className="text-sm text-muted flex gap-1">
+            <span>{link.clicks?.length | 0}</span>
+            <Icons.analytics className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
+          </a>
           <a href="/view" target="_blank" title="view page">
             <Icons.preview className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
           </a>

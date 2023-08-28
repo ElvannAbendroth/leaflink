@@ -6,8 +6,9 @@ import { SocialLinks } from '@/components/SocialLinks'
 import { UserData } from '@/lib/types'
 import { getUserByUsername } from '@/services/userService'
 import { notFound, redirect } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/Skeleton'
+import { UserContext } from '@/components/UserProvider'
 
 export interface UserLinksPageProps {
   params: {
@@ -24,7 +25,9 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
     website: '',
     id: '',
     email: '',
+    visits: [],
   }
+  const { updateUser } = useContext(UserContext)
   const [pageUser, setPageUser] = useState<UserData>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -34,12 +37,29 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
         setIsLoading(true)
         const user = await getUserByUsername(username)
         setPageUser(user)
+        const newVisits = user.visits ? user.visits?.push(new Date()) : [new Date()]
+
+        try {
+          const response = await fetch(`/api/users/${user.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ...user, visits: ['newVisits'] }),
+          })
+
+          const result = await response.json()
+          console.log('Success:', result)
+        } catch (error) {
+          console.error('Error:', error)
+        }
         setIsLoading(false)
       } catch (error) {
         notFound()
       }
     }
     getUser()
+    console.log('🌩️')
   }, [username])
 
   if (!pageUser) return notFound()

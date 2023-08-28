@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { Link } from '@/lib/types'
+import { Link, LinkFields } from '@/lib/types'
 import { UserContext } from './UserProvider'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 
@@ -14,7 +14,7 @@ interface AddLinkDialogProps {}
 export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
   const { addLink } = useContext(UserContext)
   const [open, setOpen] = useState(false)
-  const [fieldValues, setFieldValues] = useState<Link>({
+  const [fieldValues, setFieldValues] = useState<LinkFields>({
     title: '',
     href: '',
     isActive: true,

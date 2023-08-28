@@ -2,7 +2,7 @@
 import { CustomSession } from '@/lib/auth'
 import userService from '@/services/userService'
 import { useToast } from '@/lib/hooks/useToast'
-import { Link, RegisterFormInputFields, UserData } from '@/lib/types'
+import { Link, LinkFields, RegisterFormInputFields, UserData } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 type UserContextProps = {
   user: UserData | null
   updateUser: (dataToUpdate: {}) => void
-  addLink: (linkObject: Link) => void
+  addLink: (linkObject: LinkFields) => void
   removeLink: (linkToRemove: Link) => void
   updateLink: (linkToUpdate: Link) => void
   registerUser: (userInfo: RegisterFormInputFields) => void
@@ -69,7 +69,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  const addLink = async (newLink: Link) => {
+  const addLink = async (newLink: LinkFields) => {
     if (!user) throw new Error('A link can only be added when a user is logged in')
     const payload = { links: [...user.links, newLink] }
 
@@ -113,7 +113,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  const updateLink = async (linkToUpdate: Link) => {
+  const updateLink = async (linkToUpdate: LinkFields) => {
     //I only really need the id, but lets do that later
     if (!user) throw new Error('A link can only be updated when a user is logged in')
 

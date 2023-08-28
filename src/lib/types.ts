@@ -70,7 +70,7 @@ export type Link = {
   isActive: boolean
   _id?: string
   id?: string
-  clicks: Date[]
+  clicks?: Date[]
 }
 
 export type Social = {

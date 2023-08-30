@@ -72,14 +72,6 @@ export type Link = {
   clicks: Date[]
 }
 
-export type LinkFields = {
-  title: string
-  href: string
-  isActive: boolean
-  _id?: string
-  id?: string
-}
-
 export type Social = {
   instagram?: string
   facebook?: string

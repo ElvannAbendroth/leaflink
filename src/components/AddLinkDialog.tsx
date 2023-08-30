@@ -1,20 +1,20 @@
 'use client'
-import { ChangeEventHandler, FormEventHandler, useState, FC, useContext } from 'react'
+import { ChangeEventHandler, FormEventHandler, useState, FC } from 'react'
 import { Icons } from './Icons'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { Link, LinkFields } from '@/lib/types'
-import { UserContext } from './UserProvider'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
+import { PostLinkRequest } from '@/app/api/links/route'
 
-interface AddLinkDialogProps {}
+interface AddLinkDialogProps {
+  addLink: any
+}
 
-export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
-  const { addLink } = useContext(UserContext)
+export const AddLinkDialog: FC<AddLinkDialogProps> = ({ addLink }) => {
   const [open, setOpen] = useState(false)
-  const [fieldValues, setFieldValues] = useState<LinkFields>({
+  const [fieldValues, setFieldValues] = useState<PostLinkRequest>({
     title: '',
     href: '',
     isActive: true,
@@ -30,6 +30,7 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
     addLink(fieldValues)
+
     setOpen(false)
     setFieldValues({ title: '', href: '', isActive: true })
   }

@@ -8,15 +8,23 @@ import { Link as LinkType } from '@/lib/types'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
-import { SocialLinks } from '@/components/SocialLinks'
+import linkService from '@/services/linkService'
+import { PostLinkRequest } from '../api/links/route'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [links, setLinks] = useState(user?.links)
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
+
+    user ? setLinks(user.links) : null
   }, [user])
+
+  const addLink = (payload: PostLinkRequest) => {
+    linkService.create(payload).then(data => setLinks(links?.concat(data)))
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -30,15 +38,15 @@ export default function DashboardPage() {
         <p className="typo-p text-center rounded-lg px-8 items-start text-muted">{user?.description}</p>
       </div>
       <div className="flex flex-col  gap-4">
-        <AddLinkDialog />
+        <AddLinkDialog addLink={addLink} />
       </div>
 
       {!isLoading ? (
         <>
-          {user?.links.length === 0 ? (
+          {links?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            user?.links?.map((link: LinkType) => <LinkCard key={link.id} link={link} />)
+            links?.map((link: LinkType) => <LinkCard key={link.id} link={link} />)
           )}
         </>
       ) : (

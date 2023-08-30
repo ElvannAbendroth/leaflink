@@ -107,10 +107,10 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>
-                  <h3 className="typo-h3 text-foreground text-left pl-2 ">
+                <DialogTitle asChild>
+                  <h2 className="typo-h3 text-foreground text-left pl-2 ">
                     Are you sure sure you want to delete this link?
-                  </h3>
+                  </h2>
                 </DialogTitle>
               </DialogHeader>
               <div className="flex gap-2 justify-end">

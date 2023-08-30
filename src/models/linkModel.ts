@@ -20,9 +20,11 @@ const linkSchema = new Schema<LinkDocument, {}, Methods>({
   },
   title: {
     type: String,
+    required: true,
   },
   href: {
     type: String,
+    required: true,
   },
   isActive: {
     type: Boolean,

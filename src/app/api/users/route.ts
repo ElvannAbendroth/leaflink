@@ -26,7 +26,7 @@ type NewResponse = NextResponse<{ user?: NewUserResponse; error?: string }>
 export async function GET(req: Request) {
   try {
     await startDb()
-    const users = await User.find({})
+    const users = await User.find({}).populate('links')
     return NextResponse.json(users)
   } catch (error) {
     return NextResponse.json({ message: `${error}` })

@@ -4,8 +4,8 @@ import LinkCard from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 import { SocialLinks } from '@/components/SocialLinks'
 import { UserData } from '@/lib/types'
-import { getUserByUsername } from '@/services/userService'
-import { notFound, redirect } from 'next/navigation'
+import userService from '@/services/userService'
+import { notFound } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { UserContext } from '@/components/UserProvider'
@@ -35,7 +35,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
     const getUser = async () => {
       try {
         setIsLoading(true)
-        const user = await getUserByUsername(username)
+        const user = await userService.getByUsername(username)
         setPageUser(user)
         const newVisits = user.visits ? user.visits?.push(new Date()) : [new Date()]
 

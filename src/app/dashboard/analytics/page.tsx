@@ -15,7 +15,7 @@ interface AnalyticsPageProps {}
 export default function AnalyticsPage({}) {
   const { user } = useContext(UserContext)
 
-  const allClicks = user?.links.reduce((acc, curr) => acc.concat(curr.clicks), [] as Date[])
+  const allClicks = user?.links.reduce((acc, curr) => acc.concat(curr.clicks), [] as Date[]) || '0'
 
   const stats = [
     {
@@ -89,7 +89,7 @@ export default function AnalyticsPage({}) {
         <h3 className="typo-h4 mt-5">Top Clicked Links</h3>
         <div className="flex flex-col gap-4 mt-4">
           {user?.links
-            .sort((a, b) => b.clicks.length - a.clicks.length)
+            ?.sort((a, b) => b.clicks?.length - a.clicks?.length)
             .map(link => (
               <div className="flex justify-between items-center p-4 bg-input rounded-lg" key={link.id}>
                 <span className="typo-p font-semibold">{link.title}</span>

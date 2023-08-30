@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils'
 interface AnalyticsPageProps {}
 
 const stats = [
-  { id: 1, name: 'Page Visits', stat: '56', icon: Icons.user, change: '122%', changeType: 'increase' },
-  { id: 2, name: 'Links Clicked', stat: '18', icon: Icons.click, change: '5.4%', changeType: 'increase' },
-  { id: 3, name: 'Avg. Click Rate', stat: '24%', icon: Icons.click, change: '3.2%', changeType: 'decrease' },
+  { id: 1, name: 'Page Visits', stat: 'N/A', icon: Icons.user, change: 'N/A', changeType: 'none' },
+  { id: 2, name: 'Links Clicked', stat: 'N/A', icon: Icons.click, change: 'N/A', changeType: 'none' },
+  { id: 3, name: 'Avg. Click Rate', stat: 'N/A%', icon: Icons.click, change: 'N/A', changeType: 'none' },
 ]
 
 export default function AnalyticsPage({}) {
@@ -26,6 +26,9 @@ export default function AnalyticsPage({}) {
         </dl>
       </div> */}
       <div>
+        <p className="flex p-2 bg-warning-background rounded-md my-4 ">
+          <strong className="typo-strong mr-1">Warning:</strong>Feature in construction
+        </p>
         <h3 className="text-base font-semibold leading-6 text-gray-900">Last 30 days</h3>
 
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -50,9 +53,9 @@ export default function AnalyticsPage({}) {
                 >
                   {item.changeType === 'increase' ? (
                     <Icons.arrowUp className="h-5 w-5 flex-shrink-0 self-center text-success" aria-hidden="true" />
-                  ) : (
+                  ) : item.changeType === 'decrease' ? (
                     <Icons.arrowDown className="h-5 w-5 flex-shrink-0 self-center text-danger" aria-hidden="true" />
-                  )}
+                  ) : null}
 
                   <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
                   {item.change}

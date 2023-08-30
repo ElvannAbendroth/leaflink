@@ -36,3 +36,4 @@ next-env.d.ts
 
 # mongodb playground
 data.mongodb.js
+dataTest.mongodb.js

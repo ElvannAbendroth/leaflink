@@ -16,7 +16,9 @@ interface PatchLinkResponse {
   id: string
 }
 
-type PatchResponse = NextResponse<{ link?: PatchLinkResponse; error?: string; success?: string }>
+type PatchResponse = NextResponse<{ link?: PatchLinkResponse; error?: string }>
+
+type DeleteResponse = NextResponse<{ message?: string; error?: string }>
 
 export const GET = async (req: Request, { params }: any) => {
   try {
@@ -58,6 +60,33 @@ export const PATCH = async (req: Request, { params }: any): Promise<PatchRespons
     return NextResponse.json({
       success: 'Link was successfully updated!',
       link: link,
+    })
+  } catch (error) {
+    return NextResponse.json({ error: `${error}` })
+  }
+}
+
+export const DELETE = async (req: Request, { params }: any): Promise<DeleteResponse> => {
+  try {
+    const sessionUser = await getSessionUser()
+
+    // Validates the session user
+    if (!sessionUser) {
+      return NextResponse.json({ message: 'You are not authorized to perform this action' }, { status: 403 })
+    }
+
+    await startDb()
+    // Ensures that a the user doesn't change their username to an existing username
+    const linkToDelete = await Link.findByIdAndDelete(params.id)
+
+    if (linkToDelete === null) {
+      return NextResponse.json({
+        message: `Couldn't found this link ID`,
+      })
+    }
+
+    return NextResponse.json({
+      message: `Your link was deleted.`,
     })
   } catch (error) {
     return NextResponse.json({ error: `${error}` })

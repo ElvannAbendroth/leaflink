@@ -2,17 +2,10 @@
 import { Icons } from '@/components/Icons'
 import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
-import { ChangeEventHandler, FormEventHandler, useCallback, useContext, useState } from 'react'
+import { ChangeEventHandler, useCallback, useContext, useState } from 'react'
 import { UserContext } from './UserProvider'
 import debounce from 'lodash.debounce'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
 
 interface LinkCardProps {
@@ -33,25 +26,25 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
     const { name, value } = target
     const newFieldValue = { ...fieldValues, [name]: value }
     setFieldValues(newFieldValue)
-    debounceRequest(newFieldValue)
+    debounceRequest(link.id, newFieldValue)
   }
 
   const handleToggle: any = (checked: boolean) => {
     const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
     setFieldValues(updatedLink)
-    updateLink(updatedLink)
+    updateLink(link.id, updatedLink)
   }
 
   const handleDeleteButton = () => {
     setOpen(false)
-    removeLink(link)
+    removeLink(link.id)
   }
 
-  const handleUserClick = () => {
-    const newDate = new Date()
-    const updatedLink = { ...fieldValues, clicks: [...link.clicks, newDate] }
-    updateLink(updatedLink)
-  }
+  // const handleUserClick = () => {
+  //   const newDate = new Date()
+  //   const updatedLink = { ...fieldValues, clicks: [...link.clicks, newDate] }
+  //   updateLink(updatedLink)
+  // }
 
   if (isPublic)
     return (
@@ -59,7 +52,7 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
         target="_blank"
         className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
         href={href}
-        onClick={handleUserClick}
+        // onClick={handleUserClick}
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
@@ -115,9 +108,9 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>
-                  <h2 className="typo-h3 text-foreground text-left pl-2 ">
+                  <h3 className="typo-h3 text-foreground text-left pl-2 ">
                     Are you sure sure you want to delete this link?
-                  </h2>
+                  </h3>
                 </DialogTitle>
               </DialogHeader>
               <div className="flex gap-2 justify-end">

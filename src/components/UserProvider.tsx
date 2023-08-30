@@ -2,17 +2,20 @@
 import { CustomSession } from '@/lib/auth'
 import userService from '@/services/userService'
 import { useToast } from '@/lib/hooks/useToast'
-import { Link, LinkFields, RegisterFormInputFields, UserData } from '@/lib/types'
+import { RegisterFormInputFields, UserData } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import linkService from '@/services/linkService'
+import { PostLinkRequest } from '@/app/api/links/route'
+import { PatchLinkRequest } from '@/app/api/links/[id]/route'
 
 type UserContextProps = {
   user: UserData | null
   updateUser: (dataToUpdate: {}) => void
-  addLink: (linkObject: LinkFields) => void
-  removeLink: (linkToRemove: Link) => void
-  updateLink: (linkToUpdate: Link) => void
+  addLink: (data: PostLinkRequest) => void
+  removeLink: (id: string) => void
+  updateLink: (id: string, payload: PatchLinkRequest) => void
   registerUser: (userInfo: RegisterFormInputFields) => void
   loginUser: (email: string, password: string) => void
   deleteUser: (id: string) => void
@@ -42,7 +45,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   useEffect(() => {
     sessionData &&
       userService
-        .getUserById(sessionData.user.id)
+        .getById(sessionData.user.id)
         .then(user => {
           setUser(user)
         })
@@ -53,13 +56,9 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     if (!user) throw new Error('There is no user to update.')
     const payload = { ...dataToUpdate }
     userService
-      .updateUser(user.id, payload)
+      .update(user.id, payload)
       .then(data => {
         setUser(data)
-        // toast({
-        //   description: `User information was successfully updated!`,
-        //   variant: 'default',
-        // })
       })
       .catch(error => {
         toast({
@@ -69,14 +68,13 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  const addLink = async (newLink: LinkFields) => {
+  const addLink = async (data: PostLinkRequest) => {
     if (!user) throw new Error('A link can only be added when a user is logged in')
-    const payload = { links: [...user.links, newLink] }
 
-    userService
-      .updateUser(user.id, payload)
+    linkService
+      .create(data)
       .then(data => {
-        setUser(data)
+        setUser({ ...user, links: [...user.links.concat(data)] })
         toast({
           title: `New Link successfully added!`,
           variant: 'inverted',
@@ -90,16 +88,15 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  const removeLink = async (linkToRemove: Link) => {
-    //I only really need the id, but lets do that later
+  const removeLink = async (id: string) => {
     if (!user) throw new Error('A link can only be removed when a user is logged in')
 
-    const payload = { links: user.links.filter(oldLink => linkToRemove._id != oldLink._id) }
+    // const payload = { links: user.links.filter(oldLink => id._id != oldLink._id) }
 
-    userService
-      .updateUser(user.id, payload)
+    linkService
+      .remove(id)
       .then(data => {
-        setUser(data)
+        setUser({ ...user, links: user.links.filter(link => link.id != id) })
         toast({
           title: `Link successfully removed!`,
           variant: 'inverted',
@@ -113,16 +110,16 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       })
   }
 
-  const updateLink = async (linkToUpdate: LinkFields) => {
+  const updateLink = async (id: string, payload: PatchLinkRequest) => {
     //I only really need the id, but lets do that later
     if (!user) throw new Error('A link can only be updated when a user is logged in')
 
-    const payload = { links: user.links.map(oldLink => (linkToUpdate._id != oldLink._id ? oldLink : linkToUpdate)) }
+    // const payload = { links: user.links.map(oldLink => (linkToUpdate.id != oldLink.id ? oldLink : linkToUpdate)) }
 
-    userService
-      .updateUser(user.id, payload)
+    linkService
+      .update(id, payload)
       .then(data => {
-        setUser(data)
+        setUser({ ...user, links: user.links.map(link => (link.id === id ? data : link)) })
       })
       .catch(error => {
         toast({
@@ -171,7 +168,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
   const deleteUser = async (id: string) => {
     userService
-      .deleteUser(id)
+      .remove(id)
       .then(res => {
         signOut()
         toast({

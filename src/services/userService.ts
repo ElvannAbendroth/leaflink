@@ -1,8 +1,8 @@
-import { Link, UserDocument } from '@/lib/types'
+import { UserDocument } from '@/lib/types'
 
 /* Function used in public page */
 //TODO: Fix this cuz very not performant to loop through users like that.
-export const getUserByUsername = async (username: string) => {
+export const getByUsername = async (username: string) => {
   const res = await fetch(`/api/users/`, { cache: 'no-store' })
 
   if (!res?.ok) throw new Error('Error while fetching user.')
@@ -12,15 +12,15 @@ export const getUserByUsername = async (username: string) => {
   return user
 }
 
-export async function getUserById(id: string) {
+export async function getById(id: string) {
   const res = await fetch(`/api/users/${id}`)
   if (!res?.ok) throw new Error('Error while fetching user from UserDataContext')
   const user = await res.json()
   return user
 }
 
-export async function updateUser(userId: string, payload: {}) {
-  const res = await fetch(`/api/users/${userId}`, {
+export async function update(id: string, payload: {}) {
+  const res = await fetch(`/api/users/${id}`, {
     method: 'PUT',
     body: JSON.stringify(payload),
     cache: 'no-store',
@@ -32,21 +32,8 @@ export async function updateUser(userId: string, payload: {}) {
   return body.user
 }
 
-// export async function addClick(userId: string, link: Link) {
-//   const res = await fetch(`/api/analytics/${userId}`, {
-//     method: 'PATCH',
-//     body: JSON.stringify(link),
-//     cache: 'no-store',
-//   })
-
-//   const body = await res.json()
-//   // Validates the Response Status
-//   if (!res?.ok) throw new Error(body.message)
-//   return body.user
-// }
-
-export async function deleteUser(userId: string) {
-  const res = await fetch(`/api/users/${userId}`, {
+export async function remove(id: string) {
+  const res = await fetch(`/api/users/${id}`, {
     method: 'DELETE',
     cache: 'no-store',
   })
@@ -58,6 +45,6 @@ export async function deleteUser(userId: string) {
   return body.user
 }
 
-const userService = { getUserByUsername, getUserById, updateUser, deleteUser }
+const userService = { getByUsername, getById, update, remove }
 
 export default userService

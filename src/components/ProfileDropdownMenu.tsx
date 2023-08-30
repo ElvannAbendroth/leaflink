@@ -41,7 +41,7 @@ export const ProfileDropdownMenu: FC<ProfileDropdownMenuProps> = ({ navItems, cl
         <DropdownMenuTrigger className="flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted/50 focus-visible:ring-offset-2 ring-offset-background">
           <Avatar>
             <AvatarImage src={user?.imageUrl} alt={`@${user?.username}`} />
-            <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback>
+            {/* <AvatarFallback>{user?.username[0].toUpperCase()}</AvatarFallback> */}
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 p-2" side="bottom" align="end" sideOffset={5} alignOffset={10}>

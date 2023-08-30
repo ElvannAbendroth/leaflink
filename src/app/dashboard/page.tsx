@@ -38,9 +38,8 @@ export default function DashboardPage() {
           {user?.links.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            user?.links?.map((link: LinkType) => <LinkCard key={link._id} link={link} />)
+            user?.links?.map((link: LinkType) => <LinkCard key={link.id} link={link} />)
           )}
-          {/* {user?.socials && <SocialLinks socials={user.socials} />} */}
         </>
       ) : (
         <Skeleton className="flex justify-center items-center rounded-lg h-[172px]" />

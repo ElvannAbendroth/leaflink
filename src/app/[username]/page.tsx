@@ -49,7 +49,6 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
           })
 
           const result = await response.json()
-          console.log('Success:', result)
         } catch (error) {
           console.error('Error:', error)
         }
@@ -59,7 +58,6 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
       }
     }
     getUser()
-    console.log('🌩️')
   }, [username])
 
   if (!pageUser) return notFound()

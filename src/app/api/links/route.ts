@@ -4,7 +4,7 @@ import User from '@/models/userModel'
 import Link from '@/models/linkModel'
 import { getSessionUser } from '@/lib/data.server'
 
-interface PostLinkRequest {
+export interface PostLinkRequest {
   title?: string
   href?: string
   isActive?: boolean

@@ -68,8 +68,7 @@ export type Link = {
   title: string
   href: string
   isActive: boolean
-  _id?: string
-  id?: string
+  id: string
   clicks: Date[]
 }
 

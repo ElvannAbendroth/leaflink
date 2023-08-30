@@ -3,7 +3,7 @@ import Link from '@/models/linkModel'
 import startDb from '@/lib/db'
 import { getSessionUser } from '@/lib/data.server'
 
-interface PatchLinkRequest {
+export interface PatchLinkRequest {
   title?: string
   href?: string
   isActive?: boolean
@@ -53,12 +53,12 @@ export const PATCH = async (req: Request, { params }: any): Promise<PatchRespons
       return NextResponse.json({ error: "This link ID doesn't exist" }, { status: 404 })
     }
 
-    if (link.id != sessionUser.id) {
+    if (link.user != sessionUser.id) {
       return NextResponse.json({ error: 'You are not authorized to perform this action' }, { status: 403 })
     }
 
     return NextResponse.json({
-      success: 'Link was successfully updated!',
+      message: 'Link was successfully updated!',
       link: link,
     })
   } catch (error) {

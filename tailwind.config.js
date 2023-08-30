@@ -46,6 +46,12 @@ module.exports = {
         hover: themeColors.green[500],
         foreground: twColors.white,
       },
+      warning: {
+        DEFAULT: twColors.amber[500],
+        hover: twColors.amber[500],
+        background: twColors.amber[100],
+        foreground: twColors.white,
+      },
       google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
       card: twColors.white,
       popover: { DEFAULT: twColors.white, foreground: themeColors.gray[800] },

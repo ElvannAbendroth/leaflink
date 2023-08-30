@@ -8,23 +8,16 @@ import { Link as LinkType } from '@/lib/types'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
-import linkService from '@/services/linkService'
-import { PostLinkRequest } from '../api/links/route'
+import { useLinks } from '@/lib/hooks/useLinks'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [links, setLinks] = useState(user?.links)
+  const { links, addLink, removeLink, updateLink } = useLinks()
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
-
-    user ? setLinks(user.links) : null
   }, [user])
-
-  const addLink = (payload: PostLinkRequest) => {
-    linkService.create(payload).then(data => setLinks(links?.concat(data)))
-  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -46,7 +39,9 @@ export default function DashboardPage() {
           {links?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            links?.map((link: LinkType) => <LinkCard key={link.id} link={link} />)
+            links?.map((link: LinkType) => (
+              <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} />
+            ))
           )}
         </>
       ) : (

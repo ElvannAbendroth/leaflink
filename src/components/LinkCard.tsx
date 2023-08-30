@@ -2,25 +2,29 @@
 import { Icons } from '@/components/Icons'
 import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
-import { ChangeEventHandler, useCallback, useContext, useState } from 'react'
-import { UserContext } from './UserProvider'
+import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react'
 import debounce from 'lodash.debounce'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
+import { PatchLinkRequest } from '@/app/api/links/[id]/route'
 
 interface LinkCardProps {
   link: LinkType
   isPublic?: boolean
+  removeLink?: (id: string) => void
+  updateLink?: (id: string, payload: PatchLinkRequest) => void
 }
 
-export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
-  const { removeLink, updateLink } = useContext(UserContext)
+export default function LinkCard({ link, isPublic = false, removeLink, updateLink }: LinkCardProps) {
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<LinkType>(link)
   const { title, href, isActive } = fieldValues
-
-  const request = debounce(updateLink, 500)
+  const request = updateLink ? debounce(updateLink, 500) : () => {}
   const debounceRequest = useCallback(request, [request]) //allows sending only 1 request after the debounce
+
+  // useEffect(() => {
+  //   setFieldValues(link)
+  // }, [link, setFieldValues])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
@@ -32,12 +36,12 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
   const handleToggle: any = (checked: boolean) => {
     const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
     setFieldValues(updatedLink)
-    updateLink(link.id, updatedLink)
+    updateLink!(link.id, updatedLink)
   }
 
   const handleDeleteButton = () => {
     setOpen(false)
-    removeLink(link.id)
+    removeLink!(link.id)
   }
 
   // const handleUserClick = () => {

@@ -1,5 +1,5 @@
-export async function getAll(id: string) {
-  const res = await fetch(`/api/links/${id}`)
+export async function getAll() {
+  const res = await fetch(`/api/links/`)
   if (!res?.ok) throw new Error('Error while fetching user from UserDataContext')
   const link = await res.json()
   return link

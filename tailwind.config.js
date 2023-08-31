@@ -47,10 +47,10 @@ module.exports = {
         foreground: twColors.white,
       },
       warning: {
-        DEFAULT: twColors.amber[500],
-        hover: twColors.amber[500],
-        background: twColors.amber[100],
-        foreground: twColors.white,
+        ...twColors.amber,
+      },
+      danger: {
+        ...twColors.red,
       },
       google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
       card: twColors.white,

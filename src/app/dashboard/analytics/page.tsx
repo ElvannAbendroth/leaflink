@@ -1,6 +1,7 @@
 'use client'
 import { Icons } from '@/components/Icons'
 import { UserContext } from '@/components/UserProvider'
+import Callout from '@/components/ui/Callout'
 import { cn } from '@/lib/utils'
 import { useContext } from 'react'
 
@@ -40,6 +41,7 @@ export default function AnalyticsPage({}) {
   return (
     <div className="">
       <h2 className="typo-h2">Analytics</h2>
+      <Callout type="warning">Feature currently in construction</Callout>
 
       <div>
         <h3 className="typo-h4">All Time</h3>

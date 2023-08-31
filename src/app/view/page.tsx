@@ -7,7 +7,6 @@ export default async function ViewPage() {
   const session = (await getServerSession(options)) as CustomSession
 
   if (session) {
-    console.log(session.user.id)
     const user = await getUserById(session.user.id)
     return redirect(`/${user.username}`)
   }

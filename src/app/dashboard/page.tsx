@@ -8,11 +8,12 @@ import { Link as LinkType } from '@/lib/types'
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@/components/UserProvider'
 import { Skeleton } from '@/components/ui/Skeleton'
-import { SocialLinks } from '@/components/SocialLinks'
+import { useLinks } from '@/lib/hooks/useLinks'
 
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const { links, addLink, removeLink, updateLink } = useLinks()
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
@@ -30,17 +31,18 @@ export default function DashboardPage() {
         <p className="typo-p text-center rounded-lg px-8 items-start text-muted">{user?.description}</p>
       </div>
       <div className="flex flex-col  gap-4">
-        <AddLinkDialog />
+        <AddLinkDialog addLink={addLink} />
       </div>
 
       {!isLoading ? (
         <>
-          {user?.links.length === 0 ? (
+          {links?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            user?.links?.map((link: LinkType) => <LinkCard key={link._id} link={link} />)
+            links?.map((link: LinkType) => (
+              <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} />
+            ))
           )}
-          {/* {user?.socials && <SocialLinks socials={user.socials} />} */}
         </>
       ) : (
         <Skeleton className="flex justify-center items-center rounded-lg h-[172px]" />

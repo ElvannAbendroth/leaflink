@@ -1,35 +1,50 @@
+'use client'
 import { Icons } from '@/components/Icons'
+import { UserContext } from '@/components/UserProvider'
+import Callout from '@/components/ui/Callout'
 import { cn } from '@/lib/utils'
+import { useContext } from 'react'
 
 interface AnalyticsPageProps {}
 
-const stats = [
-  { id: 1, name: 'Page Visits', stat: 'N/A', icon: Icons.user, change: 'N/A', changeType: 'none' },
-  { id: 2, name: 'Links Clicked', stat: 'N/A', icon: Icons.click, change: 'N/A', changeType: 'none' },
-  { id: 3, name: 'Avg. Click Rate', stat: 'N/A%', icon: Icons.click, change: 'N/A', changeType: 'none' },
-]
+// const stats = [
+//   { id: 1, name: 'Page Visits', stat: '56', icon: Icons.user, change: '122%', changeType: 'increase' },
+//   { id: 2, name: 'Links Clicked', stat: '18', icon: Icons.click, change: '5.4%', changeType: 'increase' },
+//   { id: 3, name: 'Avg. Click Rate', stat: '24%', icon: Icons.click, change: '3.2%', changeType: 'decrease' },
+// ]
 
 export default function AnalyticsPage({}) {
+  const { user } = useContext(UserContext)
+
+  const allClicks = user?.links.reduce((acc, curr) => acc.concat(curr.clicks), [] as Date[]) || '0'
+
+  const stats = [
+    {
+      id: 1,
+      name: 'Page Visits',
+      stat: `${user?.visits?.length || 'N/A'}`,
+      icon: Icons.user,
+      change: '0%',
+      changeType: 'increase',
+    },
+    {
+      id: 2,
+      name: 'Links Clicked',
+      stat: `${allClicks?.length || 0}`,
+      icon: Icons.click,
+      change: '0%',
+      changeType: 'increase',
+    },
+    { id: 3, name: 'Avg. Click Rate', stat: 'N/A', icon: Icons.click, change: '0%', changeType: 'decrease' },
+  ]
+
   return (
     <div className="">
       <h2 className="typo-h2">Analytics</h2>
+      <Callout type="warning">Feature currently in construction</Callout>
 
-      {/* <div>
-        <h3 className="text-base font-semibold leading-6 text-foreground">Last 30 days</h3>
-        <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {stats.map(item => (
-            <div key={item.name} className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-              <dt className="truncate text-sm font-medium text-muted">{item.name}</dt>
-              <dd className="mt-1 text-3xl font-semibold tracking-tight text-foreground">{item.stat}</dd>
-            </div>
-          ))}
-        </dl>
-      </div> */}
       <div>
-        <p className="flex p-2 bg-warning-background rounded-md my-4 ">
-          <strong className="typo-strong mr-1">Warning:</strong>Feature in construction
-        </p>
-        <h3 className="text-base font-semibold leading-6 text-gray-900">Last 30 days</h3>
+        <h3 className="typo-h4">All Time</h3>
 
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {stats.map(item => (
@@ -71,6 +86,22 @@ export default function AnalyticsPage({}) {
             </div>
           ))}
         </dl>
+      </div>
+      <div>
+        <h3 className="typo-h4 mt-5">Top Clicked Links</h3>
+        <div className="flex flex-col gap-4 mt-4">
+          {user?.links
+            ?.sort((a, b) => b.clicks?.length - a.clicks?.length)
+            .map(link => (
+              <div className="flex justify-between items-center p-4 bg-input rounded-lg" key={link.id}>
+                <span className="typo-p font-semibold">{link.title}</span>
+                <div className="flex gap-2 text-muted">
+                  <span className="text-sm  flex gap-1">{link.clicks?.length | 0}</span>
+                  <Icons.click className=" " size={18} />
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )

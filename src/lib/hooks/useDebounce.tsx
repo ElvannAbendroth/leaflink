@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback } from 'react'
+import debounceLodash from 'lodash.debounce'
 
-export const useDebounce = (value: any, delay = 500) => {
-  const [debouncedValue, setDebouncedValue] = useState<any>(value)
+export const useDebounce = (method: any, dependencies: any[], delay = 500) => {
+  const request = method ? debounceLodash(method, 500) : () => {}
+  const debounce = useCallback(request, [...dependencies]) //allows sending only 1 request after the debounce
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => clearTimeout(timeout)
-  }, [value, delay])
-
-  return debouncedValue
+  return debounce
 }

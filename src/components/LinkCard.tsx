@@ -1,50 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { Icons } from '@/components/Icons'
 import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
-import { ChangeEventHandler, FormEventHandler, useCallback, useContext, useState } from 'react'
-import { UserContext } from './UserProvider'
-import debounce from 'lodash.debounce'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog'
+import { ChangeEventHandler, useEffect, useState } from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
-
+import { PatchLinkRequest } from '@/app/api/links/[id]/route'
 interface LinkCardProps {
   link: LinkType
   isPublic?: boolean
+  removeLink?: (id: string) => void
+  updateLink?: (id: string, payload: PatchLinkRequest) => void
 }
 
-export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
-  const { removeLink, updateLink } = useContext(UserContext)
+export default function LinkCard({ link, isPublic = false, removeLink, updateLink }: LinkCardProps) {
   const [open, setOpen] = useState(false)
-  const [fieldValues, setFieldValues] = useState<LinkType>(link)
+  const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
 
-  const request = debounce(updateLink, 500)
-  const debounceRequest = useCallback(request, [request]) //allows sending only 1 request after the debounce
+  useEffect(() => {
+    setFieldValues(link)
+  }, [link])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
     const newFieldValue = { ...fieldValues, [name]: value }
     setFieldValues(newFieldValue)
-    debounceRequest(newFieldValue)
+    updateLink!(link.id, newFieldValue)
   }
 
   const handleToggle: any = (checked: boolean) => {
     const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
     setFieldValues(updatedLink)
-    updateLink(updatedLink)
+    updateLink!(link.id, updatedLink)
   }
 
   const handleDeleteButton = () => {
     setOpen(false)
-    removeLink(link)
+    removeLink!(link.id)
   }
 
   if (isPublic)
@@ -53,6 +47,7 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
         target="_blank"
         className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
         href={href}
+        // onClick={handleUserClick}
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
@@ -93,6 +88,10 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
         </div>
 
         <div className="flex flex-row justify-start items-center gap-4 border-t-2 pt-3 border-dotted">
+          <a href="/view" target="_blank" title="view page" className="text-sm text-muted flex gap-1">
+            <span>{link.clicks?.length | 0}</span>
+            <Icons.analytics className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
+          </a>
           <a href="/view" target="_blank" title="view page">
             <Icons.preview className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
           </a>
@@ -103,7 +102,7 @@ export default function LinkCard({ link, isPublic = false }: LinkCardProps) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>
+                <DialogTitle asChild>
                   <h2 className="typo-h3 text-foreground text-left pl-2 ">
                     Are you sure sure you want to delete this link?
                   </h2>

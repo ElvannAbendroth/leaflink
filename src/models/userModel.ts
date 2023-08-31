@@ -1,6 +1,9 @@
 import { models, model, Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
 import { UserDocument } from '@/lib/types'
+const mongoose = require('mongoose')
+
+require('@/models/linkModel')
 
 interface Methods {
   comparePassword(password: string): Promise<boolean>
@@ -14,7 +17,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
     unique: true,
     trim: true,
   },
-  description: { type: String },
+  description: { type: String, maxLength: 280 },
   name: {
     type: String,
   },
@@ -32,19 +35,12 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
   imageUrl: {
     type: String,
   },
-  links: [
-    {
-      title: {
-        type: String,
-      },
-      href: {
-        type: String,
-      },
-      isActive: {
-        type: Boolean,
-      },
-    },
-  ],
+  // links: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'Link',
+  //   },
+  // ],
   socials: {
     type: Object,
     default: {
@@ -67,7 +63,14 @@ userSchema.methods.comparePassword = async function (password) {
   }
 }
 
+userSchema.virtual('links', {
+  ref: 'Link',
+  localField: '_id',
+  foreignField: 'user',
+})
+
 userSchema.set('toJSON', {
+  virtuals: true,
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id

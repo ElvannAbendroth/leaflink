@@ -9,7 +9,7 @@ import { userSchema } from '@/lib/validation'
 export async function GET(req: Request, { params }: any) {
   try {
     await startDb()
-    const user = await User.findById(params.id)
+    const user = await User.findById(params.id).populate('links')
     return NextResponse.json(user)
   } catch (error) {
     return NextResponse.json({ message: `${error}` })

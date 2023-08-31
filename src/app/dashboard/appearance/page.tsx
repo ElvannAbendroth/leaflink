@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { UserContext } from '@/components/UserProvider'
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react'
-import debounce from 'lodash.debounce'
+import { ChangeEventHandler, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { ProfileTab } from './ProfileTab'
 import { SocialTab } from './SocialTab'
 import { Social } from '@/lib/types'
 import { ThemeTab } from './ThemeTab'
-import { useDebounce } from '@/lib/hooks/useDebounce'
 
 interface AppearancePageProps {}
 

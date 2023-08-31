@@ -7,12 +7,6 @@ import { useContext } from 'react'
 
 interface AnalyticsPageProps {}
 
-// const stats = [
-//   { id: 1, name: 'Page Visits', stat: '56', icon: Icons.user, change: '122%', changeType: 'increase' },
-//   { id: 2, name: 'Links Clicked', stat: '18', icon: Icons.click, change: '5.4%', changeType: 'increase' },
-//   { id: 3, name: 'Avg. Click Rate', stat: '24%', icon: Icons.click, change: '3.2%', changeType: 'decrease' },
-// ]
-
 export default function AnalyticsPage({}) {
   const { user } = useContext(UserContext)
 

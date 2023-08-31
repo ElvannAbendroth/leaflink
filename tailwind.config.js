@@ -43,7 +43,7 @@ module.exports = {
       },
       success: {
         DEFAULT: themeColors.green[500],
-        hover: themeColors.green[500],
+        hover: themeColors.green[400],
         foreground: twColors.white,
       },
       warning: {
@@ -51,6 +51,10 @@ module.exports = {
       },
       danger: {
         ...twColors.red,
+        DEFAULT: twColors.red[500],
+        hover: twColors.red[500],
+
+        foreground: twColors.white,
       },
       google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
       card: twColors.white,

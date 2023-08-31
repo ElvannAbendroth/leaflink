@@ -19,7 +19,7 @@ export const socialsSchema = z
 
 export const linkSchema = z
   .object({
-    title: z.string().max(140, { message: 'Title must be 140 characters of less.' }),
+    title: z.string().max(280, { message: 'Title must be 280 characters or less.' }),
     href: z.string().url(),
   })
   .partial()

@@ -7,8 +7,6 @@ import { ChangeEventHandler, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
 import { PatchLinkRequest } from '@/app/api/links/[id]/route'
-import { useDebounce } from '@/lib/hooks/useDebounce'
-
 interface LinkCardProps {
   link: LinkType
   isPublic?: boolean
@@ -20,7 +18,6 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
-  const debouncedUpdateLink = useDebounce(updateLink, link)
 
   useEffect(() => {
     setFieldValues(link)
@@ -30,13 +27,13 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
     const { name, value } = target
     const newFieldValue = { ...fieldValues, [name]: value }
     setFieldValues(newFieldValue)
-    debouncedUpdateLink(link.id, newFieldValue)
+    updateLink!(link.id, newFieldValue)
   }
 
   const handleToggle: any = (checked: boolean) => {
     const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
     setFieldValues(updatedLink)
-    debouncedUpdateLink(link.id, updatedLink)
+    updateLink!(link.id, updatedLink)
   }
 
   const handleDeleteButton = () => {

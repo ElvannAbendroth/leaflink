@@ -31,21 +31,19 @@ export default function AppearancePage({}) {
     setFormValues(user as ProfileFormFields)
   }, [user])
 
-  const debouncedUpdateUser = useDebounce(updateUser, user)
-
   if (!user || !formValues) return null
 
   const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = ({ target }) => {
     const { name, value } = target
     const newFormValues = { ...formValues, [name]: value || '' }
     setFormValues(newFormValues)
-    debouncedUpdateUser(newFormValues)
+    updateUser(newFormValues)
   }
   const handleChangeSocials: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
     const newFormValues = { ...formValues, socials: { ...formValues.socials, [name]: value || '' } }
     setFormValues(newFormValues)
-    debouncedUpdateUser(newFormValues)
+    updateUser(newFormValues)
   }
 
   return (

@@ -6,6 +6,7 @@ import linkService from '@/services/linkService'
 import { UserContext } from '@/components/UserProvider'
 import { useToast } from './useToast'
 import { PatchLinkRequest } from '@/app/api/links/[id]/route'
+import { useDebounce } from './useDebounce'
 
 export const useLinks = () => {
   const { user } = useContext(UserContext)
@@ -40,19 +41,22 @@ export const useLinks = () => {
       })
   }
 
-  const updateLink = async (id: string, payload: PatchLinkRequest) => {
-    linkService
-      .update(id, payload)
-      .then(data => {
-        setLinks(links?.map(link => (link.id === id ? data : link)))
-      })
-      .catch(error => {
-        toast({
-          title: `${error}`,
-          variant: 'danger',
+  const updateLink = useDebounce(
+    async (id: string, payload: PatchLinkRequest) => {
+      linkService
+        .update(id, payload)
+        .then(data => {
+          setLinks(links?.map(link => (link.id === id ? data : link)))
         })
-      })
-  }
+        .catch(error => {
+          toast({
+            title: `${error}`,
+            variant: 'danger',
+          })
+        })
+    },
+    [links]
+  )
 
   const removeLink = async (id: string) => {
     linkService

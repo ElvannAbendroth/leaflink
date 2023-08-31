@@ -3,11 +3,11 @@
 import { Icons } from '@/components/Icons'
 import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react'
-import debounce from 'lodash.debounce'
+import { ChangeEventHandler, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
 import { PatchLinkRequest } from '@/app/api/links/[id]/route'
+import { useDebounce } from '@/lib/hooks/useDebounce'
 
 interface LinkCardProps {
   link: LinkType
@@ -20,38 +20,29 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
-  const request = updateLink ? debounce(updateLink, 500) : () => {}
-  const debounceRequest = useCallback(request, [link]) //allows sending only 1 request after the debounce
+  const debouncedUpdateLink = useDebounce(updateLink, link)
 
   useEffect(() => {
     setFieldValues(link)
   }, [link])
 
-  useEffect(() => console.log('useEffect 🌈'))
-
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
     const newFieldValue = { ...fieldValues, [name]: value }
     setFieldValues(newFieldValue)
-    debounceRequest(link.id, newFieldValue)
+    debouncedUpdateLink(link.id, newFieldValue)
   }
 
   const handleToggle: any = (checked: boolean) => {
     const updatedLink = { ...fieldValues, isActive: !fieldValues.isActive }
     setFieldValues(updatedLink)
-    updateLink!(link.id, updatedLink)
+    debouncedUpdateLink(link.id, updatedLink)
   }
 
   const handleDeleteButton = () => {
     setOpen(false)
     removeLink!(link.id)
   }
-
-  // const handleUserClick = () => {
-  //   const newDate = new Date()
-  //   const updatedLink = { ...fieldValues, clicks: [...link.clicks, newDate] }
-  //   updateLink(updatedLink)
-  // }
 
   if (isPublic)
     return (

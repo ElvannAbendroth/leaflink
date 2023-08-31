@@ -8,6 +8,7 @@ import { ProfileTab } from './ProfileTab'
 import { SocialTab } from './SocialTab'
 import { Social } from '@/lib/types'
 import { ThemeTab } from './ThemeTab'
+import { useDebounce } from '@/lib/hooks/useDebounce'
 
 interface AppearancePageProps {}
 
@@ -30,8 +31,7 @@ export default function AppearancePage({}) {
     setFormValues(user as ProfileFormFields)
   }, [user])
 
-  const request = debounce(updateUser, 500)
-  const debounceRequest = useCallback(request, [user]) //allows sending only 1 request after the debounce
+  const debouncedUpdateUser = useDebounce(updateUser, user)
 
   if (!user || !formValues) return null
 
@@ -39,13 +39,13 @@ export default function AppearancePage({}) {
     const { name, value } = target
     const newFormValues = { ...formValues, [name]: value || '' }
     setFormValues(newFormValues)
-    debounceRequest(newFormValues)
+    debouncedUpdateUser(newFormValues)
   }
   const handleChangeSocials: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target
     const newFormValues = { ...formValues, socials: { ...formValues.socials, [name]: value || '' } }
     setFormValues(newFormValues)
-    debounceRequest(newFormValues)
+    debouncedUpdateUser(newFormValues)
   }
 
   return (

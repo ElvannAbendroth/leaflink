@@ -1,3 +1,4 @@
+'use client'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from '@/lib/types'
 import { PostLinkRequest } from '@/app/api/links/route'

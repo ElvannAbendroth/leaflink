@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { Icons } from '@/components/Icons'
 import { Link as LinkType } from '@/lib/types'
@@ -17,14 +18,16 @@ interface LinkCardProps {
 
 export default function LinkCard({ link, isPublic = false, removeLink, updateLink }: LinkCardProps) {
   const [open, setOpen] = useState(false)
-  const [fieldValues, setFieldValues] = useState<LinkType>(link)
+  const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
   const request = updateLink ? debounce(updateLink, 500) : () => {}
-  const debounceRequest = useCallback(request, [request]) //allows sending only 1 request after the debounce
+  const debounceRequest = useCallback(request, [link]) //allows sending only 1 request after the debounce
 
-  // useEffect(() => {
-  //   setFieldValues(link)
-  // }, [link, setFieldValues])
+  useEffect(() => {
+    setFieldValues(link)
+  }, [link])
+
+  useEffect(() => console.log('useEffect 🌈'))
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { name, value } = target

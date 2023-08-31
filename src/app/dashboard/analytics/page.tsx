@@ -44,7 +44,7 @@ export default function AnalyticsPage({}) {
           {stats.map(item => (
             <div
               key={item.id}
-              className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+              className="relative overflow-hidden rounded-lg bg-background px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
             >
               <dt>
                 <div className="absolute rounded-md bg-primary p-3">
@@ -69,7 +69,7 @@ export default function AnalyticsPage({}) {
                   <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
                   {item.change}
                 </p>
-                <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+                <div className="absolute inset-x-0 bottom-0 bg-input/50 px-4 py-4 sm:px-6">
                   <div className="text-sm">
                     <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                       View all<span className="sr-only"> {item.name} stats</span>
@@ -87,7 +87,7 @@ export default function AnalyticsPage({}) {
           {user?.links
             ?.sort((a, b) => b.clicks?.length - a.clicks?.length)
             .map(link => (
-              <div className="flex justify-between items-center p-4 bg-input rounded-lg" key={link.id}>
+              <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow" key={link.id}>
                 <span className="typo-p font-semibold">{link.title}</span>
                 <div className="flex gap-2 text-muted">
                   <span className="text-sm  flex gap-1">{link.clicks?.length | 0}</span>

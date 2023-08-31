@@ -2,16 +2,12 @@
 import { FC } from 'react'
 import { Icons } from '@/components/Icons'
 import { ProfilePicture } from '@/components/ProfilePicture'
-import { UserContext } from '@/components/UserProvider'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { ChangeEventHandler, useCallback, useContext, useEffect, useState } from 'react'
-import debounce from 'lodash.debounce'
+import { ChangeEventHandler } from 'react'
 import { Textarea } from '@/components/ui/Textarea'
-import { request } from 'http'
-import { useDebounce } from '@/lib/hooks/useDebounce'
-import { useSearchParams } from 'next/navigation'
+
 import { ProfileFormFields } from './page'
 
 interface ProfileTabProps {

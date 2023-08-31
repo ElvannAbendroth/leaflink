@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { InputGroup } from '@/components/ui/InputGroup'
 import { Label } from '@/components/ui/Label'
-import { Social } from '@/lib/types'
 import { UserContext } from './UserProvider'
 import {
   Dialog,
@@ -15,7 +14,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/Dialog'
-import { redirect } from 'next/navigation'
 
 interface ProfileFormProps {
   // user: UserData | UserDocument
@@ -24,9 +22,10 @@ interface ProfileFormProps {
 interface ProfileFormFields {
   name: string
   email: string
-  socials: Social
   password?: string
 }
+
+//TODO: Confirm Password
 
 export const ProfileForm: FC<ProfileFormProps> = () => {
   const { user, updateUser, deleteUser } = useContext(UserContext)
@@ -39,7 +38,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
 
   if (!user || !formValues) return null
 
-  const { socials, name, email, password } = formValues
+  const { name, email, password } = formValues
 
   const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = ({ target }) => {
     const { name, value } = target
@@ -57,7 +56,7 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="mt-14 flex flex-col gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <InputGroup>
           <Label htmlFor="name">
             <Icons.user />
@@ -82,20 +81,20 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
             onChange={handleChange}
           />
         </InputGroup>
-        <Button type="submit" className="mt-14">
+        <Button type="submit" className="">
           Save settings
         </Button>
       </form>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="danger" className="mt-6">
+          <Button variant="danger" className="mt-3 w-full">
             Delete account
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="typo-h2">Are you sure absolutely sure?</DialogTitle>
+            <DialogTitle className="typo-h2">Are you sure sure you want to delete your account?</DialogTitle>
             <DialogDescription>
               <p className="typo-p">
                 This action cannot be undone. This will permanently delete your account and remove your data from our
@@ -103,14 +102,13 @@ export const ProfileForm: FC<ProfileFormProps> = () => {
               </p>
             </DialogDescription>
           </DialogHeader>
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-end">
             <Button
               onClick={e => {
                 e.preventDefault()
                 setOpen(false)
               }}
               variant="default"
-              className=""
             >
               Cancel
             </Button>

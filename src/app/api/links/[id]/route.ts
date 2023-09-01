@@ -16,6 +16,14 @@ interface PatchLinkResponse {
   id: string
 }
 
+export interface GetLinkResponse {
+  user: { username?: string; id: string; email?: string }
+  title: string
+  href: string
+  isActive: boolean
+  id: string
+}
+
 type PatchResponse = NextResponse<{ link?: PatchLinkResponse; error?: string }>
 
 type DeleteResponse = NextResponse<{ message?: string; error?: string }>

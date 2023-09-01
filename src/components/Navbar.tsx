@@ -35,8 +35,7 @@ export const Navbar: FC<NavbarProps> = () => {
       icon: Icons.preview,
     },
     { type: 'separator', label: 'separator 1', href: '#' },
-    // { type: 'page', label: 'My Account', href: `/account`, icon: Icons.user },
-    // { type: 'page', label: 'My Account', href: '/account', icon: Icons.user },
+    { type: 'page', label: 'My Account', href: `/dashboard/account`, icon: Icons.user },
 
     {
       type: 'button',
@@ -61,12 +60,12 @@ export const Navbar: FC<NavbarProps> = () => {
       href: `/dashboard/analytics`,
       icon: Icons.analytics,
     },
-    {
-      type: 'page',
-      label: 'Settings',
-      href: `/dashboard/settings`,
-      icon: Icons.settings,
-    },
+    // {
+    //   type: 'page',
+    //   label: 'Settings',
+    //   href: `/dashboard/settings`,
+    //   icon: Icons.settings,
+    // },
   ]
 
   const appearanceTabItems: NavItem[] = [
@@ -116,10 +115,10 @@ export const Navbar: FC<NavbarProps> = () => {
         <div className="flex gap-3 items-center">
           {session?.status === 'authenticated' ? (
             <>
-              {/* <Link className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), '')} href="/view">
+              <Link className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), '')} href="/view">
                 <Icons.preview size={16} />
                 <span>View</span>
-              </Link> */}
+              </Link>
               <ProfileDropdownMenu navItems={profileMenuItems} />
             </>
           ) : (

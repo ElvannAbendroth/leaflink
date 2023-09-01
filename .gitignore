@@ -35,5 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # mongodb playground
-data.mongodb.js
-dataTest.mongodb.js
+*.mongodb.js

@@ -6,12 +6,10 @@ export interface LinkDocument extends Document {
   title: string
   href: string
   isActive: boolean
-  id?: string
+  id: string
 }
 
-interface Methods {
-  comparePassword(password: string): Promise<boolean>
-}
+interface Methods {}
 
 const linkSchema = new Schema<LinkDocument, {}, Methods>({
   user: {
@@ -30,6 +28,12 @@ const linkSchema = new Schema<LinkDocument, {}, Methods>({
     type: Boolean,
   },
 })
+
+// linkSchema.virtual('users', {
+//   ref: 'User',
+//   localField: '_id',
+//   foreignField: 'link',
+// })
 
 linkSchema.set('toJSON', {
   transform: (document, returnedObject) => {

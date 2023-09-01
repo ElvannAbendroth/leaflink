@@ -40,7 +40,7 @@ export default function DashboardPage() {
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
             links?.map((link: LinkType) => (
-              <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} />
+              <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} type="edit" />
             ))
           )}
         </>

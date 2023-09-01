@@ -88,7 +88,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
               This user doesn't have links to show yet!
             </p>
           ) : (
-            activeLinks.map(link => <LinkCard key={link.title} link={link} isPublic={true} />)
+            activeLinks.map(link => <LinkCard key={link.title} link={link} type="public" />)
           )}
           <SocialLinks socials={pageUser.socials} />
         </>

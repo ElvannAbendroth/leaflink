@@ -6,21 +6,32 @@ import { Switch } from '@/components/ui/Switch'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
-import { PatchLinkRequest } from '@/app/api/links/[id]/route'
+import { GetLinkResponse, PatchLinkRequest } from '@/app/api/links/[id]/route'
+import clickService from '@/services/clickService'
+import Link from 'next/link'
+
 interface LinkCardProps {
-  link: LinkType
-  isPublic?: boolean
+  link: GetLinkResponse
+  type: 'public' | 'edit' | 'analytics'
   removeLink?: (id: string) => void
   updateLink?: (id: string, payload: PatchLinkRequest) => void
 }
 
-export default function LinkCard({ link, isPublic = false, removeLink, updateLink }: LinkCardProps) {
+export default function LinkCard({ link, type, removeLink, updateLink }: LinkCardProps) {
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
+  const [totalClicks, setTotalClicks] = useState<number | null>(null)
 
   useEffect(() => {
     setFieldValues(link)
+
+    if (link) {
+      clickService.getByUserId(link.user.id).then(clicks => {
+        const linkClicks = clicks ? clicks.find((click: any) => click.linkId === link.id) : null
+        setTotalClicks(linkClicks ? linkClicks.count : 0)
+      })
+    }
   }, [link])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -36,21 +47,41 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
     updateLink!(link.id, updatedLink)
   }
 
+  const handleUserClick = () => {
+    console.log('click!')
+    clickService.create(link.id)
+  }
+
   const handleDeleteButton = () => {
     setOpen(false)
     removeLink!(link.id)
   }
 
-  if (isPublic)
+  if (type === 'public')
     return (
       <a
         target="_blank"
         className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
         href={href}
-        // onClick={handleUserClick}
+        onClick={handleUserClick}
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
+    )
+
+  if (type === 'analytics')
+    return (
+      <Link
+        href="/dashboard"
+        className="flex justify-between items-center p-4 bg-white rounded-lg shadow hover:scale-[102%] transition-all duration-200 outline-input outline outline-1"
+        key={link.id}
+      >
+        <span className="typo-p font-semibold">{link.title}</span>
+        <div className="flex gap-2 text-muted">
+          <span className="text-sm  flex gap-1">{totalClicks}</span>
+          <Icons.click className=" " size={18} />
+        </div>
+      </Link>
     )
 
   return (
@@ -89,7 +120,7 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
 
         <div className="flex flex-row justify-start items-center gap-4 border-t-2 pt-3 border-dotted">
           <a href="/view" target="_blank" title="view page" className="text-sm text-muted flex gap-1">
-            <span>{link.clicks?.length | 0}</span>
+            <span>{totalClicks}</span>
             <Icons.analytics className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
           </a>
           <a href="/view" target="_blank" title="view page">
@@ -98,7 +129,11 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-              <Icons.trash className="cursor-pointer text-muted hover:text-danger transition-all" size={18} />
+              <Icons.trash
+                aria-label="delete"
+                className="cursor-pointer text-muted hover:text-danger transition-all"
+                size={18}
+              />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

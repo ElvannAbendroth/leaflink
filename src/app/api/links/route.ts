@@ -10,7 +10,7 @@ export interface PostLinkRequest {
   isActive?: boolean
 }
 
-interface PostLinkResponse {
+export interface PostLinkResponse {
   title: string
   href: string
   isActive: boolean
@@ -22,7 +22,7 @@ type NewResponse = NextResponse<{ link?: PostLinkResponse; error?: string }>
 export const GET = async (req: Request) => {
   try {
     await startDb()
-    const links = await Link.find({})
+    const links = await Link.find({}).populate('user', { username: 1 })
     return NextResponse.json(links)
   } catch (error) {
     return NextResponse.json({ message: `${error}` })

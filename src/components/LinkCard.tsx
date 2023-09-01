@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from './ui/Button'
 import { GetLinkResponse, PatchLinkRequest } from '@/app/api/links/[id]/route'
 import clickService from '@/services/clickService'
+import Link from 'next/link'
 
 interface LinkCardProps {
   link: GetLinkResponse
@@ -67,13 +68,17 @@ export default function LinkCard({ link, type, removeLink, updateLink }: LinkCar
 
   if (type === 'analytics')
     return (
-      <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow" key={link.id}>
+      <Link
+        href="/dashboard"
+        className="flex justify-between items-center p-4 bg-white rounded-lg shadow hover:scale-[102%] transition-all duration-200 outline-input outline outline-1"
+        key={link.id}
+      >
         <span className="typo-p font-semibold">{link.title}</span>
         <div className="flex gap-2 text-muted">
           <span className="text-sm  flex gap-1">{totalClicks}</span>
           <Icons.click className=" " size={18} />
         </div>
-      </div>
+      </Link>
     )
 
   return (

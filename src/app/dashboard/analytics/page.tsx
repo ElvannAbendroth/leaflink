@@ -1,7 +1,9 @@
 'use client'
 import { Icons } from '@/components/Icons'
+import LinkCard from '@/components/LinkCard'
 import { UserContext } from '@/components/UserProvider'
 import Callout from '@/components/ui/Callout'
+import { useLinks } from '@/lib/hooks/useLinks'
 import { cn } from '@/lib/utils'
 import clickService from '@/services/clickService'
 import { useContext, useEffect, useState } from 'react'
@@ -10,37 +12,36 @@ interface AnalyticsPageProps {}
 
 export default function AnalyticsPage({}) {
   const { user } = useContext(UserContext)
-  const [totalUserClicks, setTotalUserClicks] = useState<number | null>()
+  const { links } = useLinks()
+  const [totalUserClicks, setTotalUserClicks] = useState<number | null>(0)
 
   useEffect(() => {
     if (user) {
-      console.log(user.id)
       clickService.getByUserId(user.id).then(clicks => {
         setTotalUserClicks(clicks.length)
       })
     }
   }, [user])
 
-  const allClicks = user?.links.reduce((acc, curr) => acc.concat(curr.clicks), [] as Date[]) || '0'
-
   const stats = [
     {
       id: 1,
-      name: 'Page Visits',
-      stat: `${user?.visits?.length || 'N/A'}`,
-      icon: Icons.user,
-      change: '0%',
-      changeType: 'increase',
-    },
-    {
-      id: 2,
       name: 'Links Clicked',
       stat: `${totalUserClicks}`,
       icon: Icons.click,
       change: '0%',
       changeType: 'increase',
     },
-    { id: 3, name: 'Avg. Click Rate', stat: 'N/A', icon: Icons.click, change: '0%', changeType: 'decrease' },
+    // {
+    //   id: 2,
+    //   name: 'Page Visits',
+    //   stat: `${user?.visits?.length || 'N/A'}`,
+    //   icon: Icons.user,
+    //   change: '0%',
+    //   changeType: 'increase',
+    // },
+
+    // { id: 3, name: 'Avg. Click Rate', stat: 'N/A', icon: Icons.click, change: '0%', changeType: 'decrease' },
   ]
 
   return (
@@ -95,16 +96,10 @@ export default function AnalyticsPage({}) {
       <div>
         <h3 className="typo-h4 mt-5">Top Clicked Links</h3>
         <div className="flex flex-col gap-4 mt-4">
-          {user?.links
+          {links
             ?.sort((a, b) => b.clicks?.length - a.clicks?.length)
             .map(link => (
-              <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow" key={link.id}>
-                <span className="typo-p font-semibold">{link.title}</span>
-                <div className="flex gap-2 text-muted">
-                  <span className="text-sm  flex gap-1">{link.clicks?.length | 0}</span>
-                  <Icons.click className=" " size={18} />
-                </div>
-              </div>
+              <LinkCard key={link.id} link={link} type="analytics" />
             ))}
         </div>
       </div>

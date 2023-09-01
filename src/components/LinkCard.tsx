@@ -11,12 +11,12 @@ import clickService from '@/services/clickService'
 
 interface LinkCardProps {
   link: GetLinkResponse
-  isPublic?: boolean
+  type: 'public' | 'edit' | 'analytics'
   removeLink?: (id: string) => void
   updateLink?: (id: string, payload: PatchLinkRequest) => void
 }
 
-export default function LinkCard({ link, isPublic = false, removeLink, updateLink }: LinkCardProps) {
+export default function LinkCard({ link, type, removeLink, updateLink }: LinkCardProps) {
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
@@ -53,7 +53,7 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
     removeLink!(link.id)
   }
 
-  if (isPublic)
+  if (type === 'public')
     return (
       <a
         target="_blank"
@@ -63,6 +63,17 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
+    )
+
+  if (type === 'analytics')
+    return (
+      <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow" key={link.id}>
+        <span className="typo-p font-semibold">{link.title}</span>
+        <div className="flex gap-2 text-muted">
+          <span className="text-sm  flex gap-1">{totalClicks}</span>
+          <Icons.click className=" " size={18} />
+        </div>
+      </div>
     )
 
   return (
@@ -110,7 +121,11 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
-              <Icons.trash className="cursor-pointer text-muted hover:text-danger transition-all" size={18} />
+              <Icons.trash
+                aria-label="delete"
+                className="cursor-pointer text-muted hover:text-danger transition-all"
+                size={18}
+              />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

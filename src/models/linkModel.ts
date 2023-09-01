@@ -29,6 +29,12 @@ const linkSchema = new Schema<LinkDocument, {}, Methods>({
   },
 })
 
+// linkSchema.virtual('users', {
+//   ref: 'User',
+//   localField: '_id',
+//   foreignField: 'link',
+// })
+
 linkSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()

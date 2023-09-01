@@ -1,12 +1,16 @@
-import { GetClickResponse } from '@/app/api/analytics/clicks/route'
-
-export async function getByUserId(id: string) {
-  const res = await fetch(`/api/analytics/clicks`)
-  if (!res?.ok) throw new Error('Error while fetching statistics')
-  const clicks = await res.json()
-  const filteredClicks = clicks.filter((click: GetClickResponse) => click.link.user === id)
-
-  return filteredClicks
+export async function getByUserId(userId: string) {
+  try {
+    if (!userId) {
+      throw new Error('Please provide a user Id')
+    }
+    const res = await fetch(`/api/analytics/clicks?userId=${userId}`, {
+      method: 'GET',
+      cache: 'no-store',
+    })
+    if (!res?.ok) throw new Error('Error while fetching statistics')
+    const clicks = await res.json()
+    return clicks
+  } catch (error) {}
 }
 
 export async function create(linkId: string) {

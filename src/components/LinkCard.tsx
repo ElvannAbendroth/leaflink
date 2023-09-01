@@ -21,14 +21,17 @@ export default function LinkCard({ link, type, removeLink, updateLink }: LinkCar
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
-  const [totalClicks, setTotalClicks] = useState<number | null>(0)
+  const [totalClicks, setTotalClicks] = useState<number | null>(null)
 
   useEffect(() => {
     setFieldValues(link)
-    clickService.getByUserId(link.user.id).then(clicks => {
-      const filteredClicks = clicks.filter((clicks: any) => clicks.link.id === link.id)
-      setTotalClicks(filteredClicks.length)
-    })
+
+    if (link) {
+      clickService.getByUserId(link.user.id).then(clicks => {
+        const linkClicks = clicks ? clicks.find((click: any) => click.linkId === link.id) : null
+        setTotalClicks(linkClicks ? linkClicks.count : 0)
+      })
+    }
   }, [link])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {

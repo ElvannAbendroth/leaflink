@@ -6,6 +6,7 @@ export interface ClickDocument extends Document {
   link: string
   id: string
   loggedUser?: string
+  user: string
 }
 
 interface Methods {}
@@ -23,6 +24,11 @@ const clickSchema = new Schema<ClickDocument, {}, Methods>({
   loggedUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
 })
 

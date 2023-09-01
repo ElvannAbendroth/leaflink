@@ -3,12 +3,23 @@ import { Icons } from '@/components/Icons'
 import { UserContext } from '@/components/UserProvider'
 import Callout from '@/components/ui/Callout'
 import { cn } from '@/lib/utils'
-import { useContext } from 'react'
+import clickService from '@/services/clickService'
+import { useContext, useEffect, useState } from 'react'
 
 interface AnalyticsPageProps {}
 
 export default function AnalyticsPage({}) {
   const { user } = useContext(UserContext)
+  const [totalUserClicks, setTotalUserClicks] = useState<number | null>()
+
+  useEffect(() => {
+    if (user) {
+      console.log(user.id)
+      clickService.getByUserId(user.id).then(clicks => {
+        setTotalUserClicks(clicks.length)
+      })
+    }
+  }, [user])
 
   const allClicks = user?.links.reduce((acc, curr) => acc.concat(curr.clicks), [] as Date[]) || '0'
 
@@ -24,7 +35,7 @@ export default function AnalyticsPage({}) {
     {
       id: 2,
       name: 'Links Clicked',
-      stat: `${allClicks?.length || 0}`,
+      stat: `${totalUserClicks}`,
       icon: Icons.click,
       change: '0%',
       changeType: 'increase',

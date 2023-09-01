@@ -10,11 +10,19 @@ export interface PostClickRequest {
   loggedUser?: string
 }
 
-interface PostClickResponse {
+export interface PostClickResponse {
   timestamp: Date
   linkId: string
   loggedUserId?: string
   id: string
+}
+
+export interface GetClickResponse {
+  timestamp: Date
+  linkId: string
+  loggedUserId?: string
+  id: string
+  link: { user: string }
 }
 
 type NewResponse = NextResponse<{ click?: PostClickResponse; error?: string }>
@@ -22,7 +30,7 @@ type NewResponse = NextResponse<{ click?: PostClickResponse; error?: string }>
 export const GET = async (req: Request) => {
   try {
     await startDb()
-    const clicks = await Click.find({}).populate('link', { user: 1 }).populate('loggedUser', { id: 1 })
+    const clicks = await Click.find({}).populate('link', { user: 1 }).populate('loggedUser', { id: 1, email: 1 })
     return NextResponse.json(clicks)
   } catch (error) {
     return NextResponse.json({ message: `${error}` })

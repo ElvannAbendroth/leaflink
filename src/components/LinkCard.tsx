@@ -6,9 +6,11 @@ import { Switch } from '@/components/ui/Switch'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/Dialog'
 import { Button } from './ui/Button'
-import { PatchLinkRequest } from '@/app/api/links/[id]/route'
+import { GetLinkResponse, PatchLinkRequest } from '@/app/api/links/[id]/route'
+import clickService from '@/services/clickService'
+
 interface LinkCardProps {
-  link: LinkType
+  link: GetLinkResponse
   isPublic?: boolean
   removeLink?: (id: string) => void
   updateLink?: (id: string, payload: PatchLinkRequest) => void
@@ -18,9 +20,14 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
   const [open, setOpen] = useState(false)
   const [fieldValues, setFieldValues] = useState<PatchLinkRequest>(link)
   const { title, href, isActive } = fieldValues
+  const [totalClicks, setTotalClicks] = useState<number | null>(0)
 
   useEffect(() => {
     setFieldValues(link)
+    clickService.getByUserId(link.user.id).then(clicks => {
+      const filteredClicks = clicks.filter((clicks: any) => clicks.link.id === link.id)
+      setTotalClicks(filteredClicks.length)
+    })
   }, [link])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -36,6 +43,11 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
     updateLink!(link.id, updatedLink)
   }
 
+  const handleUserClick = () => {
+    console.log('click!')
+    clickService.create(link.id)
+  }
+
   const handleDeleteButton = () => {
     setOpen(false)
     removeLink!(link.id)
@@ -47,7 +59,7 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
         target="_blank"
         className="flex justify-center items-center bg-input rounded-lg hover:scale-105 transition-all"
         href={href}
-        // onClick={handleUserClick}
+        onClick={handleUserClick}
       >
         <p className="typo-h4 p-4">{title}</p>
       </a>
@@ -89,7 +101,7 @@ export default function LinkCard({ link, isPublic = false, removeLink, updateLin
 
         <div className="flex flex-row justify-start items-center gap-4 border-t-2 pt-3 border-dotted">
           <a href="/view" target="_blank" title="view page" className="text-sm text-muted flex gap-1">
-            <span>{link.clicks?.length | 0}</span>
+            <span>{totalClicks}</span>
             <Icons.analytics className="cursor-pointer text-muted hover:text-foreground transition-all" size={18} />
           </a>
           <a href="/view" target="_blank" title="view page">

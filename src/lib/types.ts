@@ -65,6 +65,7 @@ export interface UserDocument extends Document {
 }
 
 export type Link = {
+  user: { id: string; email: string }
   title: string
   href: string
   isActive: boolean

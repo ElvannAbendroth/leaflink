@@ -17,7 +17,7 @@ export const useLinks = () => {
     linkService
       .getAll()
       .then(data => {
-        const newLinks = data.filter((link: any) => link.user === user?.id)
+        const newLinks = data.filter((link: any) => link.user.id === user?.id)
         setLinks(newLinks)
       })
       .catch(error => console.log(error))

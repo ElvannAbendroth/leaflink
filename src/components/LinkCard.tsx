@@ -213,9 +213,8 @@ export default function LinkCard({ link, type, removeLink, updateLink }: LinkCar
 
         <div className="flex flex-row justify-start items-center gap-4 border-t-2 pt-3 border-dotted">
           <a
-            href="/analytics"
-            target="_blank"
-            title="view page"
+            href="/dashboard/analytics"
+            title="analytics"
             className="text-sm  flex gap-1 text-muted hover:text-foreground"
           >
             <span>{totalClicks}</span>

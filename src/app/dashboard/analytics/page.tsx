@@ -20,11 +20,15 @@ export default function AnalyticsPage({}) {
         if (clicks.length === 0) {
           setTotalUserClicks(0)
         }
-        const totalClicksCount = clicks.reduce((acc: number, curr: any) => acc + curr.count, 0)
+        const filteredLinks = links?.filter(link => !link.isArchived).map(link => link.id)
+
+        const totalClicksCount = clicks
+          .filter((click: any) => filteredLinks?.includes(click.linkId))
+          .reduce((acc: number, curr: any) => acc + curr.count, 0)
         setTotalUserClicks(totalClicksCount)
       })
     }
-  }, [user])
+  }, [user, links])
 
   const stats = [
     {
@@ -50,7 +54,7 @@ export default function AnalyticsPage({}) {
   return (
     <div className="">
       <h2 className="typo-h2">Analytics</h2>
-      <Callout type="warning">Feature currently in construction</Callout>
+      {/* <Callout type="warning">Feature currently in construction</Callout> */}
 
       <div>
         <h3 className="typo-h4">All Time</h3>

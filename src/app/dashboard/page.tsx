@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
       {!isLoading ? (
         <>
-          {links?.length === 0 ? (
+          {linksToShow?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
             linksToShow?.map((link: LinkType) => (

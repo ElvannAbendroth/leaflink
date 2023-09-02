@@ -7,6 +7,7 @@ export interface PatchLinkRequest {
   title?: string
   href?: string
   isActive?: boolean
+  isArchived?: boolean
 }
 
 interface PatchLinkResponse {
@@ -21,6 +22,7 @@ export interface GetLinkResponse {
   title: string
   href: string
   isActive: boolean
+  isArchived: boolean
   id: string
 }
 

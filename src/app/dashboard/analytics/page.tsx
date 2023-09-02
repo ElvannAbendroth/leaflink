@@ -100,7 +100,8 @@ export default function AnalyticsPage({}) {
         <h3 className="typo-h4 mt-5">Top Clicked Links</h3>
         <div className="flex flex-col gap-4 mt-4">
           {links
-            ?.sort((a, b) => b.clicks?.length - a.clicks?.length)
+            ?.filter(link => !link.isArchived)
+            .sort((a, b) => b.clicks?.length - a.clicks?.length)
             .map(link => (
               <LinkCard key={link.id} link={link} type="analytics" />
             ))}

@@ -71,6 +71,7 @@ export type Link = {
   isActive: boolean
   id: string
   clicks: Date[]
+  isArchived: boolean
 }
 
 export type Social = {

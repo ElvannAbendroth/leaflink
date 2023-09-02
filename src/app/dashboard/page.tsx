@@ -14,6 +14,7 @@ export default function DashboardPage() {
   const { user } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const { links, addLink, removeLink, updateLink } = useLinks()
+  const linksToShow = links?.filter(link => !link.isArchived)
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
@@ -39,7 +40,7 @@ export default function DashboardPage() {
           {links?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            links?.map((link: LinkType) => (
+            linksToShow?.map((link: LinkType) => (
               <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} type="edit" />
             ))
           )}

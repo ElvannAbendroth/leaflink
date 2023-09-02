@@ -49,6 +49,8 @@ import {
   ArrowUp,
   ArrowDown,
   MousePointerClick,
+  Archive,
+  ArchiveRestore,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -198,4 +200,6 @@ export const Icons = {
   brush: BrushIcon,
   social: Share2,
   click: MousePointerClick,
+  archive: Archive,
+  archiveRestore: ArchiveRestore,
 }

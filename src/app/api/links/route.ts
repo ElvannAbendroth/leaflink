@@ -8,6 +8,7 @@ export interface PostLinkRequest {
   title: string
   href: string
   isActive?: boolean
+  isArchived?: boolean
 }
 
 export interface PostLinkResponse {

@@ -27,7 +27,6 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
     email: '',
     visits: [],
   }
-  const { updateUser } = useContext(UserContext)
   const [pageUser, setPageUser] = useState<UserData>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -62,7 +61,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
 
   if (!pageUser) return notFound()
 
-  const activeLinks = pageUser.links.filter(link => link.isActive === true)
+  const linksToShow = pageUser.links.filter(link => link.isActive === true).filter(link => !link.isArchived)
 
   return (
     <div className="flex flex-col gap-4">
@@ -83,12 +82,12 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
       {/* Displays active links to the user's profile */}
       {!isLoading ? (
         <>
-          {activeLinks.length === 0 ? (
+          {linksToShow.length === 0 ? (
             <p className="typo-p text-center italic text-muted -mt-14 sm:mt-0">
               This user doesn't have links to show yet!
             </p>
           ) : (
-            activeLinks.map(link => <LinkCard key={link.title} link={link} type="public" />)
+            linksToShow.map(link => <LinkCard key={link.title} link={link} type="public" />)
           )}
           <SocialLinks socials={pageUser.socials} />
         </>

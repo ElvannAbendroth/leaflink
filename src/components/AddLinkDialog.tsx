@@ -18,6 +18,7 @@ export const AddLinkDialog: FC<AddLinkDialogProps> = ({ addLink }) => {
     title: '',
     href: '',
     isActive: true,
+    isArchived: false,
   })
 
   const { title, href } = fieldValues

@@ -7,6 +7,7 @@ export interface LinkDocument extends Document {
   href: string
   isActive: boolean
   id: string
+  isArchived: boolean
 }
 
 interface Methods {}
@@ -26,6 +27,10 @@ const linkSchema = new Schema<LinkDocument, {}, Methods>({
   },
   isActive: {
     type: Boolean,
+  },
+  isArchived: {
+    type: Boolean,
+    default: false,
   },
 })
 

@@ -34,6 +34,12 @@ export const Navbar: FC<NavbarProps> = () => {
       href: `/view`,
       icon: Icons.preview,
     },
+    {
+      type: 'page',
+      label: 'Archive',
+      href: `/dashboard/archive`,
+      icon: Icons.archive,
+    },
     { type: 'separator', label: 'separator 1', href: '#' },
     { type: 'page', label: 'My Account', href: `/dashboard/account`, icon: Icons.user },
 

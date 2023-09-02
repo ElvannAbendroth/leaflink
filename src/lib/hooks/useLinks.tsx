@@ -1,6 +1,5 @@
 'use client'
 import { useContext, useEffect, useState } from 'react'
-import { Link } from '@/lib/types'
 import { PostLinkRequest } from '@/app/api/links/route'
 import linkService from '@/services/linkService'
 import { UserContext } from '@/components/UserProvider'
@@ -22,6 +21,8 @@ export const useLinks = () => {
       })
       .catch(error => console.log(error))
   }, [setLinks, user])
+
+  const unArchivedLinks = links?.filter(link => !link.isArchived) || []
 
   const addLink = (payload: PostLinkRequest) => {
     linkService
@@ -76,5 +77,5 @@ export const useLinks = () => {
       })
   }
 
-  return { links, addLink, removeLink, updateLink }
+  return { links, addLink, removeLink, updateLink, unArchivedLinks }
 }

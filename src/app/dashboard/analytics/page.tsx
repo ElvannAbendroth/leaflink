@@ -3,6 +3,7 @@ import { Icons } from '@/components/Icons'
 import LinkCard from '@/components/LinkCard'
 import { UserContext } from '@/components/UserProvider'
 import Callout from '@/components/ui/Callout'
+import { useClicks } from '@/lib/hooks/useClicks'
 import { useLinks } from '@/lib/hooks/useLinks'
 import clickService from '@/services/clickService'
 import { useContext, useEffect, useState } from 'react'
@@ -10,31 +11,16 @@ import { useContext, useEffect, useState } from 'react'
 interface AnalyticsPageProps {}
 
 export default function AnalyticsPage({}) {
-  const { user } = useContext(UserContext)
-  const { links } = useLinks()
-  const [totalUserClicks, setTotalUserClicks] = useState<number | null>(0)
+  const { unArchivedLinks } = useLinks()
+  const { totalProfileClicks } = useClicks()
 
-  useEffect(() => {
-    if (user) {
-      clickService.getByUserId(user.id).then(clicks => {
-        if (clicks.length === 0) {
-          setTotalUserClicks(0)
-        }
-        const filteredLinks = links?.filter(link => !link.isArchived).map(link => link.id)
-
-        const totalClicksCount = clicks
-          .filter((click: any) => filteredLinks?.includes(click.linkId))
-          .reduce((acc: number, curr: any) => acc + curr.count, 0)
-        setTotalUserClicks(totalClicksCount)
-      })
-    }
-  }, [user, links])
+  const linksByClicks = unArchivedLinks.sort((a, b) => b.clicks?.length - a.clicks?.length)
 
   const stats = [
     {
       id: 1,
       name: 'Links Clicked',
-      stat: `${totalUserClicks}`,
+      stat: `${totalProfileClicks}`,
       icon: Icons.click,
       change: '0%',
       changeType: 'increase',
@@ -103,12 +89,9 @@ export default function AnalyticsPage({}) {
       <div>
         <h3 className="typo-h4 mt-5">Top Clicked Links</h3>
         <div className="flex flex-col gap-4 mt-4">
-          {links
-            ?.filter(link => !link.isArchived)
-            .sort((a, b) => b.clicks?.length - a.clicks?.length)
-            .map(link => (
-              <LinkCard key={link.id} link={link} type="analytics" />
-            ))}
+          {linksByClicks.map(link => (
+            <LinkCard key={link.id} link={link} type="analytics" />
+          ))}
         </div>
       </div>
     </div>

@@ -13,8 +13,7 @@ import { useLinks } from '@/lib/hooks/useLinks'
 export default function DashboardPage() {
   const { user } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { links, addLink, removeLink, updateLink } = useLinks()
-  const linksToShow = links?.filter(link => !link.isArchived)
+  const { addLink, removeLink, updateLink, unArchivedLinks } = useLinks()
 
   useEffect(() => {
     user ? setIsLoading(false) : setIsLoading(true)
@@ -37,10 +36,10 @@ export default function DashboardPage() {
 
       {!isLoading ? (
         <>
-          {linksToShow?.length === 0 ? (
+          {unArchivedLinks?.length === 0 ? (
             <p className="typo-p text-center italic text-muted">Add a link to get started!</p>
           ) : (
-            linksToShow?.map((link: LinkType) => (
+            unArchivedLinks?.map((link: LinkType) => (
               <LinkCard key={link.id} link={link} removeLink={removeLink} updateLink={updateLink} type="edit" />
             ))
           )}

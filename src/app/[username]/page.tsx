@@ -6,9 +6,8 @@ import { SocialLinks } from '@/components/SocialLinks'
 import { UserData } from '@/lib/types'
 import userService from '@/services/userService'
 import { notFound } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/Skeleton'
-import { UserContext } from '@/components/UserProvider'
 
 export interface UserLinksPageProps {
   params: {
@@ -36,21 +35,6 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
         setIsLoading(true)
         const user = await userService.getByUsername(username)
         setPageUser(user)
-        const newVisits = user.visits ? user.visits?.push(new Date()) : [new Date()]
-
-        try {
-          const response = await fetch(`/api/users/${user.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...user, visits: ['newVisits'] }),
-          })
-
-          const result = await response.json()
-        } catch (error) {
-          console.error('Error:', error)
-        }
         setIsLoading(false)
       } catch (error) {
         notFound()
@@ -61,7 +45,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
 
   if (!pageUser) return notFound()
 
-  const linksToShow = pageUser.links.filter(link => link.isActive === true).filter(link => !link.isArchived)
+  const publicLinks = pageUser.links.filter(link => link.isActive === true).filter(link => !link.isArchived)
 
   return (
     <div className="flex flex-col gap-4">
@@ -82,12 +66,12 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
       {/* Displays active links to the user's profile */}
       {!isLoading ? (
         <>
-          {linksToShow.length === 0 ? (
+          {publicLinks.length === 0 ? (
             <p className="typo-p text-center italic text-muted -mt-14 sm:mt-0">
               This user doesn't have links to show yet!
             </p>
           ) : (
-            linksToShow.map(link => <LinkCard key={link.title} link={link} type="public" />)
+            publicLinks.map(link => <LinkCard key={link.title} link={link} type="public" />)
           )}
           <SocialLinks socials={pageUser.socials} />
         </>

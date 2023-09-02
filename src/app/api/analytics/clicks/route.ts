@@ -79,9 +79,11 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       body.loggedUser = sessionUser.id
     }
     await startDb()
+    console.log(body)
 
-    const newLink = await new Click({ ...body, timestamp: new Date() })
-    return NextResponse.json(await newLink.save())
+    const linkClicked = await Link.findOne({ id: body.linkId })
+    const newClick = await new Click({ ...body, timestamp: new Date(), user: linkClicked.user })
+    return NextResponse.json(await newClick.save())
   } catch (error) {
     return NextResponse.json({ error: `${error}` }, { status: 500 })
   }

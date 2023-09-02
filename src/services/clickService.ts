@@ -10,7 +10,9 @@ export async function getByUserId(userId: string) {
     if (!res?.ok) throw new Error('Error while fetching statistics')
     const clicks = await res.json()
     return clicks
-  } catch (error) {}
+  } catch (error) {
+    //console.log(error)
+  }
 }
 
 export async function create(linkId: string) {

@@ -7,6 +7,8 @@ import { getServerSession } from 'next-auth/next'
 import { options } from '@/lib/auth'
 import { UserProvider } from '@/components/UserProvider'
 import { Toaster } from '@/components/ui/Toaster'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import ThemedHtml from '@/components/ThemedHtml'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 
@@ -24,23 +26,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <SessionProvider session={session}>
       <UserProvider>
-        <html lang="en" className={`scroll-smooth`}>
-          <body className={`min-h-screen flex flex-col align-middle items-stretch `}>
-            <Navbar />
-            <div className="flex-grow">
-              <main className="max-w-content w-content mx-auto pt-12 pb-12 px-4 sm:px-8">{children}</main>
-            </div>
-            <footer className="p-8 pb-10 ">
-              <p className="typo-p text-sm text-center text-muted">
-                Webapp created with NextJS 13, Tailwind & MongoDB by Oodri. Checkout the project on{' '}
-                <a className="typo-a" href="https://github.com/ElvannAbendroth/leaflink" target="_blank">
-                  Github
-                </a>
-              </p>
-            </footer>
-            <Toaster />
-          </body>
-        </html>
+        <ThemeProvider>
+          <ThemedHtml>
+            <body className={`min-h-screen flex flex-col align-middle items-stretch `}>
+              <Navbar />
+              <div className="flex-grow">
+                <main className="max-w-content w-content mx-auto pt-12 pb-12 px-4 sm:px-8">{children}</main>
+              </div>
+              <footer className="p-8 pb-10 ">
+                <p className="typo-p text-sm text-center text-muted">
+                  Webapp created with NextJS 13, Tailwind & MongoDB by Oodri. Checkout the project on{' '}
+                  <a className="typo-a" href="https://github.com/ElvannAbendroth/leaflink" target="_blank">
+                    Github
+                  </a>
+                </p>
+              </footer>
+              <Toaster />
+            </body>
+          </ThemedHtml>
+        </ThemeProvider>
       </UserProvider>
     </SessionProvider>
   )

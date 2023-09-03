@@ -1,3 +1,4 @@
+import { ThemeValue } from '@/components/ThemeProvider'
 import { LucideIcon } from 'lucide-react'
 import { Document } from 'mongoose'
 
@@ -44,6 +45,7 @@ export interface UserData extends User {
   links: Link[]
   socials: Social
   visits: Date[]
+  theme?: ThemeValue
 }
 
 export interface UserCredentials extends User {
@@ -62,6 +64,7 @@ export interface UserDocument extends Document {
   links: Link[]
   socials: Social
   visits: Date[]
+  theme?: ThemeValue
 }
 
 export type Link = {

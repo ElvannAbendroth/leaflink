@@ -8,6 +8,7 @@ import userService from '@/services/userService'
 import { notFound } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/Skeleton'
+import { ThemeValue, useTheme } from '@/components/ThemeProvider'
 
 export interface UserLinksPageProps {
   params: {
@@ -28,6 +29,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
   }
   const [pageUser, setPageUser] = useState<UserData>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  //const { setTheme } = useTheme()
 
   useEffect(() => {
     const getUser = async () => {
@@ -35,6 +37,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
         setIsLoading(true)
         const user = await userService.getByUsername(username)
         setPageUser(user)
+        //setTheme((pageUser?.theme || 'light')
         setIsLoading(false)
       } catch (error) {
         notFound()

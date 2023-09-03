@@ -38,6 +38,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7"
+    "@types/lodash.debounce": "^4.0.7",
+    "tailwindcss-theme-swapper": "^0.7.3"
   }
 }

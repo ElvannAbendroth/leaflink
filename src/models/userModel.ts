@@ -35,12 +35,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
   imageUrl: {
     type: String,
   },
-  // links: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Link',
-  //   },
-  // ],
+  theme: { type: String },
   socials: {
     type: Object,
     default: {

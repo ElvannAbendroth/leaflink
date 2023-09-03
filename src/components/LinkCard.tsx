@@ -178,7 +178,7 @@ export default function LinkCard({ link, type, removeLink, updateLink }: LinkCar
     )
 
   return (
-    <div className="bg-gray-50 shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-6 items-start ">
+    <div className="bg-input shadow-lg shadow-muted/30 flex gap-4 rounded-lg p-6 items-start ">
       <div className="flex flex-col gap-3 flex-grow max-w-full">
         <div className="flex gap-2 items-center justify-between">
           {/* <div className="flex gap-2 items-center typo-h4">{title}</div> */}

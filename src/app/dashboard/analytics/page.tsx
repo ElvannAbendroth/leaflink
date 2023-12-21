@@ -1,16 +1,12 @@
 'use client'
 import { Icons } from '@/components/Icons'
 import LinkCard from '@/components/LinkCard'
-import { UserContext } from '@/components/UserProvider'
-import Callout from '@/components/ui/Callout'
 import { useClicks } from '@/lib/hooks/useClicks'
 import { useLinks } from '@/lib/hooks/useLinks'
-import clickService from '@/services/clickService'
-import { useContext, useEffect, useState } from 'react'
 
 interface AnalyticsPageProps {}
 
-export default function AnalyticsPage({}) {
+export default function AnalyticsPage({}: AnalyticsPageProps) {
   const { unArchivedLinks } = useLinks()
   const { totalProfileClicks } = useClicks()
 

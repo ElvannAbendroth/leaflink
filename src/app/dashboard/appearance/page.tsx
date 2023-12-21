@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { UserContext } from '@/components/UserProvider'
 import { ChangeEventHandler, useContext, useEffect, useState } from 'react'
@@ -18,7 +17,7 @@ export interface ProfileFormFields {
   socials: Social
 }
 
-export default function AppearancePage({}) {
+export default function AppearancePage({}: AppearancePageProps) {
   const searchParams = useSearchParams()
   const { user, updateUser } = useContext(UserContext)
   const [formValues, setFormValues] = useState<ProfileFormFields | null>(null)

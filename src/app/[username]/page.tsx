@@ -15,17 +15,18 @@ export interface UserLinksPageProps {
   }
 }
 
+const initialUser: User = {
+  username: '',
+  imageUrl: '',
+  links: [],
+  socials: {},
+  website: '',
+  id: '',
+  email: '',
+  visits: [],
+}
+
 export default function UserLinksPage({ params: { username } }: UserLinksPageProps) {
-  const initialUser: User = {
-    username: '',
-    imageUrl: '',
-    links: [],
-    socials: {},
-    website: '',
-    id: '',
-    email: '',
-    visits: [],
-  }
   const [pageUser, setPageUser] = useState<User>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   //const { setTheme } = useTheme()

@@ -1,7 +1,6 @@
 'use client'
+import { ThemeValue } from '@/lib/types'
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from 'react'
-
-export type ThemeValue = 'light' | 'dark' | 'green' | 'pink'
 
 type ThemeContext = {
   theme: ThemeValue

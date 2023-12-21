@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { Icons } from '@/components/Icons'
-import { Link as LinkType } from '@/lib/types'
 import { Switch } from '@/components/ui/Switch'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import {

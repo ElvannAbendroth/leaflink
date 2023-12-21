@@ -2,14 +2,14 @@
 import { CustomSession } from '@/lib/auth'
 import userService from '@/services/userService'
 import { useToast } from '@/lib/hooks/useToast'
-import { RegisterFormInputFields, UserData } from '@/lib/types'
+import { RegisterFormInputFields, User } from '@/lib/types'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { FC, ReactNode, createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 
 type UserContextProps = {
-  user: UserData | null
+  user: User | null
   updateUser: (dataToUpdate: {}) => void
   registerUser: (userInfo: RegisterFormInputFields) => void
   loginUser: (email: string, password: string) => void
@@ -31,7 +31,7 @@ interface UserProviderProps {
 export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const sessionData = useSession()?.data as CustomSession
   const { toast } = useToast()
-  const [user, setUser] = useState<UserData | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   useEffect(() => {

@@ -3,12 +3,11 @@
 import LinkCard from '@/components/LinkCard'
 import { ProfilePicture } from '@/components/ProfilePicture'
 import { SocialLinks } from '@/components/SocialLinks'
-import { UserData } from '@/lib/types'
 import userService from '@/services/userService'
 import { notFound } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '@/components/ui/Skeleton'
-import { ThemeValue, useTheme } from '@/components/ThemeProvider'
+import { User } from '@/lib/types'
 
 export interface UserLinksPageProps {
   params: {
@@ -17,7 +16,7 @@ export interface UserLinksPageProps {
 }
 
 export default function UserLinksPage({ params: { username } }: UserLinksPageProps) {
-  const initialUser = {
+  const initialUser: User = {
     username: '',
     imageUrl: '',
     links: [],
@@ -27,7 +26,7 @@ export default function UserLinksPage({ params: { username } }: UserLinksPagePro
     email: '',
     visits: [],
   }
-  const [pageUser, setPageUser] = useState<UserData>(initialUser)
+  const [pageUser, setPageUser] = useState<User>(initialUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   //const { setTheme } = useTheme()
 

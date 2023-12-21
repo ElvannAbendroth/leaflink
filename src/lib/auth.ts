@@ -4,10 +4,10 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 import User from '@/models/userModel'
 import { makeSafe } from './utils'
-import { UserData, UserDocument } from './types'
+import { User as UserType, UserDocument } from './types'
 
 export interface CustomSession extends Session {
-  user: UserDocument | UserData
+  user: UserDocument | UserType
   token: {}
 }
 
@@ -51,7 +51,7 @@ export const options: NextAuthOptions = {
     },
     jwt: ({ token, user }) => {
       if (user) {
-        const u = user as unknown as UserData
+        const u = user as unknown as UserType
 
         return {
           ...token,

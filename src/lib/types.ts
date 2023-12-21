@@ -1,4 +1,3 @@
-import { ThemeValue } from '@/components/ThemeProvider'
 import { LucideIcon } from 'lucide-react'
 import { Document } from 'mongoose'
 
@@ -32,33 +31,14 @@ export type Author = {
   image: string
 }
 
-export type User = {
+//User Types
+
+export interface User {
   id: string
   username: string
-}
-export interface UserData extends User {
   description?: string
   name?: string
   email: string
-  website?: string
-  imageUrl?: string
-  links: Link[]
-  socials: Social
-  visits: Date[]
-  theme?: ThemeValue
-}
-
-export interface UserCredentials extends User {
-  password: string
-}
-
-// Database User Document
-export interface UserDocument extends Document {
-  username: string
-  description?: string
-  name: string
-  email: string
-  password?: string
   imageUrl: string
   website?: string
   links: Link[]
@@ -66,6 +46,16 @@ export interface UserDocument extends Document {
   visits: Date[]
   theme?: ThemeValue
 }
+
+export type UserNoId = Omit<User, 'id'>
+
+export interface UserCredentials {
+  id: string
+  username: string
+  password: string
+}
+
+export type UserDocument = Document & Omit<User, 'id'> & { password?: string }
 
 export type Link = {
   user: { id: string; email: string }
@@ -91,3 +81,5 @@ export interface RegisterFormInputFields {
   email: string
   password: string
 }
+
+export type ThemeValue = 'light' | 'dark' | 'green' | 'pink'

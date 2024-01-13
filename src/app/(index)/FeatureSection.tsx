@@ -1,5 +1,8 @@
 import React from 'react'
-import { Icons } from './Icons'
+import { Icons } from '@/components/Icons'
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from '@/components/ui/Button'
 
 /**
  * v0 by Vercel.
@@ -48,7 +51,7 @@ const features: Features[] = [
 
 export default function FeatureSection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 ">
+    <section className="w-full">
       <div className="container px-4 md:px-6 w-full mx-auto">
         <div className="text-center mb-8 w-full">
           <h2 className="typo-h1">Key Features</h2>
@@ -65,6 +68,26 @@ export default function FeatureSection() {
               description={feature.description}
             />
           ))}
+        </div>
+        <div className="">
+          <div className="flex flex-col gap-4 py-12 max-w-md mx-auto">
+            <Link
+              href="https://github.com/ElvannAbendroth/leaflink"
+              target="_blank"
+              className={cn(buttonVariants({ variant: 'default', size: 'sm' }), '')}
+            >
+              <Icons.gitHub />
+              See Project On Github
+            </Link>
+            {/* <Link
+              href="https://ko-fi.com/elvann"
+              target="_blank"
+              className={cn(buttonVariants({ variant: 'subtle', size: 'sm' }), '')}
+            >
+              <Icons.heart />
+              Support the Project
+            </Link> */}
+          </div>
         </div>
       </div>
     </section>

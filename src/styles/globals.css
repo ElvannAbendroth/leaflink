@@ -10,7 +10,7 @@
   }
 
   .typo-title {
-    @apply font-display text-4xl font-extrabold mb-8;
+    @apply font-display text-6xl font-extrabold mb-8;
   }
 
   .typo-h1 {

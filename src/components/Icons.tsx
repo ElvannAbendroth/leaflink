@@ -56,7 +56,10 @@ import {
   ArchiveRestore,
   Smartphone,
   Sparkle,
+  HeartIcon,
+  LucideHeart,
 } from 'lucide-react'
+import { SVGProps } from 'react'
 
 export type Icon = LucideIcon
 
@@ -212,4 +215,5 @@ export const Icons = {
   phone: Smartphone,
   share: ShareIcon,
   sparkles: Sparkle,
+  heart: LucideHeart,
 }

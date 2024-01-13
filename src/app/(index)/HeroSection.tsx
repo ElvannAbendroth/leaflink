@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { buttonVariants } from './ui/Button'
+import { buttonVariants } from '@/components/ui/Button'
 
 export default function HeroSection() {
   return (

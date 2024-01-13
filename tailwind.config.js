@@ -95,6 +95,7 @@ module.exports = {
               pre: themeColors.gray[600],
               input: { DEFAULT: themeColors.gray[100], hover: themeColors.gray[50] },
               card: twColors.white,
+              muted: themeColors.gray[400],
               popover: { DEFAULT: twColors.white, foreground: themeColors.gray[800] },
               accent: { DEFAULT: themeColors.gray[100], foreground: themeColors.gray[800] },
               border: themeColors.gray[200],

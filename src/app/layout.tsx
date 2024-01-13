@@ -9,6 +9,7 @@ import { UserProvider } from '@/components/UserProvider'
 import { Toaster } from '@/components/ui/Toaster'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import ThemedHtml from '@/components/ThemedHtml'
+import { headers } from 'next/headers'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 
@@ -23,6 +24,11 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(options)
+  const headersList = headers()
+  const path = headersList.get('next-url') || ''
+  const isHome = path === '/' || path === ''
+  console.log(isHome)
+
   return (
     <SessionProvider session={session}>
       <UserProvider>
@@ -31,7 +37,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <body className={`min-h-screen flex flex-col align-middle items-stretch `}>
               <Navbar />
               <div className="flex-grow">
-                <main className="max-w-content w-content mx-auto pt-12 pb-12 px-4 sm:px-8">{children}</main>
+                <main className={`${isHome ? null : 'max-w-content w-content'} mx-auto pt-12 pb-12 px-4 sm:px-8`}>
+                  {children}
+                </main>
               </div>
               <footer className="p-8 pb-10 ">
                 <p className="typo-p text-sm text-center text-muted">

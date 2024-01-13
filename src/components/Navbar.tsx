@@ -97,7 +97,7 @@ export const Navbar: FC<NavbarProps> = () => {
 
   return (
     <nav className={`bg-background sticky top-0 left-0 right-0 z-50 shadow-md ${RemoveScroll.classNames.zeroRight}`}>
-      <div className="flex justify-between max-w-layout mx-auto py-2 px-4 sm:px-8 border-b-2 sm:border-none border-input">
+      <div className="flex justify-between mx-auto py-2 px-4 sm:px-8 border-b-2 sm:border-none border-input">
         <div className="flex items-center gap-3">
           <Logo variant="icon" />
           <div id="desktop-nav" className="hidden sm:flex items-center gap-2 text-sm ">

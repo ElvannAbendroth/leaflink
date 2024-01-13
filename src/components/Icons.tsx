@@ -12,6 +12,9 @@ import {
   Laptop,
   Loader2,
   LucideProps,
+  PhoneIcon,
+  ShareIcon,
+  DollarSign,
   Moon,
   MoreVertical,
   Pizza,
@@ -51,6 +54,8 @@ import {
   MousePointerClick,
   Archive,
   ArchiveRestore,
+  Smartphone,
+  Sparkle,
 } from 'lucide-react'
 
 export type Icon = LucideIcon
@@ -202,4 +207,9 @@ export const Icons = {
   click: MousePointerClick,
   archive: Archive,
   archiveRestore: ArchiveRestore,
+  leaf: Leaf,
+  dollarSign: DollarSign,
+  phone: Smartphone,
+  share: ShareIcon,
+  sparkles: Sparkle,
 }

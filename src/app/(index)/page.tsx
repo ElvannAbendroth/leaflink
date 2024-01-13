@@ -18,7 +18,7 @@ export default async function Home() {
     <div className="flex flex-col w-full gap-16">
       <HeroSection />
       <FeatureSection />
-      <ProjectSection />
+      {/* <ProjectSection /> */}
       {/* <FeedbackFormSection /> */}
     </div>
   )

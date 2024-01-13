@@ -9,7 +9,6 @@ import { UserProvider } from '@/components/UserProvider'
 import { Toaster } from '@/components/ui/Toaster'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import ThemedHtml from '@/components/ThemedHtml'
-import { headers } from 'next/headers'
 
 const lato = Lato({ weight: '400', subsets: ['latin'] })
 

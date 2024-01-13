@@ -59,7 +59,7 @@ export default function FeatureSection() {
             Explore the powerful features that enable you to build your website quickly and easily.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map(feature => (
             <FeatureCard
               key={feature.title}
@@ -69,17 +69,17 @@ export default function FeatureSection() {
             />
           ))}
         </div>
-        <div className="">
-          <div className="flex flex-col gap-4 py-12 max-w-md mx-auto">
-            <Link
-              href="https://github.com/ElvannAbendroth/leaflink"
-              target="_blank"
-              className={cn(buttonVariants({ variant: 'default', size: 'sm' }), '')}
-            >
-              <Icons.gitHub />
-              See Project On Github
-            </Link>
-            {/* <Link
+
+        <div className="py-12 mx-auto max-w-sm">
+          <Link
+            href="https://github.com/ElvannAbendroth/leaflink"
+            target="_blank"
+            className={cn(buttonVariants({ variant: 'default' }), '')}
+          >
+            <Icons.gitHub />
+            See Project On Github
+          </Link>
+          {/* <Link
               href="https://ko-fi.com/elvann"
               target="_blank"
               className={cn(buttonVariants({ variant: 'subtle', size: 'sm' }), '')}
@@ -87,7 +87,6 @@ export default function FeatureSection() {
               <Icons.heart />
               Support the Project
             </Link> */}
-          </div>
         </div>
       </div>
     </section>
@@ -102,11 +101,11 @@ type FeatureCardProps = {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="flex flex-col items-center text-center">
+    <div className="flex flex-col items-center text-center py-8 px-3 rounded-lg border border-input">
       {React.cloneElement(icon as React.ReactElement, {
-        className: 'h-12 w-12 mb-4',
+        className: 'h-12 w-12 mb-4 text-primary',
       })}
-      <h3 className="text-lg font-bold mb-2">{title}</h3>
+      <h3 className="text-lg font-bold mb-2 ">{title}</h3>
       <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
     </div>
   )

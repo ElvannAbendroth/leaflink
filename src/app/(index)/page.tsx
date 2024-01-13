@@ -8,7 +8,7 @@ import ProjectSection from './ProjectSection'
 import FeedbackFormSection from './FeedbackFormSection'
 
 export default async function Home() {
-  const session = await getServerSession(options)
+  // const session = await getServerSession(options)
 
   // if (session) {
   //   return redirect('/dashboard')

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/Button'
+import { Icons } from '@/components/Icons'
 
 export default function HeroSection() {
   return (
@@ -24,14 +25,14 @@ export default function HeroSection() {
             Create your own page, manage your links, and share with the world in 1 convenient & personalized url!
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div>
-              {' '}
-              <Link href="/register" className={cn(buttonVariants({ variant: 'subtle' }), 'my-4')}>
-                Create your account!
+            <div className="max-w-sm">
+              <Link href="/register" className={cn(buttonVariants({ variant: 'primary' }), 'relative my-4')}>
+                <Icons.sparkles />
+                Create your Leaflink Page!
               </Link>
-              <Link href="/login" className={cn(buttonVariants({ variant: 'ghost' }), 'my-4 text-background')}>
+              {/* <Link href="/login" className={cn(buttonVariants({ variant: 'link' }), 'my-4 text-background font-bold')}>
                 Log into your existing account!
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

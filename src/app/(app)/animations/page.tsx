@@ -50,8 +50,8 @@ const ClickBox = () => {
         rotate: isAnimating ? 0 : -360,
       }}
       transition={{
-        stiffness: '175',
-        damping: '13',
+        stiffness: 175,
+        damping: 13,
         type: 'spring',
       }}
       whileHover={{ scale: 1.1 }}

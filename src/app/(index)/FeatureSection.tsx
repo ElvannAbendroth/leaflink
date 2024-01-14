@@ -1,8 +1,11 @@
-import React from 'react'
+'use client'
+import React, { useRef } from 'react'
 import { Icons } from '@/components/Icons'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/Button'
+import { motion } from 'framer-motion'
+import animations from '@/lib/animations'
 
 /**
  * v0 by Vercel.
@@ -51,16 +54,23 @@ const features: Features[] = [
 
 export default function FeatureSection() {
   return (
-    <section className="w-full">
+    <motion.section variants={animations.featureTitle.parent} initial="hidden" animate="visible" className="w-full">
       <div className="container px-4 md:px-6 w-full mx-auto">
         <div className="text-center mb-8 w-full">
-          <h2 className="typo-h1">Key Features</h2>
-          <p className="typo-p text-muted">
+          <motion.h2 variants={animations.featureTitle.child} className="typo-h1">
+            Key Features
+          </motion.h2>
+          <motion.p variants={animations.featureTitle.child} className="typo-p text-muted">
             Explore the powerful features that enable you to build your website quickly and easily.
-          </p>
+          </motion.p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map(feature => (
+        <motion.div
+          variants={animations.featureCards.parent}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          {features.map((feature, i) => (
             <FeatureCard
               key={feature.title}
               icon={feature.icon}
@@ -68,7 +78,7 @@ export default function FeatureSection() {
               description={feature.description}
             />
           ))}
-        </div>
+        </motion.div>
 
         <div className="py-12 mx-auto max-w-sm">
           <Link
@@ -89,7 +99,7 @@ export default function FeatureSection() {
             </Link> */}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
@@ -97,16 +107,22 @@ type FeatureCardProps = {
   icon: React.ReactNode
   title: string
   description: string
+  variants?: object
 }
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="flex flex-col items-center text-center py-8 px-3 rounded-lg border border-input">
-      {React.cloneElement(icon as React.ReactElement, {
-        className: 'h-12 w-12 mb-4 text-primary',
-      })}
+    <motion.div
+      variants={animations.featureCards.child}
+      className="flex flex-col items-center text-center py-8 px-3 rounded-lg border border-input"
+    >
+      <motion.div whileHover={{ rotate: 15, scale: 1.2 }} transition={{ ease: 'anticipate', duration: 0.75 }}>
+        {React.cloneElement(icon as React.ReactElement, {
+          className: 'h-12 w-12 mb-4 text-primary',
+        })}
+      </motion.div>
       <h3 className="text-lg font-bold mb-2 ">{title}</h3>
       <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
-    </div>
+    </motion.div>
   )
 }

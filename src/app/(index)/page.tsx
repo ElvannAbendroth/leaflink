@@ -1,11 +1,11 @@
-import { redirect } from 'next/navigation'
-import { options } from '@/lib/auth'
-import { getServerSession } from 'next-auth/next'
+// import { redirect } from 'next/navigation'
+// import { options } from '@/lib/auth'
+// import { getServerSession } from 'next-auth/next'
 
 import HeroSection from '@/app/(index)/HeroSection'
 import FeatureSection from '@/app/(index)/FeatureSection'
-import ProjectSection from './ProjectSection'
-import FeedbackFormSection from './FeedbackFormSection'
+// import ProjectSection from './ProjectSection'
+// import FeedbackFormSection from './FeedbackFormSection'
 
 export default async function Home() {
   // const session = await getServerSession(options)

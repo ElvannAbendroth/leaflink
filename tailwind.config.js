@@ -15,48 +15,6 @@ module.exports = {
     './mdx-components.tsx',
   ],
   theme: {
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      black: twColors.black,
-      white: twColors.white,
-      gray: themeColors.gray,
-      // foreground: {
-      //   DEFAULT: themeColors.gray[800],
-      //   hover: themeColors.gray[700],
-      // },
-      // background: twColors.white,
-      muted: {
-        DEFAULT: themeColors.gray[400],
-      },
-      border: themeColors.gray[200],
-      pre: themeColors.gray[600],
-      input: { DEFAULT: themeColors.gray[100], hover: themeColors.gray[50] },
-      // primary: {
-      //   DEFAULT: themeColors.green[500],
-      //   hover: themeColors.green[400],
-      //   foreground: twColors.white,
-      // },
-      danger: {
-        DEFAULT: twColors.red[500],
-        hover: twColors.red[400],
-        foreground: twColors.white,
-      },
-      success: {
-        DEFAULT: themeColors.green[500],
-        hover: themeColors.green[400],
-        foreground: twColors.white,
-      },
-      warning: {
-        ...twColors.amber,
-      },
-
-      google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
-      card: twColors.white,
-      popover: { DEFAULT: twColors.white, foreground: themeColors.gray[800] },
-      accent: { DEFAULT: themeColors.gray[100], foreground: themeColors.gray[800] },
-      border: themeColors.gray[200],
-    },
     fontFamily: {
       body: ['Lato'],
       display: ['Poppins'],
@@ -64,6 +22,48 @@ module.exports = {
     },
 
     extend: {
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        black: twColors.black,
+        white: twColors.white,
+        gray: themeColors.gray,
+        // foreground: {
+        //   DEFAULT: themeColors.gray[800],
+        //   hover: themeColors.gray[700],
+        // },
+        // background: twColors.white,
+        muted: {
+          DEFAULT: themeColors.gray[400],
+        },
+        border: themeColors.gray[200],
+        pre: themeColors.gray[600],
+        input: { DEFAULT: themeColors.gray[100], hover: themeColors.gray[50] },
+        // primary: {
+        //   DEFAULT: themeColors.green[500],
+        //   hover: themeColors.green[400],
+        //   foreground: twColors.white,
+        // },
+        danger: {
+          DEFAULT: twColors.red[500],
+          hover: twColors.red[400],
+          foreground: twColors.white,
+        },
+        success: {
+          DEFAULT: themeColors.green[500],
+          hover: themeColors.green[400],
+          foreground: twColors.white,
+        },
+        warning: {
+          ...twColors.amber,
+        },
+
+        google: { DEFAULT: '#DB4437', foreground: twColors.white, hover: '#EA6155' },
+        card: twColors.white,
+        popover: { DEFAULT: twColors.white, foreground: themeColors.gray[800] },
+        accent: { DEFAULT: themeColors.gray[100], foreground: themeColors.gray[800] },
+        border: themeColors.gray[200],
+      },
       maxWidth: {
         layout: '64rem',
         content: '48rem',

@@ -1,15 +1,8 @@
-# Leaflink
+# 🌿Leaflink: An easy-to-use link in bio application
 
-DEMO: https://leaflink.vercel.app/
+Create your own page, manage your links, and share with the world in 1 convenient & personalized url! Get started by creating you own LeafLink page! ➡️ https://leaflink.vercel.app/
 
-A [Linktree](https://linktr.ee/) clone built using Next, NextAuth, Tailwind & MongoDB.
-
-## About this Project
-
-This project is an learning experiment on how to build a simple, modern fullstack web application using NextJS 13 and server components.
-
-The goal of this app is to create a simple content management system that allows users to create an account & login, manage a public page featuring links, and share their public page with the world.
-
+Tech Stack: Next, Typescript, NextAuth, Tailwind / Shadcn, MongoDB
 
 ## User Features
 - Account Creation & Management
@@ -21,7 +14,7 @@ The goal of this app is to create a simple content management system that allows
 
 ## Technical Features
 
-- **NextJS 13**'& the new `/app` dir,
+- **NextJS**
 - Server & Client Components
 - API Routes and Middlewares
 - Credentials Authentication using **NextAuth.js**
@@ -32,6 +25,7 @@ The goal of this app is to create a simple content management system that allows
 - Error Handling & Data Validation using **Zod**
 - Beautiful Loading UI & Toaster Notifications
 - Forms using debounce for better UX
+
 ## Roadmap
 
 - [ ] Google Authentication with **NextAuth.js**

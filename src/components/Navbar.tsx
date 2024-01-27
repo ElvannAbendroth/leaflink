@@ -1,7 +1,6 @@
 'use client'
 import { FC, useContext } from 'react'
 import { NavItem } from '@/lib/types'
-import { MobileMenu } from '@/components//MobileMenu'
 import { Logo } from '@/components/Logo'
 import { ProfileDropdownMenu } from './ProfileDropdownMenu'
 import { Icons } from '@/components/Icons'
@@ -9,7 +8,7 @@ import { SessionContext, signOut } from 'next-auth/react'
 import { RemoveScroll } from 'react-remove-scroll'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Button, buttonVariants } from '@/components/ui/Button'
+import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 
 interface NavbarProps {}
@@ -133,11 +132,10 @@ export const Navbar: FC<NavbarProps> = () => {
               className="flex items-center gap-2 font-semibold hover:text-foreground text-muted cursor-pointer h-10"
             >
               <Icons.login size={18} strokeWidth={3} />
+              <span>Login</span>
             </Link>
           )}
         </div>
-
-        {/* <MobileMenu className="fixed sm:hidden" navItems={navItems} /> */}
       </div>
       <div id="mobile-nav" className="flex sm:hidden items-center w-full justify-between text-xs font-semibold">
         {pathname.startsWith('/dashboard') &&

@@ -65,8 +65,9 @@ module.exports = {
         border: themeColors.gray[200],
       },
       maxWidth: {
-        layout: '64rem',
+        layout: '60rem',
         content: '48rem',
+        optical: '70ch',
       },
     },
   },

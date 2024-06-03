@@ -83,3 +83,9 @@ export interface RegisterFormInputFields {
 }
 
 export type ThemeValue = 'light' | 'dark' | 'green' | 'pink'
+
+export type Features = {
+  icon: React.ReactNode
+  title: string
+  description: string
+}

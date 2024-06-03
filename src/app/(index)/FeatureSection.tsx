@@ -6,19 +6,14 @@ import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/Button'
 import { motion } from 'framer-motion'
 import animations from '@/lib/animations'
+import { Features } from '@/lib/types'
 
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/7t8nkPFGC0A
  */
 
-type Features = {
-  icon: React.ReactNode
-  title: string
-  description: string
-}
-
-const features: Features[] = [
+export const features: Features[] = [
   {
     icon: <Icons.dollarSign />,
     title: 'Free Core Features',
@@ -55,7 +50,7 @@ const features: Features[] = [
 export default function FeatureSection() {
   return (
     <motion.section variants={animations.featureTitle.parent} initial="hidden" animate="visible" className="w-full">
-      <div className="container px-4 md:px-6 w-full mx-auto">
+      <div className="container px-4 md:px-6 w-full max-w-layout mx-auto">
         <div className="text-center mb-8 w-full">
           <motion.h2 variants={animations.featureTitle.child} className="typo-h1">
             Key Features

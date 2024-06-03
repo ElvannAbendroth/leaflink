@@ -1,4 +1,5 @@
-import { SiteConfig } from '@/lib/types'
+import { Features, SiteConfig } from '@/lib/types'
+import { Icons } from '@/components/Icons'
 
 export const siteConfig: SiteConfig = {
   name: 'Leaflink',

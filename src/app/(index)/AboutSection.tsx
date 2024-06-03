@@ -52,7 +52,7 @@ export default function AboutSection() {
   return (
     <motion.section variants={animations.featureTitle.parent} initial="hidden" animate="visible" className="w-full">
       <div className="flex flex-col items-center px-4 md:px-6 w-full mx-auto">
-        <div className="grid grid-cols-2 items-center mb-8 w-full max-w-layout gap-12 px-6">
+        <div className="grid grid-cols-1  md:grid-cols-2 items-center mb-8 w-full max-w-layout gap-12 px-6">
           <div>
             <motion.h2 variants={animations.featureTitle.child} className="typo-h1">
               About

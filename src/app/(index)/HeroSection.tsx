@@ -27,7 +27,7 @@ export default function HeroSection() {
         width="1920"
       />
 
-      <div className="container flex flex-col items-center justify-center relative z-10  p-4 md:p-6">
+      <div className=" flex flex-col items-center justify-center relative z-10  p-4 md:p-6">
         <div className="flex flex-col items-center justify-center p-4 text-white text-center">
           <motion.h1 variants={animations.heroSection.child} className="typo-title">
             Leaflink: An easy-to-use link in bio application
